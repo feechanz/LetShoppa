@@ -10,11 +10,16 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -33,7 +38,7 @@ public class JSONParser {
     public JSONParser() {
 
     }
-    /*public JSONObject makeHttpRequest(String url, String method,
+    public JSONObject makeHttpRequest(String url, String method,
                                       List<NameValuePair> params, File file) {
         jObj= null;
 
@@ -128,7 +133,7 @@ public class JSONParser {
         // return JSON String
         return jObj;
 
-    }*/
+    }
     // function get json from url
     // by making HTTP POST or GET mehtod
     public JSONObject makeHttpRequest(String url, String method,
