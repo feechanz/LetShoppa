@@ -3,6 +3,7 @@ package com.letshoppa.feechan.letshoppa.Class;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.widget.ImageView;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONException;
@@ -29,11 +30,14 @@ public class AppHelper {
     public static final String TAG_LATITUDE="latitude";
     public static final String TAG_LONGITUDE="longitude";
 
+    public static ImageView profilePicture;
 
     public static SharedPreferences pref;
     public static int PRIVATE_MODE = 0;
     public static SharedPreferences.Editor editor;
     private static String KEY_LOGIN = "isLoggedIn";
+
+
     public static void createLoginSession()
     {
         editor.putBoolean(KEY_LOGIN,true);

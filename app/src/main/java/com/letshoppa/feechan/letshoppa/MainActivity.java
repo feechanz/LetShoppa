@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         mProfileImageView = (ImageView) header.findViewById(R.id.profileImageView);
+        AppHelper.profilePicture = mProfileImageView;
         mProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

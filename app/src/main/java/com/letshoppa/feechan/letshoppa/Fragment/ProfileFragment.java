@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,10 +25,14 @@ import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.UploadLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Utility;
+import com.letshoppa.feechan.letshoppa.Interface.IUploadFinalMethod;
 import com.letshoppa.feechan.letshoppa.R;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -89,13 +94,19 @@ public class ProfileFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    TextView mPremiumaServiceTextView;
+    TextView mNameTextView ;
+    TextView mBirthdateTextView ;
+    TextView mGenderTextView ;
+    ImageView mProfileImageView;
+
     private void initializeProfile(View view)
     {
-        TextView mNameTextView = (TextView) view.findViewById(R.id.nameTextView);
-        TextView mBirthdateTextView = (TextView) view.findViewById(R.id.birthdateTextView);
-        TextView mGenderTextView = (TextView) view.findViewById(R.id.genderTextView);
-        TextView mPremiumaServiceTextView = (TextView) view.findViewById(R.id.premiumServiceTextView);
-        ImageView mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
+        mNameTextView = (TextView) view.findViewById(R.id.nameTextView);
+        mBirthdateTextView = (TextView) view.findViewById(R.id.birthdateTextView);
+        mGenderTextView = (TextView) view.findViewById(R.id.genderTextView);
+        mPremiumaServiceTextView = (TextView) view.findViewById(R.id.premiumServiceTextView);
+        mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
         Button mChangeProfileImageButton = (Button) view.findViewById(R.id.changePictureButton);
         //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         //ivImage = mProfileImageView;
@@ -115,15 +126,26 @@ public class ProfileFragment extends Fragment {
         });
         if(AppHelper.currentAccount != null)
         {
-            mNameTextView.setText(AppHelper.currentAccount.getNama());
-            mBirthdateTextView.setText(AppHelper.currentAccount.getBirthdate().toString());
-            mGenderTextView.setText(AppHelper.currentAccount.getGender());
-            mPremiumaServiceTextView.setText(AppHelper.currentAccount.getPremiumaccount().toString());
-
-            ImageLoadTask imageTask = new ImageLoadTask(AppHelper.currentAccount.getLinkgambaraccount(),mProfileImageView);
-            imageTask.execute();
+            initializeViewProfile();
         }
     }
+
+    private void initializeViewProfile()
+    {
+        mNameTextView.setText(AppHelper.currentAccount.getNama());
+        mBirthdateTextView.setText(AppHelper.currentAccount.getBirthdate().toString());
+        mGenderTextView.setText(AppHelper.currentAccount.getGender());
+        mPremiumaServiceTextView.setText(AppHelper.currentAccount.getPremiumaccount().toString());
+
+        ImageLoadTask imageTask = new ImageLoadTask(AppHelper.currentAccount.getLinkgambaraccount(),mProfileImageView);
+        imageTask.execute();
+    }
+    private void refreshDrawerPicture()
+    {
+        ImageLoadTask imageTask = new ImageLoadTask(AppHelper.currentAccount.getLinkgambaraccount(),AppHelper.profilePicture);
+        imageTask.execute();
+    }
+
     private void changeProfilePicture()
     {
         selectImage();
@@ -150,13 +172,12 @@ public class ProfileFragment extends Fragment {
     //ProgressBar progressBar;
     String url_upload_pp = "http://letshoppa.itmaranatha.org/AndroidConnect/UploadProfilePicture.php";
 
-
     private void upload_PP(String path)
     {
         List<NameValuePair> param = new ArrayList<NameValuePair>();
         if(AppHelper.currentAccount != null) {
             param.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, AppHelper.currentAccount.getAccountid()));
-            UploadLoadTask task = new UploadLoadTask(url_upload_pp, path, param,getActivity());
+            UploadLoadTask task = new UploadLoadTask(url_upload_pp, path, param,getActivity(),new LastMethod());
             task.execute();
         }
         else
@@ -280,7 +301,97 @@ public class ProfileFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    private class LastMethod implements IUploadFinalMethod
+    {
+        @Override
+        public void finalMethod() {
+            UserRefreshTask task = new UserRefreshTask();
+            task.execute();
+        }
+    }
 
+    public class UserRefreshTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String url_refresh_account = "http://letshoppa.itmaranatha.org/AndroidConnect/GetAccountidAccount.php";
+        private final String mAccountid;
+
+        String messagejson;
+        int successjson;
+
+        UserRefreshTask() {
+            mAccountid = AppHelper.currentAccount.getAccountid();
+            messagejson = "";
+            successjson = -1;
+        }
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+            parameter.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, mAccountid));
+            JSONObject json = AppHelper.GetJsonObject(url_refresh_account, "POST", parameter);
+            if (json != null) {
+                try {
+                    successjson = json.getInt(AppHelper.TAG_SUCCESS);
+                    messagejson = json.getString(AppHelper.TAG_MESSAGE);
+                    if (successjson == 1) {
+                        JSONArray accountArray = json.getJSONArray(Account.TAG_ACCOUNT);
+                        JSONObject accountObj = accountArray.getJSONObject(0);
+                        Account account = AppHelper.GetAccountFromJson(accountObj);
+                        if (account != null)
+                        {
+                            AppHelper.currentAccount = account;
+                            return true;
+                        }
+                        else
+                        {
+                            successjson = 3;
+                            messagejson = AppHelper.Message;
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } catch (JSONException e)
+                {
+                    successjson = 3;
+                    if (AppHelper.Message != "")
+                    {
+                        messagejson = AppHelper.Message;
+                    }
+                    else
+                    {
+                        messagejson = e.getMessage();
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                successjson = 3;
+                messagejson = AppHelper.ConnectionFailed;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success)
+            {
+                AppHelper.createLoginSession();
+                AppHelper.getAccountFromSession();
+                if(AppHelper.currentAccount != null) {
+                    initializeViewProfile();
+                    if (AppHelper.profilePicture != null) {
+                        refreshDrawerPicture();
+                    }
+                }
+            }
+            else
+            {
+                Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.Interface.IUploadFinalMethod;
 import com.letshoppa.feechan.letshoppa.R;
 
 import org.apache.http.NameValuePair;
@@ -28,8 +29,9 @@ public class UploadLoadTask extends AsyncTask<Void, Void, Boolean> {
     private String messagejson;
     //private ProgressBar progressBar;
     ProgressDialog dialog;
+    IUploadFinalMethod finalMethod;
 
-    public UploadLoadTask(String url, String pathFile, List<NameValuePair> parameter, Activity activity) {
+    public UploadLoadTask(String url, String pathFile, List<NameValuePair> parameter, Activity activity, IUploadFinalMethod finalMethod) {
         this.url = url;
         this.pathFile = pathFile;
         this.parameter = parameter;
@@ -39,6 +41,7 @@ public class UploadLoadTask extends AsyncTask<Void, Void, Boolean> {
         this.messagejson = "";
         dialog = ProgressDialog.show(activity, "", activity.getString(R.string.please_wait), true);
         dialog.setCancelable(false);
+        this.finalMethod = finalMethod;
         //progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -87,9 +90,14 @@ public class UploadLoadTask extends AsyncTask<Void, Void, Boolean> {
         super.onPostExecute(success);
         //progressBar.setVisibility(View.GONE);
         dialog.dismiss();
+
         if(success)
         {
             Toast.makeText(activity, messagejson, Toast.LENGTH_SHORT).show();
+            if(finalMethod != null)
+            {
+                finalMethod.finalMethod();
+            }
         }
         else
         {
