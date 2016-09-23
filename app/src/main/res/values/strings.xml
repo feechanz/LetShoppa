@@ -207,6 +207,7 @@
     <string name="your_name">Your Name</string>
     <string name="premium_service">Premium Service</string>
     <string name="change_picture">Change Picture</string>
+    <string name="upload_failed">Upload Failed</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Sorry this feature not implemented yet</string>

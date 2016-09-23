@@ -6,6 +6,7 @@ import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public class AppHelper {
     public static Jenistoko tipeShopItem = null;
     public static Account currentAccount = null;
     public static final String ConnectionFailed = "Connection Failed";
+    public static final String NoFile = "No File";
     public static String Message="";
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -74,15 +76,15 @@ public class AppHelper {
         editor.clear();
         editor.commit();
     }
-    public static JSONObject GetJsonObject(String url, String method, List<NameValuePair> params)
+    /*public static JSONObject GetJsonObject(String url, String method, List<NameValuePair> params)
     {
 
             JSONParser jParser = new JSONParser();
             JSONObject json = jParser.makeHttpRequest(url, method, params);
             return json;
 
-    }
-    /*public static JSONObject GetJsonObject(String url, String method, List<NameValuePair> params)
+    }*/
+    public static JSONObject GetJsonObject(String url, String method, List<NameValuePair> params)
     {
         return GetJsonObject(url,method,params,null);
     }
@@ -99,7 +101,7 @@ public class AppHelper {
             JSONObject json = jParser.makeHttpRequest(url, method, params,file);
             return json;
         }
-    }*/
+    }
 
     public static Account GetAccountFromJson(JSONObject jsonObject)
     {

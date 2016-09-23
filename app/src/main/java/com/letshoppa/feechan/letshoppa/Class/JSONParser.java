@@ -45,7 +45,8 @@ public class JSONParser {
         // Making HTTP request
         try {
             // check for request method
-            if(method == "POST"){
+            if(method == "POST")
+            {
                 // request method is POST
                 // defaultHttpClient
                 DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -78,11 +79,12 @@ public class JSONParser {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 is = httpEntity.getContent();
             }
-
-
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        } catch (ClientProtocolException e) {
+        }
+        catch (ClientProtocolException e)
+        {
             e.printStackTrace();
             String tidakadakoneksi = "{\n" +
                     "  \"success\": 3,\n" +
@@ -95,11 +97,13 @@ public class JSONParser {
             }
             return jObj;
 
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
             String tidakadakoneksi = "{\n" +
                     "  \"success\": 3,\n" +
-                    "  \"message\": \""+AppHelper.ConnectionFailed+"\"\n" +
+                    "  \"message\": \""+AppHelper.NoFile+"\"\n" +
                     "}";
             try {
                 jObj = new JSONObject(tidakadakoneksi);

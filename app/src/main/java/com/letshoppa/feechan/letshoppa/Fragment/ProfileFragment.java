@@ -16,18 +16,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.UploadLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Utility;
 import com.letshoppa.feechan.letshoppa.R;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -89,6 +98,7 @@ public class ProfileFragment extends Fragment {
         TextView mPremiumaServiceTextView = (TextView) view.findViewById(R.id.premiumServiceTextView);
         ImageView mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
         Button mChangeProfileImageButton = (Button) view.findViewById(R.id.changePictureButton);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         ivImage = mProfileImageView;
         txView = mNameTextView;
 
@@ -138,6 +148,24 @@ public class ProfileFragment extends Fragment {
     TextView txView;
     ImageView ivImage;
     String userChoosenTask="";
+    ProgressBar progressBar;
+    String url_upload_pp = "http://letshoppa.itmaranatha.org/AndroidConnect/UploadProfilePicture.php";
+
+
+    private void upload_PP(String path)
+    {
+        List<NameValuePair> param = new ArrayList<NameValuePair>();
+        if(AppHelper.currentAccount != null) {
+            param.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, AppHelper.currentAccount.getAccountid()));
+            UploadLoadTask task = new UploadLoadTask(url_upload_pp, path, param,getActivity(),progressBar);
+            task.execute();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), getString(R.string.upload_failed), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",
                 "Cancel" };
@@ -182,8 +210,26 @@ public class ProfileFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        File destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ivImage.setImageBitmap(bm);
-        txView.setText(data.getData().getPath());
+        //txView.setText(destination.getPath());
+        upload_PP(destination.getPath());
     }
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
@@ -203,9 +249,10 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
         ivImage.setImageBitmap(thumbnail);
-        txView.setText(data.getData().getPath());
-    }
 
+        upload_PP(destination.getPath());
+        //txView.setText(data.getData().getPath());
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
