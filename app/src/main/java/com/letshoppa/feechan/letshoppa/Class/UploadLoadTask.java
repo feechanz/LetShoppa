@@ -1,10 +1,11 @@
 package com.letshoppa.feechan.letshoppa.Class;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.letshoppa.feechan.letshoppa.R;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONException;
@@ -25,17 +26,20 @@ public class UploadLoadTask extends AsyncTask<Void, Void, Boolean> {
     private Activity activity;
     private int successjson;
     private String messagejson;
-    private ProgressBar progressBar;
+    //private ProgressBar progressBar;
+    ProgressDialog dialog;
 
-    public UploadLoadTask(String url, String pathFile, List<NameValuePair> parameter, Activity activity, ProgressBar progressBar) {
+    public UploadLoadTask(String url, String pathFile, List<NameValuePair> parameter, Activity activity) {
         this.url = url;
         this.pathFile = pathFile;
         this.parameter = parameter;
         this.activity = activity;
-        this.progressBar = progressBar;
+        //this.progressBar = progressBar;
         this.successjson = 0;
         this.messagejson = "";
-        progressBar.setVisibility(View.VISIBLE);
+        dialog = ProgressDialog.show(activity, "", activity.getString(R.string.please_wait), true);
+        dialog.setCancelable(false);
+        //progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -81,7 +85,8 @@ public class UploadLoadTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onPostExecute(final Boolean success) {
         super.onPostExecute(success);
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
+        dialog.dismiss();
         if(success)
         {
             Toast.makeText(activity, messagejson, Toast.LENGTH_SHORT).show();

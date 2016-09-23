@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,9 +97,9 @@ public class ProfileFragment extends Fragment {
         TextView mPremiumaServiceTextView = (TextView) view.findViewById(R.id.premiumServiceTextView);
         ImageView mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
         Button mChangeProfileImageButton = (Button) view.findViewById(R.id.changePictureButton);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        ivImage = mProfileImageView;
-        txView = mNameTextView;
+        //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        //ivImage = mProfileImageView;
+        //txView = mNameTextView;
 
         mProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,10 +144,10 @@ public class ProfileFragment extends Fragment {
         intent.setAction(Intent.ACTION_GET_CONTENT);//
         startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
     }
-    TextView txView;
-    ImageView ivImage;
+    //TextView txView;
+    //ImageView ivImage;
     String userChoosenTask="";
-    ProgressBar progressBar;
+    //ProgressBar progressBar;
     String url_upload_pp = "http://letshoppa.itmaranatha.org/AndroidConnect/UploadProfilePicture.php";
 
 
@@ -157,7 +156,7 @@ public class ProfileFragment extends Fragment {
         List<NameValuePair> param = new ArrayList<NameValuePair>();
         if(AppHelper.currentAccount != null) {
             param.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, AppHelper.currentAccount.getAccountid()));
-            UploadLoadTask task = new UploadLoadTask(url_upload_pp, path, param,getActivity(),progressBar);
+            UploadLoadTask task = new UploadLoadTask(url_upload_pp, path, param,getActivity());
             task.execute();
         }
         else
@@ -210,8 +209,7 @@ public class ProfileFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-
-
+        bm = AppHelper.getResizedBitmap(bm,300,300);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         File destination = new File(Environment.getExternalStorageDirectory(),
@@ -227,12 +225,14 @@ public class ProfileFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ivImage.setImageBitmap(bm);
+        //ivImage.setImageBitmap(bm);
         //txView.setText(destination.getPath());
         upload_PP(destination.getPath());
     }
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        thumbnail = AppHelper.getResizedBitmap(thumbnail,300,300);
+
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         File destination = new File(Environment.getExternalStorageDirectory(),
@@ -248,7 +248,7 @@ public class ProfileFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ivImage.setImageBitmap(thumbnail);
+        //ivImage.setImageBitmap(thumbnail);
 
         upload_PP(destination.getPath());
         //txView.setText(data.getData().getPath());
