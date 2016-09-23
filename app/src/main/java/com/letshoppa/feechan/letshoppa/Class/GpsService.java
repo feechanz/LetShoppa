@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -71,21 +72,23 @@ public class GpsService extends Service implements LocationListener {
                             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                         }*/
                         List<String> providers= locationManager.getProviders(true);
-                        for(String provider : providers)
-                        {
-                            Location l = locationManager.getLastKnownLocation(provider);
-                            if(l!=null)
-                            {
-                                if(location == null )
-                                {
-                                    location = l;
-                                }
-                                else if( l.getAccuracy() < location.getAccuracy())
-                                {
-                                    location = l;
+                        Criteria criteria = new Criteria();
+                        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                        String bestProvider = locationManager.getBestProvider(criteria, true);
+                        location = locationManager.getLastKnownLocation(bestProvider);
+                        if(location==null) {
+                            for (String provider : providers) {
+                                Location l = locationManager.getLastKnownLocation(provider);
+                                if (l != null) {
+                                    if (location == null) {
+                                        location = l;
+                                    } else if (l.getAccuracy() < location.getAccuracy()) {
+                                        location = l;
+                                    }
                                 }
                             }
                         }
+
 
                         if (location != null) {
                             canGetLocation = true;
