@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/HomeText" />
+        <item
+            android:id="@+id/nav_shopping"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:title="@string/ShoppingText" />
+        <item
+            android:id="@+id/nav_mycart"
+            android:icon="@drawable/ic_shopping_basket_black_24dp"
+            android:title="@string/MyPurchaseText" />
+        <item
+            android:id="@+id/nav_myshop"
+            android:icon="@drawable/ic_store"
+            android:title="@string/MyShopText" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/SettingText" />
+    </group>
+
+    <item android:title="@string/ProfileText">
+        <menu>
+            <item
+                android:id="@+id/nav_following"
+                android:icon="@drawable/ic_group"
+                android:title="@string/FollowingText" />
+            <item
+                android:id="@+id/nav_message"
+                android:icon="@drawable/ic_message"
+                android:title="@string/MessageText" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_power_settings_new_black_24dp"
+                android:title="@string/LogoutText" />
+        </menu>
+    </item>
+</menu>

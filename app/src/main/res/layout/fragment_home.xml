@@ -1,0 +1,66 @@
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".Fragment.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="10pt"
+            android:background="@color/Teal"
+            android:paddingTop="2pt"
+            android:paddingBottom="2pt"
+            android:text="@string/helloText"
+            android:textSize="5pt"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/HomeText"
+                android:autoLink="web"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" > Cuman nyobain"/>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="20pt"
+            android:background="@color/White"
+            android:layout_marginTop="3pt"
+            android:layout_marginBottom="3pt"
+            />
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/HomeText"
+            android:layout_gravity="center_horizontal"/>
+        <ListView
+            android:id="@+id/announceListView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/Chocolate"
+            android:dividerHeight="2pt"
+            android:background="@color/Wheat" />
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
