@@ -1,5 +1,8 @@
 package com.letshoppa.feechan.letshoppa.Class;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -128,5 +131,28 @@ public class Account {
 
     public void setStatusaccount(int statusaccount) {
         this.statusaccount = statusaccount;
+    }
+
+    public static Account GetAccountFromJson(JSONObject jsonObject)
+    {
+        try {
+            Account account = new Account();
+            account.setAccountid(jsonObject.getString(Account.TAG_ACCOUNTID));
+            account.setEmail(jsonObject.getString(Account.TAG_EMAIL));
+            account.setPassword(jsonObject.getString(Account.TAG_PASSWORD));
+            account.setNama(jsonObject.getString(Account.TAG_NAMA));
+            account.setGender(jsonObject.getString(Account.TAG_GENDER));
+            account.setBirthdate(jsonObject.getString(Account.TAG_BIRTHDATE));
+            account.setLinkgambaraccount(jsonObject.getString(Account.TAG_LINKGAMBARACCOUNT));
+            account.setPremiumaccount(jsonObject.getString(Account.TAG_PREMIUMACCOUNT));
+            account.setLevelaccount(jsonObject.getInt(Account.TAG_LEVELACCOUNT));
+            account.setStatusaccount(jsonObject.getInt(Account.TAG_STATUSACCOUNT));
+            return account;
+        }
+        catch(JSONException e)
+        {
+            AppHelper.Message = e.getMessage();
+            return null;
+        }
     }
 }

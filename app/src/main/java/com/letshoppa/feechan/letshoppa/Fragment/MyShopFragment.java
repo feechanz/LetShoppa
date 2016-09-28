@@ -3,6 +3,7 @@ package com.letshoppa.feechan.letshoppa.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,11 +13,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.MyShopItemAdapter;
+import com.letshoppa.feechan.letshoppa.Class.Account;
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.CreateShopActivity;
 import com.letshoppa.feechan.letshoppa.R;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,12 +94,14 @@ public class MyShopFragment extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.MyShopListView);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         listMyShop = new ArrayList();
-        listMyShop.add(new Toko("Toko 1","Desc 1"));
+        /*listMyShop.add(new Toko("Toko 1","Desc 1"));
         listMyShop.add(new Toko("Toko 2","Desc 2"));
-        listMyShop.add(new Toko("Toko 3","Desc 3"));
-
+        listMyShop.add(new Toko("Toko 3","Desc 3"));*/
 
         mAdapter = new MyShopItemAdapter(getActivity(),listMyShop);
+
+
+
         listView.setAdapter(mAdapter);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -109,6 +121,9 @@ public class MyShopFragment extends Fragment {
             }
         });
 
+
+        MyShopRefreshLoadTask loadTask = new MyShopRefreshLoadTask(url,Integer.valueOf(AppHelper.currentAccount.getAccountid()),null);
+        loadTask.execute((Void) null);
         return view;
         //return inflater.inflate(R.layout.fragment_my_shop, container, false);
     }
@@ -117,24 +132,11 @@ public class MyShopFragment extends Fragment {
         startActivity(new Intent(getActivity(),CreateShopActivity.class));
         return;
     }
+    String url = "http://letshoppa.itmaranatha.org/AndroidConnect/GetAllAccountByAccountId.php";
     public void fetchShopAsync(int page)
     {
-        mAdapter.clear();
-        listMyShop = new ArrayList();
-        listMyShop.add(new Toko("Toko 1","Desc 1"));
-        listMyShop.add(new Toko("Toko 2","Desc 2"));
-        listMyShop.add(new Toko("Toko 3","Desc 3"));
-        listMyShop.add(new Toko("Toko 1","Desc 1"));
-        listMyShop.add(new Toko("Toko 2","Desc 2"));
-        listMyShop.add(new Toko("Toko 3","Desc 3"));
-        listMyShop.add(new Toko("Toko 1","Desc 1"));
-        listMyShop.add(new Toko("Toko 2","Desc 2"));
-        listMyShop.add(new Toko("Toko 3","Desc 3"));
-        listMyShop.add(new Toko("Toko 1","Desc 1"));
-        listMyShop.add(new Toko("Toko 2","Desc 2"));
-        listMyShop.add(new Toko("Toko 3","Desc 3"));
-        mAdapter.addAll(listMyShop);
-        swipeContainer.setRefreshing(false);
+        MyShopRefreshLoadTask loadTask = new MyShopRefreshLoadTask(url,Integer.valueOf(AppHelper.currentAccount.getAccountid()),swipeContainer);
+        loadTask.execute((Void) null);
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -154,6 +156,94 @@ public class MyShopFragment extends Fragment {
         }*/
     }
 
+    public class MyShopRefreshLoadTask extends AsyncTask<Void, Void, Boolean>
+    {
+        SwipeRefreshLayout swipeContainer;
+        private String url;
+        private int accountid;
+
+        String messagejson;
+        int successjson;
+
+        public MyShopRefreshLoadTask(String url, int accountid, SwipeRefreshLayout swipeContainer) {
+            this.url = url;
+            this.accountid = accountid;
+            this.swipeContainer = swipeContainer;
+            successjson=-1;
+            messagejson="";
+            shops = new ArrayList();
+
+        }
+        JSONArray myshops = null;
+        List shops;
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+            parameter.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, String.valueOf(accountid)));
+
+            JSONObject json = AppHelper.GetJsonObject(url,"POST",parameter);
+            if(json != null)
+            {
+                try {
+                    successjson = json.getInt(AppHelper.TAG_SUCCESS);
+                    messagejson = json.getString(AppHelper.TAG_MESSAGE);
+                    if (successjson == 1)
+                    {
+                        myshops = json.getJSONArray(Toko.TAG_TOKO);
+
+                        for (int i=0;i<myshops.length();i++)
+                        {
+                            JSONObject tokoobject = myshops.getJSONObject(i);
+                            Toko newtoko = Toko.GetTokoFromJson(tokoobject);
+                            shops.add(newtoko);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (JSONException e)
+                {
+                    successjson = 3;
+                    if(AppHelper.Message != "") {
+                        messagejson = AppHelper.Message;
+                    }
+                    else
+                    {
+                        messagejson = e.getMessage();
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                successjson = 3;
+                messagejson = AppHelper.ConnectionFailed;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success)
+            {
+                mAdapter.clear();
+                mAdapter.addAll(shops);
+            }
+            else
+            {
+                Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
+            }
+            //set refresh off
+            if(swipeContainer != null)
+            {
+                swipeContainer.setRefreshing(false);
+            }
+        }
+    }
     @Override
     public void onDetach() {
         super.onDetach();

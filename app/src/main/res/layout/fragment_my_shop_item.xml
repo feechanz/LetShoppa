@@ -6,17 +6,19 @@
 
     <ImageView
         android:id="@+id/id_icon_shop"
-        android:layout_width="wrap_content"
-        android:layout_height="30pt"
+        android:layout_width="35pt"
+        android:layout_height="35pt"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="6dip"
         android:contentDescription="TODO"
-        android:src="@drawable/ic_menu_gallery" />
+        android:layout_gravity="center"
+        android:src="@android:drawable/sym_def_app_icon" />
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="0.8"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -24,13 +26,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="6pt"/>
+            android:textSize="6pt"
+            android:text="@string/category"/>
         <TextView
             android:id="@+id/namaTokoTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="8pt"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:text="@string/shops_name"/>
+
+        <TextView
+            android:id="@+id/locationTokoTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8pt"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            android:text="@string/shops_location"/>
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/id_icon_action"
+        android:layout_width="15pt"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:contentDescription="TODO"
+        android:layout_gravity="right"
+        android:src="@android:drawable/ic_menu_edit" />
 </LinearLayout>

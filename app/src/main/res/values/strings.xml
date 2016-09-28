@@ -17,7 +17,9 @@
     <string name="helloText">Hello</string>
     <string name="MyShopText">My Shop</string>
     <string name="PeopleText">People</string>
-
+    <string name="Help">Help</string>
+    <string name="Edit">Edit</string>
+    <string name="Save">Save</string>
     <string name="CategoryShopText">Category Shop</string>
     <string name="SearchText">Search </string>
 
@@ -190,7 +192,14 @@
     <string name="changedate">Change Date</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="error_unregistered_account">"Unregistered account"</string>
+    <string name="error_unregistered_account">Unregistered account</string>
+
+    <string name="ShopText">Shop</string>
+    <string name="ProductsText">Products</string>
+    <string name="prompt_change_location">Change Shop Location</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="success">Success</string>
 
     <string name="prompt_shop_name">Shop\'s Name</string>
     <string name="shop_description">Shop\'s Description</string>
@@ -209,8 +218,12 @@
     <string name="change_picture">Change Picture</string>
     <string name="upload_failed">Upload Failed</string>
     <string name="please_wait">Please wait...</string>
+    <string name="category">Category</string>
+    <string name="shops_name">Shop\'s name</string>
+    <string name="shops_location">Shop\'s location</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Sorry this feature not implemented yet</string>
     <string name="title_activity_register">Sign Up</string>
     <string name="title_activity_view_one_maps">Map</string>
+    <string name="title_activity_my_shop">MyShopActivity</string>
 </resources>

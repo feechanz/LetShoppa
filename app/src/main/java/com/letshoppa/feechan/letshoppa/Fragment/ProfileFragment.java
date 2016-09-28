@@ -335,7 +335,7 @@ public class ProfileFragment extends Fragment {
                     if (successjson == 1) {
                         JSONArray accountArray = json.getJSONArray(Account.TAG_ACCOUNT);
                         JSONObject accountObj = accountArray.getJSONObject(0);
-                        Account account = AppHelper.GetAccountFromJson(accountObj);
+                        Account account = Account.GetAccountFromJson(accountObj);
                         if (account != null)
                         {
                             AppHelper.currentAccount = account;
