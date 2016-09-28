@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.letshoppa.feechan.letshoppa.R;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
