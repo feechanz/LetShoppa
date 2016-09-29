@@ -196,11 +196,18 @@
 
     <string name="ShopText">Shop</string>
     <string name="ProductsText">Products</string>
+    <string name="AddProduct">Add Product</string>
+    <string name="Products">Products</string>
+    <string name="prompt_product_name">Product\'s Name</string>
+
     <string name="prompt_change_location">Change Shop Location</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="success">Success</string>
-
+    <string name="product_description">Product\'s Description</string>
+    <string name="product_price">Product Price</string>
+    <string name="rp">Rp.</string>
+    <string name="category_product">Category Product</string>
     <string name="prompt_shop_name">Shop\'s Name</string>
     <string name="shop_description">Shop\'s Description</string>
     <string name="location">Location</string>
