@@ -17,10 +17,10 @@ public class MyShopActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout_shop);
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.ShopText)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.ProductsText)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.Reviews)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager_shop);

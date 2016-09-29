@@ -73,7 +73,10 @@ public class AppHelper {
 
     public static boolean isLoggedIn()
     {
-        return pref.getBoolean(KEY_LOGIN,false);
+        if(pref !=null) {
+            return pref.getBoolean(KEY_LOGIN, false);
+        }else
+            return false;
     }
     public static void removeLoginSession()
     {

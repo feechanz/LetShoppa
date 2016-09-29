@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.letshoppa.feechan.letshoppa.Fragment.MyReviewFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.MyShopDetailFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.MyShopProductFragment;
 
@@ -34,6 +35,8 @@ public class MyShopPagerAdapter extends FragmentStatePagerAdapter {
                 MyShopProductFragment tab2 = new MyShopProductFragment();
                 return tab2;
             case 2:
+                MyReviewFragment tab3 = new MyReviewFragment();
+                return tab3;
                 //TabFragment3 tab3 = new TabFragment3();
                 //return tab3;
             default:

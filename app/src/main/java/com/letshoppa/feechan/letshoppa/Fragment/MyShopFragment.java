@@ -121,9 +121,10 @@ public class MyShopFragment extends Fragment {
             }
         });
 
-
-        MyShopRefreshLoadTask loadTask = new MyShopRefreshLoadTask(url,Integer.valueOf(AppHelper.currentAccount.getAccountid()),null);
-        loadTask.execute((Void) null);
+        if(AppHelper.currentAccount!=null) {
+            MyShopRefreshLoadTask loadTask = new MyShopRefreshLoadTask(url, Integer.valueOf(AppHelper.currentAccount.getAccountid()), null);
+            loadTask.execute((Void) null);
+        }
         return view;
         //return inflater.inflate(R.layout.fragment_my_shop, container, false);
     }
