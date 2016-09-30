@@ -27,7 +27,7 @@
             android:id="@+id/kategoriproductspinner"
             android:layout_width="match_parent"
             android:layout_height="25pt"
-            android:background="@color/Chocolate"
+            android:background="@android:drawable/spinner_background"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             />
@@ -93,7 +93,13 @@
                     android:maxLines="1"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
 
+        </LinearLayout>
+        <Button
+            android:id="@+id/add_product_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/AddProduct"
+            android:enabled="false"/>
     </LinearLayout>
 </ScrollView>

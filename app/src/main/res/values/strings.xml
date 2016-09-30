@@ -201,6 +201,9 @@
     <string name="prompt_product_name">Product\'s Name</string>
     <string name="Reviews">Reviews</string>
     <string name="Review">Review</string>
+    <string name="Create">Create</string>
+    <string name="shop_status">Shop Status</string>
+    <string name="status">Status</string>
     <string name="prompt_change_location">Change Shop Location</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>

@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.letshoppa.feechan.letshoppa.CreateShopActivity">
     <ScrollView
         android:id="@+id/create_shop_form"
@@ -21,7 +23,7 @@
                 android:id="@+id/kategorishopspinner"
                 android:layout_width="match_parent"
                 android:layout_height="25pt"
-                android:background="@color/Chocolate"
+                android:background="@android:drawable/spinner_background"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 />
@@ -79,19 +81,48 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/set_location"/>
-                <TextView
-                    android:id="@+id/locationTextView"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/no_location"/>
-
+                    android:orientation="vertical">
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <EditText
+                            android:id="@+id/locationEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:gravity="top|left"
+                            android:lines="3"
+                            android:layout_weight="3"
+                            android:scrollHorizontally="false"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/back"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:enabled="false"/>
+                    </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:id="@+id/locationTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/no_location"/>
+                </LinearLayout>
             </LinearLayout>
             <Button
                 android:id="@+id/viewSelectedLocationButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/view_selected_location"
+                android:enabled="false"/>
+            <Button
+                android:id="@+id/createButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Create"
                 android:enabled="false"/>
         </LinearLayout>
     </ScrollView>

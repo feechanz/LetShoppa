@@ -128,9 +128,15 @@
             <EditText
                 android:id="@+id/shopLocationEditText"
                 android:background="@drawable/back"
+                android:gravity="top|left"
                 android:backgroundTintMode="multiply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lines="3"
+                android:layout_weight="3"
+                android:scrollHorizontally="false"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
         </android.support.design.widget.TextInputLayout>
         <LinearLayout
@@ -160,9 +166,16 @@
                     android:text="@string/shops_location"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:textAppearance="?android:attr/textAppearanceSmall"/>
+
             </LinearLayout>
 
         </LinearLayout>
+        <Button
+            android:id="@+id/viewSelectedLocationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_selected_location"
+            />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -181,10 +194,67 @@
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_save" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="3pt"
             android:background="@android:color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shop_status"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <Spinner
+                android:id="@+id/statusshopspinner"
+                android:layout_width="match_parent"
+                android:layout_height="15pt"
+                android:background="@android:drawable/spinner_background"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Save"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <ImageButton
+                android:id="@+id/saveStatusImageBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_save" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:background="@android:color/black"/>
+
+
     </LinearLayout>
 
 </ScrollView>

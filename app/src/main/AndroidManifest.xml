@@ -67,9 +67,8 @@
             android:name=".MyShopActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AddProductsActivity"
-            />
+        <activity android:name=".AddProductsActivity" />
+        <activity android:name=".ProductDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +39,10 @@ public class CreateShopActivity extends AppCompatActivity {
     private JenistokoAdapter mAdapter;
     GpsService gps;
     TextView locationTextView;
+    EditText locationEditText;
     private void setInitializeView()
     {
+        locationEditText = (EditText) findViewById(R.id.locationEditText);
         locationTextView = (TextView) findViewById(R.id.locationTextView);
         viewSelectedLocationButton = (Button) findViewById(R.id.viewSelectedLocationButton);
         viewSelectedLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +112,9 @@ public class CreateShopActivity extends AppCompatActivity {
             if(gps.isCanGetLocation())
             {
                 LocationAddresTask locationAdd = new LocationAddresTask(latitudeShop,longitudeShop);
+
+                //set enable
+                locationEditText.setEnabled(true);
                 viewSelectedLocationButton.setEnabled(true);
                 locationAdd.execute((Void) null);
             }
@@ -131,7 +137,7 @@ public class CreateShopActivity extends AppCompatActivity {
         private final double latitude;
         private final double longitude;
         public String result;
-
+        public String resultLangLong;
         LocationAddresTask(double latitude, double longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
@@ -141,6 +147,7 @@ public class CreateShopActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params)
         {
             result = "";
+            resultLangLong="";
             String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true";
             //String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=-6.886216599999999,107.5807599&sensor=true";
             List<NameValuePair> parameter = new ArrayList<NameValuePair>();
@@ -152,7 +159,9 @@ public class CreateShopActivity extends AppCompatActivity {
                     JSONArray resultArray = json.getJSONArray(TAG_RESULTS);
                     if (resultArray.length() > 0) {
                         JSONObject jsonObject = resultArray.getJSONObject(0);
-                        result = jsonObject.getString(TAG_FORMATTED_ADDRESS) + "\n" + getString(R.string.Coordinate) + " : " + latitude + "," + longitude;
+                        result = jsonObject.getString(TAG_FORMATTED_ADDRESS) ;
+                        resultLangLong = getString(R.string.Coordinate) + " : " + latitude + "," + longitude;
+
                     } else {
                         result = getString(R.string.error_cant_get_location);
                     }
@@ -169,7 +178,8 @@ public class CreateShopActivity extends AppCompatActivity {
 
             if (success) {
                 Toast.makeText(CreateShopActivity.this, getString(R.string.selected) + " : " + result, Toast.LENGTH_LONG).show();
-                locationTextView.setText(result);
+                locationTextView.setText(resultLangLong);
+                locationEditText.setText(result);
             } else {
                 Toast.makeText(CreateShopActivity.this, getString(R.string.error_cant_get_location), Toast.LENGTH_LONG).show();
             }
