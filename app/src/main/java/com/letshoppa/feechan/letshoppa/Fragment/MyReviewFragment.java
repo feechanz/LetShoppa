@@ -1,13 +1,18 @@
 package com.letshoppa.feechan.letshoppa.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.R;
 
 
@@ -66,7 +71,24 @@ public class MyReviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_review, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_review, container, false);
+        initializeDetailShop(view);
+        return view;
+    }
+
+    Toko currentShop;
+    private void initializeDetailShop(View view)
+    {
+        Intent i = getActivity().getIntent();
+        currentShop = (Toko) i.getSerializableExtra(Toko.TAG_TOKO);
+
+        if(currentShop!=null) {
+            ImageView shopImageView = (ImageView) view.findViewById(R.id.shopImageView);
+            ImageLoadTask shopImageLoad = new ImageLoadTask(currentShop.getGambartoko(),shopImageView);
+            shopImageLoad.execute();
+            TextView shopNameTextView = (TextView) view.findViewById(R.id.shopNameTextView);
+            shopNameTextView.setText(currentShop.getNamatoko());
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
