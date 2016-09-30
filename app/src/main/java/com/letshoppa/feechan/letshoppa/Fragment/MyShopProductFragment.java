@@ -3,15 +3,33 @@ package com.letshoppa.feechan.letshoppa.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.AdapterList.MyShopProductItemAdapter;
 import com.letshoppa.feechan.letshoppa.AddProductsActivity;
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
+import com.letshoppa.feechan.letshoppa.Class.Produk;
+import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.R;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -33,6 +51,7 @@ public class MyShopProductFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
 
     public MyShopProductFragment() {
         // Required empty public constructor
@@ -65,13 +84,63 @@ public class MyShopProductFragment extends Fragment {
         }
     }
 
+    Toko currentShop;
+    String url = "http://letshoppa.itmaranatha.org/AndroidConnect/GetAllProductByTokoId.php";
+    private SwipeRefreshLayout swipeContainer;
+    private List listMyProducts;
+    ArrayAdapter mAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_my_shop_product, container, false);
+
+
+        initializeProductFragment(view);
+
         initializeButton(view);
         return view;
+    }
+
+    private void initializeProductFragment(View view)
+    {
+        //get current shop
+        Intent i = getActivity().getIntent();
+        currentShop = (Toko) i.getSerializableExtra(Toko.TAG_TOKO);
+
+        ListView listView = (ListView) view.findViewById(R.id.MyProductsListView);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        listMyProducts = new ArrayList();
+        mAdapter = new MyShopProductItemAdapter(getActivity(),listMyProducts);
+
+        listView.setAdapter(mAdapter);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                fetchShopAsync(0);
+            }
+        });
+        MyProductRefreshLoadTask loadTask = new MyProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer);
+        loadTask.execute((Void) null);
+    }
+
+    public void fetchShopAsync(int page)
+    {
+        if(currentShop != null) {
+            MyProductRefreshLoadTask loadTask = new MyProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer);
+            loadTask.execute((Void) null);
+        }
+        else
+        {
+            if(swipeContainer != null)
+            {
+                swipeContainer.setRefreshing(false);
+            }
+        }
     }
 
     private void initializeButton(View view)
@@ -91,6 +160,83 @@ public class MyShopProductFragment extends Fragment {
         return;
     }
 
+    public class MyProductRefreshLoadTask extends AsyncTask<Void, Void, Boolean> {
+        SwipeRefreshLayout swipeContainer;
+        private String url;
+        private int tokoid;
+
+        String messagejson;
+        int successjson;
+
+        public MyProductRefreshLoadTask(String url, int tokoid, SwipeRefreshLayout swipeContainer) {
+            this.url = url;
+            this.tokoid = tokoid;
+            this.swipeContainer = swipeContainer;
+            successjson = -1;
+            messagejson = "";
+            products = new ArrayList();
+
+        }
+
+        JSONArray myproducts = null;
+        List products;
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+            BasicNameValuePair n = new BasicNameValuePair(Produk.TAG_TOKOID, String.valueOf(tokoid));
+            parameter.add(n);
+
+            JSONObject json = AppHelper.GetJsonObject(url, "POST", parameter);
+            if (json != null) {
+                try {
+                    successjson = json.getInt(AppHelper.TAG_SUCCESS);
+                    messagejson = json.getString(AppHelper.TAG_MESSAGE);
+                    if (successjson == 1) {
+                        myproducts = json.getJSONArray(Produk.TAG_PRODUK);
+
+                        for (int i = 0; i < myproducts.length(); i++) {
+                            JSONObject productobject = myproducts.getJSONObject(i);
+                            Produk newproduk = Produk.GetProdukFromJson(productobject);
+                            products.add(newproduk);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (JSONException e) {
+                    successjson = 3;
+                    if (AppHelper.Message != "") {
+                        messagejson = AppHelper.Message;
+                    } else {
+                        messagejson = e.getMessage();
+                    }
+                    return false;
+                }
+            } else {
+                successjson = 3;
+                messagejson = AppHelper.ConnectionFailed;
+                return false;
+            }
+        }
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success)
+            {
+                mAdapter.clear();
+                mAdapter.addAll(products);
+            }
+            else
+            {
+                Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
+            }
+            //set refresh off
+            if(swipeContainer != null)
+            {
+                swipeContainer.setRefreshing(false);
+            }
+        }
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

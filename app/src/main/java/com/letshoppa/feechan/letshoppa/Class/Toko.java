@@ -34,9 +34,7 @@ public class Toko implements Serializable{
     private int statustoko;
     private String namajenis;
 
-
-
-    private Toko()
+    public Toko()
     {
     }
 
