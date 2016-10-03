@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context="com.letshoppa.feechan.letshoppa.MyShopActivity">
+    tools:context="com.letshoppa.feechan.letshoppa.ShopActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -23,5 +23,5 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_my_shop" />
+    <include layout="@layout/content_shop" />
 </android.support.design.widget.CoordinatorLayout>

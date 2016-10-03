@@ -11,7 +11,7 @@
     <string name="ShoppingText">Shopping</string>
     <string name="SettingText">Setting</string>
     <string name="ProfileText">Profile</string>
-    <string name="MyPurchaseText">My Purchase</string>
+    <string name="MyCartText">My Cart</string>
     <string name="FollowingText">Following</string>
     <string name="MessageText">Message</string>
     <string name="helloText">Hello</string>
@@ -22,6 +22,8 @@
     <string name="Save">Save</string>
     <string name="CategoryShopText">Category Shop</string>
     <string name="SearchText">Search </string>
+
+    <string name="shops_owner">Shop\'s Owner</string>
 
     <color name="White">#FFFFFF</color>
     <color name="Ivory">#FFFFF0</color>
@@ -224,6 +226,7 @@
     <string name="no_location">No Location</string>
     <string name="current_location">Current Location</string>
     <string name="view_selected_location">View Selected Location</string>
+    <string name="view_shop_location">View Shop\'s Location</string>
     <string name="your_name">Your Name</string>
     <string name="premium_service">Premium Service</string>
     <string name="change_picture">Change Picture</string>
@@ -237,4 +240,5 @@
     <string name="title_activity_register">Sign Up</string>
     <string name="title_activity_view_one_maps">Map</string>
     <string name="title_activity_my_shop">MyShopActivity</string>
+    <string name="title_activity_shop">ShopActivity</string>
 </resources>

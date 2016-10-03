@@ -20,6 +20,9 @@ public class MyShopPagerAdapter extends FragmentStatePagerAdapter {
         this.mNumOfTabs = NumOfTabs;
     }
 
+    MyShopDetailFragment tab1;
+    MyShopProductFragment tab2;
+    MyReviewFragment tab3;
     @Override
     public Fragment getItem(int position) {
 
@@ -27,15 +30,21 @@ public class MyShopPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 //TabFragment1 tab1 = new TabFragment1();
                 // return tab1;
-                MyShopDetailFragment tab1 = new MyShopDetailFragment();
+                if(tab1 == null) {
+                    tab1 = new MyShopDetailFragment();
+                }
                 return tab1;
             case 1:
                 //TabFragment2 tab2 = new TabFragment2();
                 //return tab2;
-                MyShopProductFragment tab2 = new MyShopProductFragment();
+                if(tab2==null) {
+                    tab2 = new MyShopProductFragment();
+                }
                 return tab2;
             case 2:
-                MyReviewFragment tab3 = new MyReviewFragment();
+                if(tab3==null) {
+                    tab3 = new MyReviewFragment();
+                }
                 return tab3;
                 //TabFragment3 tab3 = new TabFragment3();
                 //return tab3;

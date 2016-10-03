@@ -152,7 +152,7 @@ public class MyShopDetailFragment extends Fragment {
     Toko currentShop;
 
     boolean activeEdit;
-    EditText shopNameTextView;
+    EditText shopNameEditText;
     EditText deskripsiText;
     TextView namaKategoriTextView;
     private void editClicked(View view)
@@ -187,7 +187,7 @@ public class MyShopDetailFragment extends Fragment {
     }
     private void setActiveControl()
     {
-        shopNameTextView.setEnabled(activeEdit);
+        shopNameEditText.setEnabled(activeEdit);
         deskripsiText.setEnabled(activeEdit);
     }
 
@@ -203,12 +203,15 @@ public class MyShopDetailFragment extends Fragment {
             ImageLoadTask shopImageLoad = new ImageLoadTask(currentShop.getGambartoko(),shopImageView);
             shopImageLoad.execute();
 
-            shopNameTextView = (EditText) view.findViewById(R.id.shopNameTextView);
+            shopNameEditText = (EditText) view.findViewById(R.id.shopNameEditText);
             deskripsiText = (EditText) view.findViewById(R.id.deskripsiText);
             namaKategoriTextView = (TextView) view.findViewById(R.id.namaKategoriTextView);
 
+            //change activity title
+            getActivity().setTitle(currentShop.getNamatoko());
+
             namaKategoriTextView.setText(currentShop.getNamajenis());
-            shopNameTextView.setText(currentShop.getNamatoko());
+            shopNameEditText.setText(currentShop.getNamatoko());
             deskripsiText.setText(currentShop.getDeskripsitoko());
 
             setActiveControl();

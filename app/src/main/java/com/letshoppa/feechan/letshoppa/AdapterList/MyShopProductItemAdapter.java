@@ -2,6 +2,7 @@ package com.letshoppa.feechan.letshoppa.AdapterList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Produk;
+import com.letshoppa.feechan.letshoppa.ProductDetailActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.List;
@@ -28,11 +30,11 @@ public class MyShopProductItemAdapter extends ArrayAdapter
         super(context, -1, items);
         this.context = context;
     }
-    public void openProduk(Produk toko)
+    public void openProduk(Produk produk)
     {
-        //Intent openShopIntent = new Intent(context,MyShopActivity.class);
-        //openShopIntent.putExtra(Toko.TAG_TOKO,toko);
-        //context.startActivity(openShopIntent);
+        Intent openProductIntent = new Intent(context,ProductDetailActivity.class);
+        openProductIntent.putExtra(Produk.TAG_PRODUK,produk);
+        context.startActivity(openProductIntent);
     }
     public View getView(int position, View convertView, ViewGroup parent)
     {

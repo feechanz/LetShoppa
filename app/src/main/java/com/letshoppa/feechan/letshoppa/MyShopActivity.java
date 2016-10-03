@@ -3,8 +3,10 @@ package com.letshoppa.feechan.letshoppa;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.MyShopPagerAdapter;
 
@@ -44,10 +46,27 @@ public class MyShopActivity extends AppCompatActivity {
 
             }
         });
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
+
         //initializeDetailShop();
         //initializeButton();
     }
-
+    @Override
+    public  boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     /*
     private void initializeLocation()
     {

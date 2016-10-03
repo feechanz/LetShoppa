@@ -3,6 +3,7 @@ package com.letshoppa.feechan.letshoppa.Class;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by Feechan on 9/30/2016.
  */
 
-public class Produk {
+public class Produk implements Serializable {
     public static final String TAG_PRODUK = "Produk";
     public static final String TAG_PRODUKID = "produkid";
     public static final String TAG_NAMAPRODUK = "namaproduk";

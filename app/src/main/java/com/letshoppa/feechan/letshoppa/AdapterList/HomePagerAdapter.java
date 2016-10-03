@@ -13,6 +13,9 @@ import com.letshoppa.feechan.letshoppa.Fragment.PeopleFragment;
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
+    HomeFragment tab1;
+    PeopleFragment tab2;
+
     public HomePagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
@@ -23,14 +26,14 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                //TabFragment1 tab1 = new TabFragment1();
-               // return tab1;
-                HomeFragment tab1 = new HomeFragment();
+                if(tab1==null) {
+                    tab1 = new HomeFragment();
+                }
                 return tab1;
             case 1:
-                //TabFragment2 tab2 = new TabFragment2();
-                //return tab2;
-                PeopleFragment tab2 = new PeopleFragment();
+                if(tab2==null) {
+                    tab2 = new PeopleFragment();
+                }
                 return tab2;
             case 2:
                 //TabFragment3 tab3 = new TabFragment3();

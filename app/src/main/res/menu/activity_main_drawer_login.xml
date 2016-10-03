@@ -13,7 +13,7 @@
         <item
             android:id="@+id/nav_mycart"
             android:icon="@drawable/ic_shopping_basket_black_24dp"
-            android:title="@string/MyPurchaseText" />
+            android:title="@string/MyCartText" />
         <item
             android:id="@+id/nav_myshop"
             android:icon="@drawable/ic_store"
