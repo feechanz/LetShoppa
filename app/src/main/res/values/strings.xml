@@ -241,4 +241,8 @@
     <string name="title_activity_view_one_maps">Map</string>
     <string name="title_activity_my_shop">MyShopActivity</string>
     <string name="title_activity_shop">ShopActivity</string>
+
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_from_Library">Choose from Library</string>
+    <string name="cancel">Cancel</string>
 </resources>

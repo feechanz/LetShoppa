@@ -170,7 +170,7 @@ public class ProfileFragment extends Fragment {
     //ImageView ivImage;
     String userChoosenTask="";
     //ProgressBar progressBar;
-    String url_upload_pp = "http://letshoppa.itmaranatha.org/AndroidConnect/UploadProfilePicture.php";
+    String url_upload_pp = AppHelper.domainURL+"/AndroidConnect/UploadProfilePicture.php";
 
     private void upload_PP(String path)
     {
@@ -187,23 +187,23 @@ public class ProfileFragment extends Fragment {
     }
 
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = { getString(R.string.take_photo), getString(R.string.choose_from_Library),
+                getString(R.string.cancel) };
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Add Photo!");
+        builder.setTitle(getString(R.string.change_picture));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 boolean result= Utility.checkPermission(getActivity());
-                if (items[item].equals("Take Photo")) {
+                if (items[item].equals(getString(R.string.take_photo))) {
                     userChoosenTask="Take Photo";
                     if(result)
                         cameraIntent();
-                } else if (items[item].equals("Choose from Library")) {
+                } else if (items[item].equals(getString(R.string.choose_from_Library))) {
                     userChoosenTask="Choose from Library";
                     if(result)
                         galleryIntent();
-                } else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals(getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
             }
@@ -312,7 +312,7 @@ public class ProfileFragment extends Fragment {
 
     public class UserRefreshTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String url_refresh_account = "http://letshoppa.itmaranatha.org/AndroidConnect/GetAccountidAccount.php";
+        private final String url_refresh_account = AppHelper.domainURL+"/AndroidConnect/GetAccountidAccount.php";
         private final String mAccountid;
 
         String messagejson;

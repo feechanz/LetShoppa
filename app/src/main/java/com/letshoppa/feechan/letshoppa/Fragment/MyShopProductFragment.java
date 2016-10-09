@@ -3,7 +3,6 @@ package com.letshoppa.feechan.letshoppa.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,20 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.MyShopProductItemAdapter;
+import com.letshoppa.feechan.letshoppa.AdapterList.ProductRefreshLoadTask;
 import com.letshoppa.feechan.letshoppa.AddProductsActivity;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
-import com.letshoppa.feechan.letshoppa.Class.Produk;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.R;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +77,7 @@ public class MyShopProductFragment extends Fragment {
     }
 
     Toko currentShop;
-    String url = "http://letshoppa.itmaranatha.org/AndroidConnect/GetAllProductByTokoId.php";
+    String url = AppHelper.domainURL+"/AndroidConnect/GetAllProductByTokoId.php";
     private SwipeRefreshLayout swipeContainer;
     private List listMyProducts;
     ArrayAdapter mAdapter;
@@ -94,10 +86,7 @@ public class MyShopProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_my_shop_product, container, false);
-
-
         initializeProductFragment(view);
-
         initializeButton(view);
         return view;
     }
@@ -124,14 +113,14 @@ public class MyShopProductFragment extends Fragment {
                 fetchShopAsync(0);
             }
         });
-        MyProductRefreshLoadTask loadTask = new MyProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer);
+        ProductRefreshLoadTask loadTask = new ProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer, mAdapter, getActivity());
         loadTask.execute((Void) null);
     }
 
     public void fetchShopAsync(int page)
     {
         if(currentShop != null) {
-            MyProductRefreshLoadTask loadTask = new MyProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer);
+            ProductRefreshLoadTask loadTask = new ProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer, mAdapter, getActivity());
             loadTask.execute((Void) null);
         }
         else
@@ -159,7 +148,7 @@ public class MyShopProductFragment extends Fragment {
         startActivity(addProductAct);
         return;
     }
-
+    /*
     public class MyProductRefreshLoadTask extends AsyncTask<Void, Void, Boolean> {
         SwipeRefreshLayout swipeContainer;
         private String url;
@@ -237,6 +226,7 @@ public class MyShopProductFragment extends Fragment {
             }
         }
     }
+    */
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

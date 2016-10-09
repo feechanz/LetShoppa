@@ -71,7 +71,7 @@
             android:name=".AddProductsActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".ProductDetailActivity"
+            android:name=".MyProductDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".ShopActivity"

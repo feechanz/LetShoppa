@@ -38,7 +38,7 @@ public class PengumumanItemAdapter extends ArrayAdapter
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        View viewToUse = mInflater.inflate(R.layout.fragment_home_item,parent,false);
+        View viewToUse = mInflater.inflate(R.layout.listitem_home_item,parent,false);
 
         TextView textViewPenulis = (TextView) viewToUse.findViewById(R.id.pembuatPengumumanTextView);
         TextView textView = (TextView) viewToUse.findViewById(R.id.isiPengumumanTextView);

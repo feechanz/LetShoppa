@@ -36,6 +36,7 @@ public class AppHelper {
     public static SharedPreferences.Editor editor;
     private static String KEY_LOGIN = "isLoggedIn";
 
+    public static String domainURL = "http://letshoppa.itmaranatha.org";
 
     public static void createLoginSession()
     {

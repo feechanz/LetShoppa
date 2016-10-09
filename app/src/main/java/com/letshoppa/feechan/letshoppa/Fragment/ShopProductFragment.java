@@ -5,13 +5,24 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.letshoppa.feechan.letshoppa.AdapterList.ProductRefreshLoadTask;
+import com.letshoppa.feechan.letshoppa.AdapterList.ShopProductItemAdapter;
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
+import com.letshoppa.feechan.letshoppa.Class.Produk;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -71,9 +82,10 @@ public class ShopProductFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop_product, container, false);
         initializeDetailShop(view);
+        initializeProductFragment(view);
         return view;
     }
-    Toko currentShop;
+
     private void initializeDetailShop(View view) {
         Intent i = getActivity().getIntent();
         currentShop = (Toko) i.getSerializableExtra(Toko.TAG_TOKO);
@@ -86,6 +98,65 @@ public class ShopProductFragment extends Fragment {
         }
     }
 
+    Toko currentShop;
+    SwipeRefreshLayout swipeContainer;
+    private List listMyProducts;
+    ArrayAdapter mAdapter;
+    String url = AppHelper.domainURL+"/AndroidConnect/GetAllProductByTokoId.php";
+
+    private void initializeProductFragment(View view)
+    {
+        //get current shop
+        Intent i = getActivity().getIntent();
+        currentShop = (Toko) i.getSerializableExtra(Toko.TAG_TOKO);
+
+        ListView listView = (ListView) view.findViewById(R.id.MyProductsListView);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        listMyProducts = new ArrayList();
+        mAdapter = new ShopProductItemAdapter(getActivity(),listMyProducts);
+
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openDetailProduct((Produk)parent.getItemAtPosition(position));
+            }
+        });
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                fetchShopAsync(0);
+            }
+        });
+        ProductRefreshLoadTask loadTask = new ProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer, mAdapter, getActivity());
+        loadTask.execute((Void) null);
+    }
+    private void openDetailProduct(Produk produk)
+    {
+        /*
+        Intent openProdukIntent = new Intent(getActivity(),ShopActivity.class);
+        openProdukIntent.putExtra(Produk.TAG_PRODUK,produk);
+        startActivity(openProdukIntent);
+        */
+    }
+    public void fetchShopAsync(int page)
+    {
+        if(currentShop != null) {
+            ProductRefreshLoadTask loadTask = new ProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer, mAdapter, getActivity());
+            loadTask.execute((Void) null);
+        }
+        else
+        {
+            if(swipeContainer != null)
+            {
+                swipeContainer.setRefreshing(false);
+            }
+        }
+    }
         // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

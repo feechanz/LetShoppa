@@ -131,7 +131,7 @@ public class MyShopFragment extends Fragment {
         startActivity(new Intent(getActivity(),CreateShopActivity.class));
         return;
     }
-    String url = "http://letshoppa.itmaranatha.org/AndroidConnect/GetAllTokoByAccountId.php";
+    String url = AppHelper.domainURL+"/AndroidConnect/GetAllTokoByAccountId.php";
     public void fetchShopAsync(int page)
     {
         MyShopRefreshLoadTask loadTask = new MyShopRefreshLoadTask(url,Integer.valueOf(AppHelper.currentAccount.getAccountid()),swipeContainer);

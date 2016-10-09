@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     ///My Atribute
     //url to get all accounts list
-    private static String url_login_account = "http://letshoppa.itmaranatha.org/AndroidConnect/GetLoginAccount.php";
+    private static String url_login_account = AppHelper.domainURL+"/AndroidConnect/GetLoginAccount.php";
 
 
     //Creating JSON Parser object

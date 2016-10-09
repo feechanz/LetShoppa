@@ -37,7 +37,7 @@ public class TipeShoppingItemAdapter extends ArrayAdapter
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View viewToUse = mInflater.inflate(R.layout.fragment_tipe_shopping_item,parent,false);
+        View viewToUse = mInflater.inflate(R.layout.listitem_tipe_shopping_item,parent,false);
         TextView textIdJenis = (TextView) viewToUse.findViewById(R.id.id_jenis_shop);
         TextView textNamaJenis = (TextView) viewToUse.findViewById(R.id.nama_jenis_toko);
 

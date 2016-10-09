@@ -42,7 +42,7 @@ public class MyShopItemAdapter extends ArrayAdapter
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        View viewToUse = mInflater.inflate(R.layout.fragment_my_shop_item,parent,false);
+        View viewToUse = mInflater.inflate(R.layout.listitem_my_shop_item,parent,false);
 
         TextView namaKategoriTextView = (TextView) viewToUse.findViewById(R.id.namaKategoriTextView);
         TextView namaTokoTextView = (TextView) viewToUse.findViewById(R.id.namaTokoTextView);

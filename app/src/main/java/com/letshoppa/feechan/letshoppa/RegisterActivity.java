@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private TextView selectedDateText;
     private Date mBirthdate;
 
-    private static String url_signup_account = "http://letshoppa.itmaranatha.org/AndroidConnect/RegisterOneAccount.php";
+    private static String url_signup_account = AppHelper.domainURL+"/AndroidConnect/RegisterOneAccount.php";
 
     /**
      * Id to identity READ_CONTACTS permission request.

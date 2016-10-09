@@ -56,7 +56,7 @@ public class ListShopActivity extends AppCompatActivity {
         initializeListView();
     }
 
-    String url = "http://letshoppa.itmaranatha.org/AndroidConnect/GetAllTokoByJenistokoId.php";;
+    String url = AppHelper.domainURL+"/AndroidConnect/GetAllTokoByJenistokoId.php";;
     private SwipeRefreshLayout swipeContainer;
     private List listShops;
     ArrayAdapter mAdapter;

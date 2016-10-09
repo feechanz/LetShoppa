@@ -32,14 +32,15 @@
             android:layout_height="wrap_content"
             android:text="@string/CategoryShopText"
             android:layout_marginStart="@dimen/activity_vertical_margin"
-            android:background="@drawable/back"
+
             android:textAppearance="?android:attr/textAppearanceMedium"/>
         <TextView
             android:id="@+id/namaKategoriTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/CategoryShopText"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:background="@drawable/back"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <TextView
@@ -51,7 +52,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"/>
         <TextView
             android:id="@+id/shopNameTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/shops_name"
             android:layout_marginStart="@dimen/activity_vertical_margin"
@@ -88,7 +89,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"/>
         <TextView
             android:id="@+id/locationTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/shops_location"
             android:layout_marginStart="@dimen/activity_vertical_margin"

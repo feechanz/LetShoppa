@@ -14,13 +14,13 @@ import android.widget.TextView;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Produk;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class MyProductDetailActivity extends AppCompatActivity {
 
     Produk currentProduk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_detail);
+        setContentView(R.layout.activity_my_product_detail);
 
         initializeProduct();
     }
