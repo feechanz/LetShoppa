@@ -145,6 +145,7 @@ public class MyShopProductFragment extends Fragment {
     private void clickAddButton()
     {
         Intent addProductAct = new Intent(getActivity(),AddProductsActivity.class);
+        addProductAct.putExtra(Toko.TAG_TOKO,currentShop);
         startActivity(addProductAct);
         return;
     }

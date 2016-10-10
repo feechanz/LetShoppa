@@ -11,6 +11,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Toko implements Serializable{
     public static final String TAG_TOKO = "Toko";
+    public static final String TAG_TOKOID = "tokoid";
     public static final String TAG_NAMATOKO = "namatoko";
     public static final String TAG_DESKRIPSITOKO = "deskripsitoko";
     public static final String TAG_LOKASITOKO = "lokasitoko";
@@ -131,7 +132,7 @@ public class Toko implements Serializable{
         try {
             Toko toko = new Toko();
 
-            toko.setTokoid(jsonObject.getInt(Toko.TAG_ACCOUNTID));
+            toko.setTokoid(jsonObject.getInt(Toko.TAG_TOKOID));
             toko.setNamatoko(jsonObject.getString(Toko.TAG_NAMATOKO));
             toko.setDeskripsitoko(jsonObject.getString(Toko.TAG_DESKRIPSITOKO));
             toko.setLokasitoko(jsonObject.getString(Toko.TAG_LOKASITOKO));

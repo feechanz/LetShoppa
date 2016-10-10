@@ -79,7 +79,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProductDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".AddNewShopProductsActivity"></activity>
     </application>
 
 </manifest>

@@ -248,9 +248,13 @@
     <string name="choose_from_Library">Choose from Library</string>
     <string name="cancel">Cancel</string>
 
+    <string name="prompt_create_shop">Create this shop</string>
     <string name="prompt_add_product">Add this product to your cart</string>
     <string name="message">Message</string>
     <string name="create_shop">Create Shop</string>
+    <string name="add_your_product">Add your Product</string>
+    <string name="id_error">Error ID</string>
+    <string name="unknown_error">Unknown Error</string>
     <string-array name="profile_people_array">
         <item>Followed</item>
         <item>Following</item>
