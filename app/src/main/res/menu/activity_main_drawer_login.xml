@@ -15,9 +15,17 @@
             android:icon="@drawable/ic_shopping_basket_black_24dp"
             android:title="@string/MyCartText" />
         <item
+            android:id="@+id/nav_mypurchase"
+            android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+            android:title="@string/MyPurchaseText" />
+        <item
             android:id="@+id/nav_myshop"
             android:icon="@drawable/ic_store"
             android:title="@string/MyShopText" />
+        <item
+            android:id="@+id/nav_myorder"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="@string/MyOrderText" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"

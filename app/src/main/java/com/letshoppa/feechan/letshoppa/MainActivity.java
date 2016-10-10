@@ -30,6 +30,8 @@ import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Fragment.FollowingFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.MessageFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.MyCartFragment;
+import com.letshoppa.feechan.letshoppa.Fragment.MyOrderFragment;
+import com.letshoppa.feechan.letshoppa.Fragment.MyPurchaseFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.MyShopFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.ProfileFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.RootHomeFragment;
@@ -215,6 +217,20 @@ public class MainActivity extends AppCompatActivity
         HideKeyboard();
     }
 
+    private void MyOrderFragmentLoad() {
+        Fragment fragment = new MyOrderFragment();
+        FragmentManager fM = getSupportFragmentManager();
+        fM.beginTransaction().replace(R.id.mainFrame, fragment).commit();
+        HideKeyboard();
+    }
+
+    private void MyPurchaseFragmentLoad() {
+        Fragment fragment = new MyPurchaseFragment();
+        FragmentManager fM = getSupportFragmentManager();
+        fM.beginTransaction().replace(R.id.mainFrame, fragment).commit();
+        HideKeyboard();
+    }
+
     private void MyShopFragmentLoad() {
         Fragment fragment = new MyShopFragment();
         FragmentManager fM = getSupportFragmentManager();
@@ -279,6 +295,10 @@ public class MainActivity extends AppCompatActivity
             MyCartFragmentLoad();
         } else if (id == R.id.nav_myshop) {
             MyShopFragmentLoad();
+        } else if (id == R.id.nav_myorder) {
+            MyOrderFragmentLoad();
+        } else if (id == R.id.nav_mypurchase) {
+            MyPurchaseFragmentLoad();
         } else if (id == R.id.nav_login) {
             //HomeFragmentLoad();
             LoginActivityLoad();

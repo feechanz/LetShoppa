@@ -5,9 +5,33 @@
     tools:context=".Fragment.MessageFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/message"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2pt"
+            android:background="@android:color/black"/>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:id="@+id/MyMessageListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/Maroon"
+                android:dividerHeight="2pt"
+                android:background="@color/Moccasin"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </FrameLayout>

@@ -33,6 +33,7 @@ public class CreateShopActivity extends AppCompatActivity {
         setInitializeView();
         setInitializeSpinner();
         setGPS();
+        this.setTitle(getString(R.string.create_shop));
     }
     Button viewSelectedLocationButton;
     private List listJenisToko;

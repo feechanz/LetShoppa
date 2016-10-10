@@ -18,13 +18,14 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
         <ExpandableListView
+            android:id="@+id/peopleExpandableListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:childDivider="@color/Black"
             android:clickable="true"
-            android:background="@color/cast_expanded_controller_ad_label_background_color"
-            android:outlineProvider="bounds">
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.5dp" />
 
-        </ExpandableListView>
     </LinearLayout>
 </FrameLayout>

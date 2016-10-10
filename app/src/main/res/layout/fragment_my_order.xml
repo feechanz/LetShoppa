@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.MyCartFragment">
+    tools:context=".Fragment.MyOrderFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/MyCartText"
+            android:text="@string/MyOrderText"
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
         <android.support.v4.widget.SwipeRefreshLayout
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ListView
-                android:id="@+id/MyCartListView"
+                android:id="@+id/MyOrderListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@color/Maroon"
@@ -30,4 +30,5 @@
                 android:background="@color/Moccasin"/>
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
+
 </FrameLayout>

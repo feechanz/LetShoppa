@@ -19,6 +19,7 @@ import com.letshoppa.feechan.letshoppa.AdapterList.ShopProductItemAdapter;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.Produk;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
+import com.letshoppa.feechan.letshoppa.ProductDetailActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.ArrayList;
@@ -137,11 +138,9 @@ public class ShopProductFragment extends Fragment {
     }
     private void openDetailProduct(Produk produk)
     {
-        /*
-        Intent openProdukIntent = new Intent(getActivity(),ShopActivity.class);
+        Intent openProdukIntent = new Intent(getActivity(),ProductDetailActivity.class);
         openProdukIntent.putExtra(Produk.TAG_PRODUK,produk);
         startActivity(openProdukIntent);
-        */
     }
     public void fetchShopAsync(int page)
     {
