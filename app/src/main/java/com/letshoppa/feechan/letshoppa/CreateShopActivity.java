@@ -336,6 +336,8 @@ public class CreateShopActivity extends AppCompatActivity {
             this.tokoid = 0;
             dialog = ProgressDialog.show(CreateShopActivity.this, "", getString(R.string.please_wait), true);
             dialog.setCancelable(false);
+            successjson=0;
+            messagejson="";
         }
 
         @Override
@@ -382,7 +384,7 @@ public class CreateShopActivity extends AppCompatActivity {
             }
             else
             {
-
+                messagejson = getString(R.string.unknown_error);
                 return false;
             }
         }

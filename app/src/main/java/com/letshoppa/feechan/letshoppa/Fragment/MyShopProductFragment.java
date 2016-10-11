@@ -149,6 +149,13 @@ public class MyShopProductFragment extends Fragment {
         startActivity(addProductAct);
         return;
     }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+    }
     /*
     public class MyProductRefreshLoadTask extends AsyncTask<Void, Void, Boolean> {
         SwipeRefreshLayout swipeContainer;

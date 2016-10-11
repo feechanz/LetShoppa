@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
-                    android:id="@+id/name"
+                    android:id="@+id/nameEditText"
                     android:background="@drawable/back"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 >
                 <EditText
-                    android:id="@+id/deskripsiText"
+                    android:id="@+id/deskripsiEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
@@ -99,7 +99,7 @@
 
             </LinearLayout>
             <Button
-                android:id="@+id/add_product_Button"
+                android:id="@+id/add_product_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/AddProduct"/>
