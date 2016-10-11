@@ -203,6 +203,7 @@ public class CreateShopActivity extends AppCompatActivity {
         Intent intentView = new Intent(this,ViewOneMapsActivity.class);
         intentView.putExtra(AppHelper.TAG_LATITUDE,this.latitudeShop);
         intentView.putExtra(AppHelper.TAG_LONGITUDE,this.longitudeShop);
+        intentView.putExtra(AppHelper.TAG_TITLE,getString(R.string.current_location));
         startActivity(intentView);
     }
     double latitudeShop ;

@@ -10,15 +10,18 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.R;
+import com.letshoppa.feechan.letshoppa.ViewOneMapsActivity;
 
 
 /**
@@ -112,6 +115,9 @@ public class MyShopDetailFragment extends Fragment {
     private void initializeButton(final View view)
     {
         ImageButton editActiveImgBtn = (ImageButton) view.findViewById(R.id.editImageBtn);
+        viewCurrentShopLocationBtn = (Button) view.findViewById(R.id.viewSelectedLocationButton);
+
+
         editActiveImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +132,29 @@ public class MyShopDetailFragment extends Fragment {
                 editLocationClicked(view);
             }
         });
+        viewCurrentShopLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewLocationOnMap();
+            }
+        });
     }
+
+    private void viewLocationOnMap()
+    {
+        if(currentShop != null) {
+            Intent intentView = new Intent(getActivity(), ViewOneMapsActivity.class);
+            intentView.putExtra(AppHelper.TAG_LATITUDE, this.currentShop.getLatitude());
+            intentView.putExtra(AppHelper.TAG_LONGITUDE, this.currentShop.getLongitude());
+            intentView.putExtra(AppHelper.TAG_TITLE, this.currentShop.getNamatoko());
+            startActivity(intentView);
+        }
+        else
+        {
+            Toast.makeText(getActivity(),getString(R.string.unknown_error),Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void editLocationClicked(View view)
     {
         DialogInterface.OnClickListener dialogClickListener =new DialogInterface.OnClickListener()
@@ -155,6 +183,7 @@ public class MyShopDetailFragment extends Fragment {
     EditText shopNameEditText;
     EditText deskripsiText;
     TextView namaKategoriTextView;
+    Button viewCurrentShopLocationBtn;
     private void editClicked(View view)
     {
         activeEdit = !activeEdit;

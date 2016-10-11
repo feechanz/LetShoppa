@@ -16,6 +16,7 @@ public class ViewOneMapsActivity extends FragmentActivity implements OnMapReadyC
     private GoogleMap mMap;
     private double latitude;
     private double longitude;
+    private String title;
     private float zoomLevel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class ViewOneMapsActivity extends FragmentActivity implements OnMapReadyC
         mapFragment.getMapAsync(this);
         latitude = getIntent().getDoubleExtra(AppHelper.TAG_LATITUDE,0);
         longitude = getIntent().getDoubleExtra(AppHelper.TAG_LONGITUDE,0);
+        title = getIntent().getStringExtra(AppHelper.TAG_TITLE);
         zoomLevel = 17.0f;
     }
     /**
@@ -43,7 +45,7 @@ public class ViewOneMapsActivity extends FragmentActivity implements OnMapReadyC
         mMap = googleMap;
         // Add a marker in Sydney and move the camera
         LatLng currentPosition = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(currentPosition).title(getString(R.string.current_location)));
+        mMap.addMarker(new MarkerOptions().position(currentPosition).title(title));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
     }

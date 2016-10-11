@@ -36,7 +36,8 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
             <ListView
                 android:id="@+id/MyProductsListView"
                 android:layout_width="match_parent"
@@ -45,5 +46,12 @@
                 android:dividerHeight="2pt"
                 android:background="@color/Moccasin"/>
         </android.support.v4.widget.SwipeRefreshLayout>
+        <Button
+            android:id="@+id/done_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>

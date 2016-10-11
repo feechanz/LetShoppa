@@ -23,6 +23,7 @@ public class AppHelper {
     public static String Message="";
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
+    public static final String TAG_TITLE = "title";
     //public static final String genderMale = "Pria";
     //public static final String genderFemale = "Wanita";
     public static final String PREF_NAME = "LetShoppaPref";

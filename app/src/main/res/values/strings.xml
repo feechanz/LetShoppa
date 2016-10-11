@@ -251,6 +251,7 @@
     <string name="prompt_create_shop">Create this shop</string>
     <string name="prompt_add_product">Add this product to your cart</string>
     <string name="prompt_create_product">Add this product to your shop</string>
+    <string name="done">Done</string>
 
     <string name="message">Message</string>
     <string name="create_shop">Create Shop</string>
