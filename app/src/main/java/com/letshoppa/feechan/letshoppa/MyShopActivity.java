@@ -50,8 +50,6 @@ public class MyShopActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-
-
         //initializeDetailShop();
         //initializeButton();
     }

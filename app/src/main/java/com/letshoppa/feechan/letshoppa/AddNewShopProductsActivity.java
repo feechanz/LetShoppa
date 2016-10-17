@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.MyShopProductItemAdapter;
-import com.letshoppa.feechan.letshoppa.AdapterList.ProductRefreshLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.ProductRefreshLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 

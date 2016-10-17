@@ -1,6 +1,7 @@
 package com.letshoppa.feechan.letshoppa.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import com.letshoppa.feechan.letshoppa.AdapterList.PeopleExpandableListAdapter;
 import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.HeaderInfo;
+import com.letshoppa.feechan.letshoppa.PersonActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.ArrayList;
@@ -79,7 +81,7 @@ public class FollowingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_following, container, false);
-        ExpandableListView peopleExListView = (ExpandableListView) view.findViewById(R.id.peopleExpandableListView);
+        final ExpandableListView peopleExListView = (ExpandableListView) view.findViewById(R.id.peopleExpandableListView);
 
         ArrayList<HeaderInfo> listMenu;
         listMenu = new ArrayList<HeaderInfo>();
@@ -104,8 +106,21 @@ public class FollowingFragment extends Fragment {
 
         mAdapter = new PeopleExpandableListAdapter(getActivity(), listMenu);
         peopleExListView.setAdapter(mAdapter);
-
+        peopleExListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id)
+            {
+                openDetailPerson((Account) parent.getExpandableListAdapter().getChild(groupPosition,childPosition));
+                return false;
+            }
+        });
         return view;
+    }
+    private void openDetailPerson(Account account)
+    {
+        Intent openPersonIntent = new Intent(getActivity(),PersonActivity.class);
+        openPersonIntent.putExtra(Account.TAG_ACCOUNTID,account.getAccountid());
+        startActivity(openPersonIntent);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

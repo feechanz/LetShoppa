@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.PeopleFolowFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/FollowingText"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3pt"
+        android:background="@android:color/black"/>
+
+    <ExpandableListView
+        android:id="@+id/peopleExpandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:childDivider="@color/Black"
+        android:clickable="true"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:childIndicatorRight="@dimen/activity_horizontal_margin"
+        android:background="@color/SandyBrown"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
+</LinearLayout>

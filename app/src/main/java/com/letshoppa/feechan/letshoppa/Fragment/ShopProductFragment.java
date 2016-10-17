@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.letshoppa.feechan.letshoppa.AdapterList.ProductRefreshLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.ProductRefreshLoadTask;
 import com.letshoppa.feechan.letshoppa.AdapterList.ShopProductItemAdapter;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.Produk;

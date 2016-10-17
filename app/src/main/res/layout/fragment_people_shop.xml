@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.PeopleShopFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ShopText"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:background="@android:color/black"/>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:id="@+id/MyShopListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/Maroon"
+                android:dividerHeight="2pt"
+                android:background="@color/Moccasin"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</LinearLayout>

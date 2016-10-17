@@ -1,13 +1,10 @@
-package com.letshoppa.feechan.letshoppa.AdapterList;
+package com.letshoppa.feechan.letshoppa.Class;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import com.letshoppa.feechan.letshoppa.Class.AppHelper;
-import com.letshoppa.feechan.letshoppa.Class.Produk;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;

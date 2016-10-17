@@ -8,12 +8,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.R;
+import com.letshoppa.feechan.letshoppa.ViewOneMapsActivity;
 
 
 /**
@@ -73,10 +77,47 @@ public class ShopFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         initializeDetailShop(view);
+        initializeButton(view);
         return view;
     }
 
     Toko currentShop;
+    private void initializeButton(View view)
+    {
+        Button viewLocationShopButton = (Button) view.findViewById(R.id.viewShopLocationButton);
+        Button shopownerButton = (Button) view.findViewById(R.id.shopownerbutton);
+
+        viewLocationShopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewLocationOnMap();
+            }
+        });
+        shopownerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewOwner();
+            }
+        });
+    }
+    private void viewLocationOnMap()
+    {
+        if(currentShop != null) {
+            Intent intentView = new Intent(getActivity(), ViewOneMapsActivity.class);
+            intentView.putExtra(AppHelper.TAG_LATITUDE, this.currentShop.getLatitude());
+            intentView.putExtra(AppHelper.TAG_LONGITUDE, this.currentShop.getLongitude());
+            intentView.putExtra(AppHelper.TAG_TITLE, this.currentShop.getNamatoko());
+            startActivity(intentView);
+        }
+        else
+        {
+            Toast.makeText(getActivity(),getString(R.string.unknown_error),Toast.LENGTH_LONG).show();
+        }
+    }
+    private void viewOwner()
+    {
+
+    }
 
     private void initializeDetailShop(View view)
     {

@@ -80,7 +80,11 @@
         <activity
             android:name=".ProductDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity android:name=".AddNewShopProductsActivity"></activity>
+        <activity android:name=".AddNewShopProductsActivity" />
+        <activity
+            android:name=".PersonActivity"
+            android:label="@string/title_activity_person"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
