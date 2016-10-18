@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/peopleImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25pt"
+        android:layout_height="25pt"
         android:src="@android:drawable/sym_def_app_icon"
         android:contentDescription="@string/app_name"/>
     <LinearLayout

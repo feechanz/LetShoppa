@@ -13,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
+import com.letshoppa.feechan.letshoppa.PersonActivity;
 import com.letshoppa.feechan.letshoppa.R;
 import com.letshoppa.feechan.letshoppa.ViewOneMapsActivity;
 
@@ -116,7 +118,11 @@ public class ShopFragment extends Fragment {
     }
     private void viewOwner()
     {
-
+        if(currentShop!=null) {
+            Intent openPersonIntent = new Intent(getActivity(), PersonActivity.class);
+            openPersonIntent.putExtra(Account.TAG_ACCOUNTID, String.valueOf(currentShop.getAccountid()));
+            startActivity(openPersonIntent);
+        }
     }
 
     private void initializeDetailShop(View view)

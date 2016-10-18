@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.HeaderInfo;
+import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class PeopleExpandableListAdapter extends BaseExpandableListAdapter {
         emailTextView.setText(detailInfo.getEmail().trim());
         nameTextView.setText(detailInfo.getNama().trim());
 
+        ImageLoadTask task = new ImageLoadTask(detailInfo.getLinkgambaraccount(),peopleImageView);
+        task.execute();
         return view;
     }
 

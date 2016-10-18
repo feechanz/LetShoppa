@@ -4,11 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.letshoppa.feechan.letshoppa.AdapterList.OrderItemAdapter;
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
+import com.letshoppa.feechan.letshoppa.Class.OrderLoadTask;
 import com.letshoppa.feechan.letshoppa.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -62,11 +71,41 @@ public class MyCartFragment extends Fragment {
         }
     }
 
+    private SwipeRefreshLayout swipeContainer;
+    private List listOrders;
+    ArrayAdapter mAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_cart, container, false);
+
+        ListView listView = (ListView) view.findViewById(R.id.MyCartListView);
+        swipeContainer = (SwipeRefreshLayout)view. findViewById(R.id.swipeContainer);
+        listOrders = new ArrayList();
+        mAdapter = new OrderItemAdapter(getActivity(),listOrders);
+        listView.setAdapter(mAdapter);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchShopAsync(0);
+            }
+        });
+
+        if(AppHelper.currentAccount != null) {
+            OrderLoadTask task = new OrderLoadTask(Integer.valueOf(AppHelper.currentAccount.getAccountid()), 1, swipeContainer, mAdapter, getActivity());
+            task.execute();
+        }
+        return view;
+    }
+    private void fetchShopAsync(int page)
+    {
+        if(AppHelper.currentAccount != null)
+        {
+            OrderLoadTask task = new OrderLoadTask(Integer.valueOf(AppHelper.currentAccount.getAccountid()),1,swipeContainer,mAdapter,getActivity());
+            task.execute((Void) null);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

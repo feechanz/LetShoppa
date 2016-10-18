@@ -1,14 +1,17 @@
 package com.letshoppa.feechan.letshoppa.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.PeopleExpandableListAdapter;
 import com.letshoppa.feechan.letshoppa.Class.Account;
@@ -17,8 +20,15 @@ import com.letshoppa.feechan.letshoppa.Class.HeaderInfo;
 import com.letshoppa.feechan.letshoppa.PersonActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 
 /**
@@ -75,45 +85,19 @@ public class FollowingFragment extends Fragment {
     PeopleExpandableListAdapter mAdapter;
     private ArrayList<HeaderInfo> headerList;
     private LinkedHashMap<String, HeaderInfo> myDepartments = new LinkedHashMap<String, HeaderInfo>();
-
+    ExpandableListView peopleExListView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_following, container, false);
-        final ExpandableListView peopleExListView = (ExpandableListView) view.findViewById(R.id.peopleExpandableListView);
+        peopleExListView = (ExpandableListView) view.findViewById(R.id.peopleExpandableListView);
 
-        ArrayList<HeaderInfo> listMenu;
-        listMenu = new ArrayList<HeaderInfo>();
-        HeaderInfo following = new HeaderInfo("Following");
-        HeaderInfo followed = new HeaderInfo("Followed");
 
-        ArrayList<Account> listFollowing = new ArrayList<Account>();
-        ArrayList<Account> listFollowed = new ArrayList<Account>();
 
-        listFollowing.add(AppHelper.currentAccount);
-        listFollowing.add(AppHelper.currentAccount);
-        listFollowing.add(AppHelper.currentAccount);
+        FollowingLoadTask task = new FollowingLoadTask(AppHelper.currentAccount.getAccountid());
+        task.execute();
 
-        listFollowed.add(AppHelper.currentAccount);
-        listFollowed.add(AppHelper.currentAccount);
-
-        following.setProductList(listFollowing);
-        followed.setProductList(listFollowed);
-
-        listMenu.add(following);
-        listMenu.add(followed);
-
-        mAdapter = new PeopleExpandableListAdapter(getActivity(), listMenu);
-        peopleExListView.setAdapter(mAdapter);
-        peopleExListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id)
-            {
-                openDetailPerson((Account) parent.getExpandableListAdapter().getChild(groupPosition,childPosition));
-                return false;
-            }
-        });
         return view;
     }
     private void openDetailPerson(Account account)
@@ -147,18 +131,181 @@ public class FollowingFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    ArrayList<HeaderInfo> listMenu= new ArrayList<HeaderInfo>();
+    HeaderInfo following = new HeaderInfo("Following");
+    HeaderInfo followed = new HeaderInfo("Followed");
+    ProgressDialog dialog;
+    public class FollowingLoadTask extends AsyncTask<Void, Void, Boolean>
+    {
+        String url=AppHelper.domainURL + "/AndroidConnect/GetAllFollowingByAccountId.php";
+        String messagejson;
+        int successjson;
+
+        String accountid;
+
+        public FollowingLoadTask(String accountid)
+        {
+            dialog = ProgressDialog.show(getActivity(), "", getString(R.string.please_wait), true);
+            dialog.setCancelable(false);
+            messagejson = "";
+            successjson = -1;
+            this.accountid = accountid;
+        }
+
+        JSONArray listfollowingJSON = null;
+        ArrayList<Account> listFollowing = new ArrayList<Account>();
+        @Override
+        protected Boolean doInBackground(Void... params)
+        {
+            List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+            parameter.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, accountid));
+            JSONObject json = AppHelper.GetJsonObject(url, "POST", parameter);
+            if (json != null)
+            {
+                try
+                {
+                    successjson = json.getInt(AppHelper.TAG_SUCCESS);
+                    messagejson = json.getString(AppHelper.TAG_MESSAGE);
+                    //get detail
+                    if (successjson == 1) {
+                        listfollowingJSON = json.getJSONArray(Account.TAG_ACCOUNT_CLASS);
+
+                        for (int i = 0; i < listfollowingJSON.length(); i++) {
+                            JSONObject accountobject = listfollowingJSON.getJSONObject(i);
+                            Account followingaccount = Account.GetAccountFromJson(accountobject);
+                            listFollowing.add(followingaccount);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                catch (JSONException e)
+                {
+                    successjson = 3;
+                    if (AppHelper.Message != "")
+                    {
+                        messagejson = AppHelper.Message;
+                    }
+                    else
+                    {
+                        messagejson = e.getMessage();
+                    }
+                    return false;
+                }
+            }
+            else {
+                successjson = 3;
+                messagejson = AppHelper.ConnectionFailed;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success)
+        {
+            if (!success)
+            {
+                Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
+            }
+            following.setProductList(listFollowing);
+            FollowersLoadTask task = new FollowersLoadTask(accountid);
+            task.execute();
+        }
+    }
+
+    public class FollowersLoadTask extends AsyncTask<Void, Void, Boolean>
+    {
+        String url=AppHelper.domainURL + "/AndroidConnect/GetAllFollowerByAccountId.php";
+        String messagejson;
+        int successjson;
+
+        String accountid;
+
+        public FollowersLoadTask(String accountid)
+        {
+            messagejson = "";
+            successjson = -1;
+            this.accountid = accountid;
+        }
+
+        JSONArray listfollowerJSON = null;
+        ArrayList<Account> listFollower = new ArrayList<Account>();
+        @Override
+        protected Boolean doInBackground(Void... params)
+        {
+            List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+            parameter.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, accountid));
+            JSONObject json = AppHelper.GetJsonObject(url, "POST", parameter);
+            if (json != null)
+            {
+                try
+                {
+                    successjson = json.getInt(AppHelper.TAG_SUCCESS);
+                    messagejson = json.getString(AppHelper.TAG_MESSAGE);
+
+                    //get detail
+                    if (successjson == 1) {
+                        listfollowerJSON = json.getJSONArray(Account.TAG_ACCOUNT_CLASS);
+
+                        for (int i = 0; i < listfollowerJSON.length(); i++) {
+                            JSONObject accountobject = listfollowerJSON.getJSONObject(i);
+                            Account followingaccount = Account.GetAccountFromJson(accountobject);
+                            listFollower.add(followingaccount);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                catch (JSONException e)
+                {
+                    successjson = 3;
+                    if (AppHelper.Message != "")
+                    {
+                        messagejson = AppHelper.Message;
+                    }
+                    else
+                    {
+                        messagejson = e.getMessage();
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                successjson = 3;
+                messagejson = AppHelper.ConnectionFailed;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success)
+        {
+            if (!success)
+            {
+                Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
+            }
+            followed.setProductList(listFollower);
+            listMenu.add(following);
+            listMenu.add(followed);
+            mAdapter = new PeopleExpandableListAdapter(getActivity(), listMenu);
+            peopleExListView.setAdapter(mAdapter);
+            peopleExListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id)
+                {
+                    openDetailPerson((Account) parent.getExpandableListAdapter().getChild(groupPosition,childPosition));
+                    return false;
+                }
+            });
+            dialog.dismiss();
+        }
     }
 }

@@ -24,6 +24,12 @@
     <string name="Save">Save</string>
     <string name="CategoryShopText">Category Shop</string>
     <string name="SearchText">Search </string>
+    <string name="SendText">Send </string>
+    <string name="Qty">Qty</string>
+    <string name="Qty_">Qty : </string>
+    <string name="Price_">Price : Rp. </string>
+    <string name="Total_price_">Total Price : Rp. </string>
+    <string name="posthint">What\'s on your mind?</string>
 
     <string name="shops_owner">Shop\'s Owner</string>
 

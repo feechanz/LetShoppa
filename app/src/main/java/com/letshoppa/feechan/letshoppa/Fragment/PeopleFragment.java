@@ -1,14 +1,32 @@
 package com.letshoppa.feechan.letshoppa.Fragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.AdapterList.PeopleItemAdapter;
+import com.letshoppa.feechan.letshoppa.Class.Account;
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
+import com.letshoppa.feechan.letshoppa.PersonActivity;
 import com.letshoppa.feechan.letshoppa.R;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,10 +86,55 @@ public class PeopleFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_people, container, false);
         // Inflate the layout for this fragment
-
+        initialize(view);
         return view;
     }
+    SwipeRefreshLayout swipeContainer;
+    private List listPeople;
+    ArrayAdapter mAdapter;
+    String url = AppHelper.domainURL+"/AndroidConnect/GetAllAccount.php";
+    public void initialize(View view)
+    {
+        ListView listView = (ListView) view.findViewById(R.id.PeopleListView);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        listPeople = new ArrayList();
+        mAdapter = new PeopleItemAdapter(getActivity(),listPeople);
 
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openDetailPerson((Account)parent.getItemAtPosition(position));
+            }
+        });
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                fetchShopAsync(0);
+            }
+        });
+
+        PeopleLoadTask task = new PeopleLoadTask(swipeContainer,url);
+        task.execute();
+    }
+
+    private void openDetailPerson(Account account)
+    {
+        Intent openPersonIntent = new Intent(getActivity(),PersonActivity.class);
+        openPersonIntent.putExtra(Account.TAG_ACCOUNTID,account.getAccountid());
+        startActivity(openPersonIntent);
+    }
+    public void fetchShopAsync(int page)
+    {
+
+        PeopleLoadTask task = new PeopleLoadTask(swipeContainer,url);
+        task.execute((Void) null);
+
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -79,17 +142,79 @@ public class PeopleFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
+    public class PeopleLoadTask extends AsyncTask<Void, Void, Boolean>
+    {
+        SwipeRefreshLayout swipeContainer;
+        private String url;
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+        String messagejson;
+        int successjson;
 
+        JSONArray peopleListJSON = null;
+        List peopleList = new ArrayList();
+
+        public PeopleLoadTask(SwipeRefreshLayout swipeContainer, String url) {
+            this.swipeContainer = swipeContainer;
+            this.url = url;
+            this.messagejson = "";
+            successjson = -1;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+
+            JSONObject json = AppHelper.GetJsonObject(url, "POST", parameter);
+            if (json != null) {
+                try {
+                    successjson = json.getInt(AppHelper.TAG_SUCCESS);
+                    messagejson = json.getString(AppHelper.TAG_MESSAGE);
+                    if (successjson == 1) {
+                        peopleListJSON = json.getJSONArray(Account.TAG_ACCOUNT_CLASS);
+
+                        for (int i = 0; i < peopleListJSON.length(); i++) {
+                            JSONObject productobject = peopleListJSON.getJSONObject(i);
+                            Account person = Account.GetAccountFromJson(productobject);
+                            peopleList.add(person);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (JSONException e) {
+                    successjson = 3;
+                    if (AppHelper.Message != "") {
+                        messagejson = AppHelper.Message;
+                    } else {
+                        messagejson = e.getMessage();
+                    }
+                    return false;
+                }
+            } else {
+                successjson = 3;
+                messagejson = AppHelper.ConnectionFailed;
+                return false;
+            }
+
+        }
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success)
+            {
+                mAdapter.clear();
+                mAdapter.addAll(peopleList);
+            }
+            else
+            {
+                Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
+            }
+            //set refresh off
+            if(swipeContainer != null)
+            {
+                swipeContainer.setRefreshing(false);
+            }
+        }
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Account implements Serializable {
     public static final String TAG_ACCOUNT = "account";
+    public static final String TAG_ACCOUNT_CLASS = "Account";
     public static final String TAG_ACCOUNTID = "accountid";
     public static final String TAG_EMAIL = "email";
     public static final String TAG_PASSWORD = "password";

@@ -87,6 +87,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Qty"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+
+                    />
+                <NumberPicker
+                    android:id="@+id/qtyNumberPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/cancelButton"

@@ -15,40 +15,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <Button
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="10pt"
-            android:background="@color/Teal"
-            android:paddingTop="2pt"
-            android:paddingBottom="2pt"
-            android:text="@string/helloText"
-            android:textSize="5pt"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/postEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:gravity="top|left"
+                android:lines="3"
+                android:layout_weight="3"
+                android:scrollHorizontally="false"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/back"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="@string/posthint"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
             />
-
+        </android.support.design.widget.TextInputLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SendText"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2pt"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-            <TextView
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/HomeText"
-                android:autoLink="web"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" > Cuman nyobain"/>
+                android:src="@drawable/ic_menu_send"/>
         </LinearLayout>
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="20pt"
-            android:background="@color/White"
-            android:layout_marginTop="3pt"
-            android:layout_marginBottom="3pt"
-            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/Black"/>
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"

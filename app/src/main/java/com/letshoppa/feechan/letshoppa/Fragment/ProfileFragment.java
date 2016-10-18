@@ -312,7 +312,7 @@ public class ProfileFragment extends Fragment {
 
     public class UserRefreshTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String url_refresh_account = AppHelper.domainURL+"/AndroidConnect/GetAccountidAccount.php";
+        private final String url_refresh_account = AppHelper.domainURL+"/AndroidConnect/GetAccountByAccountId.php";
         private final String mAccountid;
 
         String messagejson;
