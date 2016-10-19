@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.letshoppa.feechan.letshoppa.AdapterList.OrderItemAdapter;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.OrderLoadTask;
+import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.ArrayList;
@@ -83,7 +84,14 @@ public class MyCartFragment extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.MyCartListView);
         swipeContainer = (SwipeRefreshLayout)view. findViewById(R.id.swipeContainer);
         listOrders = new ArrayList();
-        mAdapter = new OrderItemAdapter(getActivity(),listOrders);
+        class RefreshMethod implements IRefreshMethod
+        {
+            @Override
+            public void refresh() {
+                fetchShopAsync(0);
+            }
+        }
+        mAdapter = new OrderItemAdapter(getActivity(),listOrders,new RefreshMethod());
         listView.setAdapter(mAdapter);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -99,7 +107,8 @@ public class MyCartFragment extends Fragment {
         }
         return view;
     }
-    private void fetchShopAsync(int page)
+
+    public void fetchShopAsync(int page)
     {
         if(AppHelper.currentAccount != null)
         {

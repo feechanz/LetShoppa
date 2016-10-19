@@ -91,5 +91,41 @@
                 android:textAppearance="?attr/textAppearanceListItemSmall"
                 android:text="@string/product_price"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                android:layout_marginRight="2dp"
+                android:text="@string/Status_"/>
+            <TextView
+                android:id="@+id/statusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                android:text="@string/accept"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/firstButton"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="@string/accept" />
+            <Button
+                android:id="@+id/secondButton"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="@string/accept"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

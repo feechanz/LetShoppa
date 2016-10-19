@@ -29,7 +29,13 @@
     <string name="Qty_">Qty : </string>
     <string name="Price_">Price : Rp. </string>
     <string name="Total_price_">Total Price : Rp. </string>
+    <string name="Status_">Status : </string>
     <string name="posthint">What\'s on your mind?</string>
+
+    <string name="wanttobuy">Want to Buy</string>
+    <string name="buy">Buy</string>
+    <string name="prompt_cancel_order">Cancel order</string>
+    <string name="prompt_buy_product">Buy this product</string>
 
     <string name="shops_owner">Shop\'s Owner</string>
 
