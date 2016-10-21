@@ -80,8 +80,15 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void addOrder()
     {
         int jumlah = qtyNumberPicker.getValue();
-        AddOrderTask task = new AddOrderTask(jumlah);
-        task.execute();
+        if(AppHelper.currentAccount != null) {
+            AddOrderTask task = new AddOrderTask(jumlah);
+            task.execute();
+        }
+        else
+        {
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivity(loginIntent);
+        }
     }
     private void addProdukToCart()
     {

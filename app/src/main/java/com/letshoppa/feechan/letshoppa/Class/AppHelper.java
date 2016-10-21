@@ -96,9 +96,9 @@ public class AppHelper {
     }*/
     public static JSONObject GetJsonObject(String url, String method, List<NameValuePair> params)
     {
-        return GetJsonObject(url,method,params,null);
+        return GetJsonObject(url,method,params,null,"");
     }
-    public static JSONObject GetJsonObject(String url, String method, List<NameValuePair> params, File file)
+    public static JSONObject GetJsonObject(String url, String method, List<NameValuePair> params, File file, String varName)
     {
         if(file == null) {
             JSONParser jParser = new JSONParser();
@@ -108,7 +108,7 @@ public class AppHelper {
         else
         {
             JSONParser jParser = new JSONParser();
-            JSONObject json = jParser.makeHttpRequest(url, method, params,file);
+            JSONObject json = jParser.makeHttpRequest(url, method, params,file,varName);
             return json;
         }
     }

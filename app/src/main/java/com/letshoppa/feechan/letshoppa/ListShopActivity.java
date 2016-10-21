@@ -86,9 +86,25 @@ public class ListShopActivity extends AppCompatActivity {
     }
     private void openDetailShop(Toko toko)
     {
-        Intent openShopIntent = new Intent(this,ShopActivity.class);
-        openShopIntent.putExtra(Toko.TAG_TOKO,toko);
-        startActivity(openShopIntent);
+        if(AppHelper.currentAccount != null) {
+            if(AppHelper.currentAccount.getAccountid().equals(String.valueOf(toko.getAccountid()) ))
+            {
+                Intent openShopIntent = new Intent(this, MyShopActivity.class);
+                openShopIntent.putExtra(Toko.TAG_TOKO, toko);
+                startActivity(openShopIntent);
+            }
+            else
+            {
+                Intent openShopIntent = new Intent(this, ShopActivity.class);
+                openShopIntent.putExtra(Toko.TAG_TOKO, toko);
+                startActivity(openShopIntent);
+            }
+        }
+        else {
+            Intent openShopIntent = new Intent(this, ShopActivity.class);
+            openShopIntent.putExtra(Toko.TAG_TOKO, toko);
+            startActivity(openShopIntent);
+        }
     }
     private void fetchShopAsync(int page)
     {

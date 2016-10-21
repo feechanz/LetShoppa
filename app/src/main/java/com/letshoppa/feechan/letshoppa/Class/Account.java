@@ -26,6 +26,8 @@ public class Account implements Serializable {
     public static final String TAG_LEVELACCOUNT = "levelaccount";
     public static final String TAG_STATUSACCOUNT = "statusaccount";
 
+    public static final String TAG_PROFILEPICTURE = "profilepicture";
+
     private String accountid;
     private String email;
     private String password;

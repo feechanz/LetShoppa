@@ -75,6 +75,7 @@ public class MyCartFragment extends Fragment {
     private SwipeRefreshLayout swipeContainer;
     private List listOrders;
     ArrayAdapter mAdapter;
+    String url = AppHelper.domainURL+"/AndroidConnect/GetAllOrderByAccountIdAndStatusOrder.php";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,7 +103,7 @@ public class MyCartFragment extends Fragment {
         });
 
         if(AppHelper.currentAccount != null) {
-            OrderLoadTask task = new OrderLoadTask(Integer.valueOf(AppHelper.currentAccount.getAccountid()), 1, swipeContainer, mAdapter, getActivity());
+            OrderLoadTask task = new OrderLoadTask(url, Integer.valueOf(AppHelper.currentAccount.getAccountid()), 1, swipeContainer, mAdapter, getActivity());
             task.execute();
         }
         return view;
@@ -112,7 +113,8 @@ public class MyCartFragment extends Fragment {
     {
         if(AppHelper.currentAccount != null)
         {
-            OrderLoadTask task = new OrderLoadTask(Integer.valueOf(AppHelper.currentAccount.getAccountid()),1,swipeContainer,mAdapter,getActivity());
+
+            OrderLoadTask task = new OrderLoadTask(url,Integer.valueOf(AppHelper.currentAccount.getAccountid()),1,swipeContainer,mAdapter,getActivity());
             task.execute((Void) null);
         }
     }

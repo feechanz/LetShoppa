@@ -39,7 +39,7 @@ public class JSONParser {
 
     }
     public JSONObject makeHttpRequest(String url, String method,
-                                      List<NameValuePair> params, File file) {
+                                      List<NameValuePair> params, File file, String varName) {
         jObj= null;
 
         // Making HTTP request
@@ -54,7 +54,7 @@ public class JSONParser {
 
                 FileBody fileBody = new FileBody(file);
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-                reqEntity.addPart("profilepicture",fileBody);
+                reqEntity.addPart(varName,fileBody);
                 for(NameValuePair item:params)
                 {
                     reqEntity.addPart(item.getName(),new StringBody(item.getValue()));

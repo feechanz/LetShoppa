@@ -154,7 +154,7 @@ public class MyShopProductFragment extends Fragment {
     public void onResume()
     {
         super.onResume();
-        mAdapter.notifyDataSetChanged();
+        fetchShopAsync(0);
     }
     /*
     public class MyProductRefreshLoadTask extends AsyncTask<Void, Void, Boolean> {

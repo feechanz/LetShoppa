@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-
     <ImageView
         android:id="@+id/id_icon_product"
         android:layout_width="35pt"
@@ -19,6 +18,25 @@
         android:layout_weight="0.8"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:layout_marginRight="2dp"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                android:text="@string/from_"/>
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                android:text="@string/prompt_name"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/namaProductTextView"
@@ -27,7 +45,25 @@
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="8pt"
             android:text="@string/prompt_product_name"/>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:layout_marginRight="2dp"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                android:text="@string/shop_"/>
+            <TextView
+                android:id="@+id/shopNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                android:text="@string/shops_name"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,7 +180,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:text="@string/accept"/>
+                android:text="@string/reject"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

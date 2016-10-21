@@ -1,5 +1,6 @@
 package com.letshoppa.feechan.letshoppa.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -164,6 +165,8 @@ public class MyShopFragment extends Fragment {
         String messagejson;
         int successjson;
 
+        ProgressDialog dialog;
+
         public MyShopRefreshLoadTask(String url, int accountid, SwipeRefreshLayout swipeContainer) {
             this.url = url;
             this.accountid = accountid;
@@ -172,6 +175,8 @@ public class MyShopFragment extends Fragment {
             messagejson="";
             shops = new ArrayList();
 
+            dialog = ProgressDialog.show(getActivity(), "", getString(R.string.please_wait), true);
+            dialog.setCancelable(false);
         }
         JSONArray myshops = null;
         List shops;
@@ -241,6 +246,7 @@ public class MyShopFragment extends Fragment {
             {
                 swipeContainer.setRefreshing(false);
             }
+            dialog.dismiss();
         }
     }
     @Override
@@ -253,7 +259,7 @@ public class MyShopFragment extends Fragment {
     public void onResume()
     {
         super.onResume();
-        mAdapter.notifyDataSetChanged();
+        fetchShopAsync(0);
     }
     /**
      * This interface must be implemented by activities that contain this

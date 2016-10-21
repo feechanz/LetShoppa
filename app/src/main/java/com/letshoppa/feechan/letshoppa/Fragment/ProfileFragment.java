@@ -177,7 +177,7 @@ public class ProfileFragment extends Fragment {
         List<NameValuePair> param = new ArrayList<NameValuePair>();
         if(AppHelper.currentAccount != null) {
             param.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, AppHelper.currentAccount.getAccountid()));
-            UploadLoadTask task = new UploadLoadTask(url_upload_pp, path, param,getActivity(),new LastMethod());
+            UploadLoadTask task = new UploadLoadTask(url_upload_pp, Account.TAG_PROFILEPICTURE, path, param,getActivity(),new LastMethod());
             task.execute();
         }
         else

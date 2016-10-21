@@ -3,7 +3,6 @@ package com.letshoppa.feechan.letshoppa.AdapterList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.letshoppa.feechan.letshoppa.Class.AppHelper;
+import com.letshoppa.feechan.letshoppa.Class.ChangeOrderTask;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Order;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
 import com.letshoppa.feechan.letshoppa.R;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,12 +45,36 @@ public class OrderItemAdapter extends ArrayAdapter
         openShopIntent.putExtra(Toko.TAG_TOKO,toko);
         context.startActivity(openShopIntent);
     }*/
+    public void initializePurchasedOrder(View view,final Order pesanan)
+    {
+        TextView statusTextView = (TextView) view.findViewById(R.id.statusTextView);
+        Button firstBtn = (Button) view.findViewById(R.id.firstButton);
+        Button secondBtn = (Button) view.findViewById(R.id.secondButton);
+        firstBtn.setVisibility(View.GONE);
+        secondBtn.setVisibility(View.GONE);
+        if(pesanan.getStatusorder() == 2)
+        {
+            //proses
+            statusTextView.setText(context.getString(R.string.wanttobuy));
+        }
+        else if(pesanan.getStatusorder() == 3)
+        {
+            //purchased
+            statusTextView.setText(context.getString(R.string.purchased));
+        }
+        else if(pesanan.getStatusorder() == 0)
+        {
+            //cancelled
+            statusTextView.setText(context.getString(R.string.cancelled));
+        }
+        //statusTextView.setText(context.getString(R.string.wanttobuy));
+    }
     public void initializeCartOrder(View view,final Order pesanan)
     {
         TextView statusTextView = (TextView) view.findViewById(R.id.statusTextView);
         Button firstBtn = (Button) view.findViewById(R.id.firstButton);
         Button secondBtn = (Button) view.findViewById(R.id.secondButton);
-        statusTextView.setText(context.getString(R.string.wanttobuy));
+        statusTextView.setText(context.getString(R.string.incart));
         firstBtn.setText(context.getString(R.string.buy));
         secondBtn.setText(context.getString(R.string.cancel));
 
@@ -85,7 +101,7 @@ public class OrderItemAdapter extends ArrayAdapter
                 {
                     case DialogInterface.BUTTON_POSITIVE:
                         //change status
-                        ChangeOrderTask task = new ChangeOrderTask(pesanan.getOrderid(),newstatus);
+                        ChangeOrderTask task = new ChangeOrderTask(pesanan.getOrderid(),newstatus,context,refreshMethod);
                         task.execute();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -134,6 +150,7 @@ public class OrderItemAdapter extends ArrayAdapter
         TextView priceTextView = (TextView) viewToUse.findViewById(R.id.priceTextView);
         TextView qtyTextView = (TextView) viewToUse.findViewById(R.id.qtyTextView);
         TextView totalTextView = (TextView) viewToUse.findViewById(R.id.totalTextView);
+        TextView dateTextView = (TextView) viewToUse.findViewById(R.id.dateTextView);
 
 
         ImageView iconProductImageView = (ImageView) viewToUse.findViewById(R.id.id_icon_product);
@@ -144,11 +161,16 @@ public class OrderItemAdapter extends ArrayAdapter
             qtyTextView.setText(String.valueOf(item.getJumlahproduk()));
             double total = item.getJumlahproduk() * item.getHargaproduk();
             totalTextView.setText(String.valueOf(total));
+            dateTextView.setText(item.getTanggalorder().toString());
             ImageLoadTask loadShopTask = new ImageLoadTask(item.getGambarproduk(), iconProductImageView);
             loadShopTask.execute();
             if(item.getStatusorder()==1)
             {
                 initializeCartOrder(viewToUse,item);
+            }
+            else
+            {
+                initializePurchasedOrder(viewToUse,item);
             }
         }
         /*viewToUse.setOnClickListener(new View.OnClickListener() {
@@ -169,66 +191,5 @@ public class OrderItemAdapter extends ArrayAdapter
     }
 
 
-    public class ChangeOrderTask extends AsyncTask<Void, Void, Boolean> {
-        private String url = AppHelper.domainURL + "/AndroidConnect/PutStatusOrder.php";
-        private int successjson;
-        private String messagejson;
 
-        int orderid;
-        int statusorder;
-
-        public ChangeOrderTask(int orderid, int statusorder) {
-            messagejson="";
-            successjson=-1;
-            this.orderid = orderid;
-            this.statusorder = statusorder;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params)
-        {
-            List<NameValuePair> parameter = new ArrayList<NameValuePair>();
-            parameter.add(new BasicNameValuePair(Order.TAG_ORDERID, String.valueOf(orderid)));
-            parameter.add(new BasicNameValuePair(Order.TAG_STATUSORDER, String.valueOf(statusorder)));
-
-            JSONObject json = AppHelper.GetJsonObject(url, "POST", parameter);
-            if (json != null) {
-                try {
-                    successjson = json.getInt(AppHelper.TAG_SUCCESS);
-                    messagejson = json.getString(AppHelper.TAG_MESSAGE);
-                    if (successjson == 1)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                } catch (JSONException e) {
-                    successjson = 3;
-                    if (AppHelper.Message != "") {
-                        messagejson = AppHelper.Message;
-                    } else {
-                        messagejson = e.getMessage();
-                    }
-                    return false;
-                }
-            } else {
-                successjson = 3;
-                messagejson = AppHelper.ConnectionFailed;
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success)
-        {
-            if (success)
-            {
-                refreshMethod.refresh();
-            }
-            Toast.makeText(context, messagejson, Toast.LENGTH_SHORT).show();
-            //set refresh off
-        }
-    }
 }

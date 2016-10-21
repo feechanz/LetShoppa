@@ -30,9 +30,11 @@ public class UploadLoadTask extends AsyncTask<Void, Void, Boolean> {
     //private ProgressBar progressBar;
     ProgressDialog dialog;
     IUploadFinalMethod finalMethod;
+    String varName;
 
-    public UploadLoadTask(String url, String pathFile, List<NameValuePair> parameter, Activity activity, IUploadFinalMethod finalMethod) {
+    public UploadLoadTask(String url, String varName, String pathFile, List<NameValuePair> parameter, Activity activity, IUploadFinalMethod finalMethod) {
         this.url = url;
+        this.varName = varName;
         this.pathFile = pathFile;
         this.parameter = parameter;
         this.activity = activity;
@@ -50,7 +52,7 @@ public class UploadLoadTask extends AsyncTask<Void, Void, Boolean> {
         File file = new File(pathFile);
         if(file != null)
         {
-            JSONObject json = AppHelper.GetJsonObject(url, "POST", parameter, file);
+            JSONObject json = AppHelper.GetJsonObject(url, "POST", parameter, file,varName);
             if (json != null)
             {
                 try {

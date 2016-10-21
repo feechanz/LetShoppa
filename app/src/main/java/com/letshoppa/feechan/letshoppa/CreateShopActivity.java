@@ -210,7 +210,6 @@ public class CreateShopActivity extends AppCompatActivity {
     double longitudeShop ;
     private void setGPS()
     {
-
         Button mButtonSetLocation = (Button) findViewById(R.id.set_location_button);
         mButtonSetLocation.setOnClickListener(new View.OnClickListener() {
             @Override

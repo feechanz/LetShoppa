@@ -31,10 +31,21 @@
     <string name="Total_price_">Total Price : Rp. </string>
     <string name="Status_">Status : </string>
     <string name="posthint">What\'s on your mind?</string>
-
+    <string name="from_">From : </string>
+    <string name="shop_">Shop : </string>
+    <string name="date_">Date : </string>
+    <string name="date">Date</string>
     <string name="wanttobuy">Want to Buy</string>
+    <string name="incart">In Cart</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="purchased">Purchased</string>
+
+    <string name="status_product">Status Product</string>
+
     <string name="buy">Buy</string>
     <string name="prompt_cancel_order">Cancel order</string>
+    <string name="prompt_reject_order">Reject order</string>
+    <string name="prompt_accept_order">Accept order</string>
     <string name="prompt_buy_product">Buy this product</string>
 
     <string name="shops_owner">Shop\'s Owner</string>
@@ -271,6 +282,8 @@
     <string name="add_your_product">Add your Product</string>
     <string name="id_error">Error ID</string>
     <string name="unknown_error">Unknown Error</string>
+    <string name="reject">Reject</string>
+    <string name="accepted">Accepted</string>
     <string-array name="profile_people_array">
         <item>Followed</item>
         <item>Following</item>

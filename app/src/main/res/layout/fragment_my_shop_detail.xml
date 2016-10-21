@@ -79,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:id="@+id/deskripsiText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
@@ -86,7 +87,6 @@
                 android:lines="5"
                 android:layout_weight="5"
                 android:scrollHorizontally="false"
-                android:id="@+id/deskripsiText"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/back"/>

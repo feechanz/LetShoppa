@@ -19,17 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Feechan on 10/18/2016.
+ * Created by Feechan on 10/19/2016.
  */
 
-public class OrderLoadTask extends AsyncTask<Void, Void, Boolean> {
+public class MyOrderLoadTask extends AsyncTask<Void, Void, Boolean> {
 
     SwipeRefreshLayout swipeContainer;
     private String url;
     private int accountid;
-    private int statusorder;
-    ArrayAdapter mAdapter;
 
+    ArrayAdapter mAdapter;
     String messagejson;
     int successjson;
 
@@ -38,11 +37,10 @@ public class OrderLoadTask extends AsyncTask<Void, Void, Boolean> {
     List orders;
 
     ProgressDialog dialog;
-    public OrderLoadTask(String url,int accountid,int statusorder, SwipeRefreshLayout swipeContainer, ArrayAdapter mAdapter, Activity activity) {
+    public MyOrderLoadTask(String url,int accountid, SwipeRefreshLayout swipeContainer, ArrayAdapter mAdapter, Activity activity) {
         this.mAdapter = mAdapter;
         this.url = url;
         this.accountid = accountid;
-        this.statusorder = statusorder;
         this.swipeContainer = swipeContainer;
         this.activity = activity;
         successjson = -1;
@@ -57,7 +55,6 @@ public class OrderLoadTask extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... params) {
         List<NameValuePair> parameter = new ArrayList<NameValuePair>();
         parameter.add(new BasicNameValuePair(Order.TAG_ACCOUNTID, String.valueOf(accountid)));
-        parameter.add(new BasicNameValuePair(Order.TAG_STATUSORDER, String.valueOf(statusorder)));
 
         JSONObject json = AppHelper.GetJsonObject(url, "POST", parameter);
         if (json != null) {
@@ -72,10 +69,6 @@ public class OrderLoadTask extends AsyncTask<Void, Void, Boolean> {
                         Order neworder = Order.GetOrderFromJson(orderobject);
                         orders.add(neworder);
                     }
-                    return true;
-                }
-                else if(successjson == 0)
-                {
                     return true;
                 }
                 else
@@ -99,15 +92,16 @@ public class OrderLoadTask extends AsyncTask<Void, Void, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(final Boolean success) {
-        if (!success)
-        {
-            Toast.makeText(activity, messagejson, Toast.LENGTH_SHORT).show();
-        }
-        else
+    protected void onPostExecute(final Boolean success)
+    {
+        if (success)
         {
             mAdapter.clear();
             mAdapter.addAll(orders);
+        }
+        else
+        {
+            Toast.makeText(activity, messagejson, Toast.LENGTH_SHORT).show();
         }
         //set refresh off
         if(swipeContainer != null)

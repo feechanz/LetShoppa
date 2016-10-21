@@ -24,6 +24,8 @@ public class Order {
     public static final String TAG_JUMLAHPRODUK = "jumlahproduk";
     public static final String TAG_PRODUKID = "produkid";
     public static final String TAG_GAMBARPRODUK = "gambarproduk";
+    public static final String TAG_NAMATOKO = "namatoko";
+    public static final String TAG_NAMAPEMBELI = "namapembeli";
 
     private int orderid;
     private Timestamp tanggalorder;
@@ -34,6 +36,9 @@ public class Order {
     private double hargaproduk;
     private int jumlahproduk;
     private int produkid;
+    private String namatoko;
+    private String namapembeli;
+
 
 
 
@@ -128,6 +133,22 @@ public class Order {
         this.gambarproduk = gambarproduk;
     }
 
+    public String getNamatoko() {
+        return namatoko;
+    }
+
+    public void setNamatoko(String namatoko) {
+        this.namatoko = namatoko;
+    }
+
+    public String getNamapembeli() {
+        return namapembeli;
+    }
+
+    public void setNamapembeli(String namapembeli) {
+        this.namapembeli = namapembeli;
+    }
+
     public static Order GetOrderFromJson(JSONObject jsonObject)
     {
         try {
@@ -142,6 +163,8 @@ public class Order {
             order.setJumlahproduk(jsonObject.getInt(Order.TAG_JUMLAHPRODUK));
             order.setProdukid(jsonObject.getInt(Order.TAG_PRODUKID));
             order.setGambarproduk(jsonObject.getString(Order.TAG_GAMBARPRODUK));
+            order.setNamapembeli(jsonObject.getString(Order.TAG_NAMAPEMBELI));
+            order.setNamatoko(jsonObject.getString(Order.TAG_NAMATOKO));
             return order;
         }
         catch(JSONException e)
