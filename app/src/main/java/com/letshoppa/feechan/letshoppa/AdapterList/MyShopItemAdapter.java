@@ -49,6 +49,7 @@ public class MyShopItemAdapter extends ArrayAdapter
         TextView locationTextView = (TextView) viewToUse.findViewById(R.id.locationTokoTextView);
         ImageView iconShopImageView = (ImageView) viewToUse.findViewById(R.id.id_icon_shop);
         ImageButton editShopImageButton = (ImageButton) viewToUse.findViewById(R.id.id_icon_action);
+        TextView statusTextView = (TextView) viewToUse.findViewById(R.id.statusTextView);
 
         editShopImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +64,14 @@ public class MyShopItemAdapter extends ArrayAdapter
         namaKategoriTextView.setText(item.getNamajenis());
         namaTokoTextView.setText(item.getNamatoko());
         locationTextView.setText(context.getString(R.string.location)+" : "+ item.getLokasitoko());
+        if(item.getStatustoko()==1)
+        {
+            statusTextView.setText(context.getString(R.string.buka));
+        }
+        else
+        {
+            statusTextView.setText(context.getString(R.string.tutup));
+        }
 
         return viewToUse;
     }

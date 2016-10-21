@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Produk;
+import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.MyProductDetailActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
@@ -25,15 +26,19 @@ import java.util.List;
 public class MyShopProductItemAdapter extends ArrayAdapter
 {
     private Context context;
+    private int jenistokoid;
 
-    public MyShopProductItemAdapter(Context context, List items) {
+    public MyShopProductItemAdapter(Context context, List items, int jenistokoid) {
         super(context, -1, items);
         this.context = context;
+        this.jenistokoid = jenistokoid;
     }
     public void openProduk(Produk produk)
     {
         Intent openProductIntent = new Intent(context,MyProductDetailActivity.class);
+
         openProductIntent.putExtra(Produk.TAG_PRODUK,produk);
+        openProductIntent.putExtra(Toko.TAG_JENISTOKOID,jenistokoid);
         context.startActivity(openProductIntent);
     }
     public View getView(int position, View convertView, ViewGroup parent)
@@ -50,7 +55,7 @@ public class MyShopProductItemAdapter extends ArrayAdapter
         TextView hargaProdukTextView = (TextView) viewToUse.findViewById(R.id.hargaProdukTextView);
         ImageView iconProductImageView = (ImageView) viewToUse.findViewById(R.id.id_icon_product);
         ImageButton editProductImageButton = (ImageButton) viewToUse.findViewById(R.id.id_icon_action);
-
+        TextView statusTextView = (TextView) viewToUse.findViewById(R.id.statusTextView);
         editProductImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +69,18 @@ public class MyShopProductItemAdapter extends ArrayAdapter
         namaKategoriTextView.setText(item.getNamakategori());
         namaProdukTextView.setText(item.getNamaproduk());
         hargaProdukTextView.setText(String.valueOf(item.getHargaproduk()));
+        if(item.getStatusproduk()==1)
+        {
+            statusTextView.setText(context.getString(R.string.dijual));
+        }
+        else if(item.getStatusproduk() == 2)
+        {
+            statusTextView.setText(context.getString(R.string.habis));
+        }
+        else
+        {
+            statusTextView.setText(context.getString(R.string.tidak_dijual));
+        }
 
         return viewToUse;
     }

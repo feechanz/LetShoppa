@@ -41,7 +41,7 @@ public class ShopProductItemAdapter extends ArrayAdapter
         TextView namaProdukTextView = (TextView) viewToUse.findViewById(R.id.namaProductTextView);
         TextView hargaProdukTextView = (TextView) viewToUse.findViewById(R.id.hargaProdukTextView);
         ImageView iconProductImageView = (ImageView) viewToUse.findViewById(R.id.id_icon_product);
-
+        TextView statusTextView = (TextView) viewToUse.findViewById(R.id.statusTextView);
         //load produk image
         ImageLoadTask loadSProdukTask = new ImageLoadTask(item.getGambarproduk(),iconProductImageView);
         loadSProdukTask.execute();
@@ -49,6 +49,19 @@ public class ShopProductItemAdapter extends ArrayAdapter
         namaKategoriTextView.setText(item.getNamakategori());
         namaProdukTextView.setText(item.getNamaproduk());
         hargaProdukTextView.setText(String.valueOf(item.getHargaproduk()));
+
+        if(item.getStatusproduk()==1)
+        {
+            statusTextView.setText(context.getString(R.string.dijual));
+        }
+        else if(item.getStatusproduk() == 2)
+        {
+            statusTextView.setText(context.getString(R.string.habis));
+        }
+        else
+        {
+            statusTextView.setText(context.getString(R.string.tidak_dijual));
+        }
 
         return viewToUse;
     }

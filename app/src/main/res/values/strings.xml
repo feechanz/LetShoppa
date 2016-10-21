@@ -50,6 +50,14 @@
 
     <string name="shops_owner">Shop\'s Owner</string>
 
+
+    <string name="buka">Buka</string>
+    <string name="tutup">Tutup</string>
+
+    <string name="dijual">Dijual</string>
+    <string name="habis">Habis</string>
+    <string name="tidak_dijual">Tidak Dijual</string>
+
     <color name="White">#FFFFFF</color>
     <color name="Ivory">#FFFFF0</color>
     <color name="LightYellow">#FFFFE0</color>

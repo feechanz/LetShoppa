@@ -54,6 +54,14 @@
                 android:textAppearance="?attr/textAppearanceListItemSmall"
                 android:text="@string/product_price"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8pt"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            android:text="@string/status"/>
     </LinearLayout>
 
 </LinearLayout>

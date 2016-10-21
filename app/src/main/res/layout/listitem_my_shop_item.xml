@@ -44,6 +44,13 @@
             android:textAppearance="?attr/textAppearanceListItemSmall"
             android:text="@string/shops_location"/>
 
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8pt"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            android:text="@string/status"/>
     </LinearLayout>
 
     <ImageButton

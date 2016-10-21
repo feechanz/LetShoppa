@@ -1,15 +1,19 @@
 package com.letshoppa.feechan.letshoppa;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,9 +22,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.AdapterList.JenistokoAdapter;
+import com.letshoppa.feechan.letshoppa.AdapterList.KategoriprodukItemAdapter;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.Jenistoko;
+import com.letshoppa.feechan.letshoppa.Class.Kategoriproduk;
 import com.letshoppa.feechan.letshoppa.Class.Produk;
+import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.Class.UpdateDataTask;
 import com.letshoppa.feechan.letshoppa.Class.UploadLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Utility;
@@ -28,6 +37,9 @@ import com.letshoppa.feechan.letshoppa.Interface.IUploadFinalMethod;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -62,10 +74,13 @@ public class MyProductDetailActivity extends AppCompatActivity {
     ImageView productImageView;
     Button changePictureButton;
 
+    int jenistokoid;
+
     private void initializeProduct()
     {
         Intent i = this.getIntent();
         currentProduk = (Produk) i.getSerializableExtra(Produk.TAG_PRODUK);
+        jenistokoid = i.getIntExtra(Toko.TAG_JENISTOKOID,0);
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         deskripsiEditText = (EditText) findViewById(R.id.deskripsiText);
@@ -256,6 +271,11 @@ public class MyProductDetailActivity extends AppCompatActivity {
         if(currentProduk != null)
         {
             //set spinner category product
+            List listkategori = new ArrayList();
+            ArrayAdapter mAdapter = new KategoriprodukItemAdapter(MyProductDetailActivity.this, listkategori);
+            kategoriProdukSpinner.setAdapter(mAdapter);
+            EditLoadKategoriTask kategoriTask = new EditLoadKategoriTask(this,jenistokoid,mAdapter);
+            kategoriTask.execute();
         }
     }
 
@@ -264,6 +284,29 @@ public class MyProductDetailActivity extends AppCompatActivity {
         if(currentProduk != null)
         {
             //set spinner status product
+            List listJenisToko = new ArrayList();
+            listJenisToko.add(new Jenistoko(1,getString(R.string.dijual)));
+            listJenisToko.add(new Jenistoko(2,getString(R.string.habis)));
+            listJenisToko.add(new Jenistoko(3,getString(R.string.tidak_dijual)));
+
+            final ArrayAdapter mAdapter = new JenistokoAdapter(MyProductDetailActivity.this, listJenisToko);
+            statusProdukSpinner.setAdapter(mAdapter);
+
+            if(currentProduk.getStatusproduk() == 1)
+            {
+                //dijual
+                statusProdukSpinner.setSelection(0);
+            }
+            else if(currentProduk.getStatusproduk() == 2)
+            {
+                //habis
+                statusProdukSpinner.setSelection(1);
+            }
+            else
+            {
+                //tidak dijual
+                statusProdukSpinner.setSelection(2);
+            }
         }
     }
 
@@ -436,4 +479,89 @@ public class MyProductDetailActivity extends AppCompatActivity {
             Toast.makeText(MyProductDetailActivity.this, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show();
         }
     }
+
+    public class EditLoadKategoriTask extends AsyncTask<Void, Void, Boolean> {
+        Activity activity;
+        int jenistokoid;
+        ArrayAdapter mAdapter;
+        String messagejson;
+        int successjson;
+        Dialog dialog;
+        String url = AppHelper.domainURL+"/AndroidConnect/GetAllKategoriProdukByJenistokoid.php";
+
+        JSONArray mykategoris = null;
+        List kategoris;
+
+        public EditLoadKategoriTask(Activity activity, int jenistokoid, ArrayAdapter mAdapter) {
+            this.activity = activity;
+            this.jenistokoid = jenistokoid;
+            this.mAdapter = mAdapter;
+
+            dialog = ProgressDialog.show(activity, "", activity.getString(R.string.please_wait), true);
+            dialog.setCancelable(false);
+            kategoris = new ArrayList();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+            parameter.add(new BasicNameValuePair(Toko.TAG_JENISTOKOID, String.valueOf(jenistokoid)));
+            JSONObject json = AppHelper.GetJsonObject(url,"POST",parameter);
+            if(json != null)
+            {
+                try
+                {
+                    successjson = json.getInt(AppHelper.TAG_SUCCESS);
+                    messagejson = json.getString(AppHelper.TAG_MESSAGE);
+                    if (successjson == 1) {
+                        mykategoris = json.getJSONArray(Kategoriproduk.TAG_KATEGORIPRODUK);
+
+                        for (int i = 0; i < mykategoris.length(); i++) {
+                            JSONObject kategoriobject = mykategoris.getJSONObject(i);
+                            Kategoriproduk kategori = Kategoriproduk.GetKategoriprodukFromJson(kategoriobject);
+                            kategoris.add(kategori);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                catch (JSONException e)
+                {
+                    successjson = 3;
+                    messagejson = e.getMessage();
+                    return false;
+                }
+            }
+            else
+            {
+                successjson = 3;
+                messagejson = AppHelper.ConnectionFailed;
+                return false;
+            }
+        }
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success)
+            {
+                mAdapter.clear();
+                mAdapter.addAll(kategoris);
+                int idx =0;
+                for(int i =0;i<kategoris.size();i++)
+                {
+                    if( ((Kategoriproduk) kategoris.get(i)).getKategoriprodukid() == currentProduk.getKategoriprodukid()) {
+                        idx = i;
+                        break;
+                    }
+                }
+                kategoriProdukSpinner.setSelection(idx);
+            }
+            else
+            {
+                Toast.makeText(activity, messagejson, Toast.LENGTH_SHORT).show();
+            }
+            dialog.dismiss();
+        }
+    }
+
 }

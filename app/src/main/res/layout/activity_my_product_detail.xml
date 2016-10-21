@@ -159,7 +159,7 @@
             <Spinner
                 android:id="@+id/kategoriproductspinner"
                 android:layout_width="match_parent"
-                android:layout_height="25pt"
+                android:layout_height="wrap_content"
                 android:background="@android:drawable/spinner_background"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -197,7 +197,7 @@
             <Spinner
                 android:id="@+id/statusprodukspinner"
                 android:layout_width="match_parent"
-                android:layout_height="25pt"
+                android:layout_height="wrap_content"
                 android:background="@android:drawable/spinner_background"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"

@@ -100,21 +100,23 @@ public class MyShopProductFragment extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.MyProductsListView);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         listMyProducts = new ArrayList();
-        mAdapter = new MyShopProductItemAdapter(getActivity(),listMyProducts);
+        if(currentShop!=null) {
+            mAdapter = new MyShopProductItemAdapter(getActivity(), listMyProducts, currentShop.getJenistokoid());
 
-        listView.setAdapter(mAdapter);
+            listView.setAdapter(mAdapter);
 
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
-                fetchShopAsync(0);
-            }
-        });
-        ProductRefreshLoadTask loadTask = new ProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer, mAdapter, getActivity());
-        loadTask.execute((Void) null);
+            swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    // Your code to refresh the list here.
+                    // Make sure you call swipeContainer.setRefreshing(false)
+                    // once the network request has completed successfully.
+                    fetchShopAsync(0);
+                }
+            });
+            ProductRefreshLoadTask loadTask = new ProductRefreshLoadTask(url, Integer.valueOf(currentShop.getTokoid()), swipeContainer, mAdapter, getActivity());
+            loadTask.execute((Void) null);
+        }
     }
 
     public void fetchShopAsync(int page)

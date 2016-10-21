@@ -16,16 +16,20 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.AdapterList.JenistokoAdapter;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.GpsService;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.Jenistoko;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.Class.UpdateDataTask;
 import com.letshoppa.feechan.letshoppa.Class.UploadLoadTask;
@@ -107,6 +111,7 @@ public class MyShopDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_shop_detail, container, false);
         initializeDetailShop(view);
         initializeButton(view);
+        initializeSpinnerStatus(view);
         return view;
     }
 
@@ -183,6 +188,29 @@ public class MyShopDetailFragment extends Fragment {
                 changePicture(view);
             }
         });
+    }
+
+    private void initializeSpinnerStatus(View view)
+    {
+        List listJenisToko = new ArrayList();
+        listJenisToko.add(new Jenistoko(1,getString(R.string.buka)));
+        listJenisToko.add(new Jenistoko(2,getString(R.string.tutup)));
+
+        final ArrayAdapter mAdapter = new JenistokoAdapter(getActivity(), listJenisToko);
+        Spinner spinner = (Spinner) view.findViewById(R.id.statusshopspinner);
+        spinner.setAdapter(mAdapter);
+
+        if(currentShop!=null)
+        {
+            if(currentShop.getStatustoko() == 1)
+            {
+                spinner.setSelection(0);
+            }
+            else
+            {
+                spinner.setSelection(1);
+            }
+        }
     }
 
     GpsService gps;

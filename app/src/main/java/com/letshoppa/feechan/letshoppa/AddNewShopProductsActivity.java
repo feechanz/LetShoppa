@@ -59,7 +59,7 @@ public class AddNewShopProductsActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.MyProductsListView);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         listMyProducts = new ArrayList();
-        mAdapter = new MyShopProductItemAdapter(AddNewShopProductsActivity.this,listMyProducts);
+        mAdapter = new MyShopProductItemAdapter(AddNewShopProductsActivity.this,listMyProducts,currentShop.getJenistokoid());
 
         listView.setAdapter(mAdapter);
 
