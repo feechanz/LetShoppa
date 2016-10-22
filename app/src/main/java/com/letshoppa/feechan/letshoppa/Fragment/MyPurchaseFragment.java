@@ -92,7 +92,7 @@ public class MyPurchaseFragment extends Fragment {
                 fetchShopAsync(0);
             }
         }
-        mAdapter = new OrderItemAdapter(getActivity(),listOrders,new RefreshMethod());
+        mAdapter = new OrderItemAdapter(getActivity(),listOrders,new RefreshMethod(),getActivity());
         listView.setAdapter(mAdapter);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

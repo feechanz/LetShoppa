@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
 import com.letshoppa.feechan.letshoppa.R;
 
 import org.apache.http.NameValuePair;
@@ -24,14 +25,19 @@ public class UpdateDataTask extends AsyncTask<Void, Void, Boolean> {
     private String url;
     List<NameValuePair> parameter;
     ProgressDialog dialog;
-
+    IRefreshMethod refreshMethod;
     private Activity activity;
 
     public UpdateDataTask(String url, List<NameValuePair> parameter, Activity activity) {
+        this(url,parameter,activity,null);
+
+    }
+
+    public UpdateDataTask(String url, List<NameValuePair> parameter, Activity activity, IRefreshMethod refreshMethod) {
         this.parameter = parameter;
         this.activity = activity;
         this.url = url;
-
+        this.refreshMethod = refreshMethod;
         messagejson="";
         successjson=-1;
 
@@ -87,6 +93,10 @@ public class UpdateDataTask extends AsyncTask<Void, Void, Boolean> {
         if (success)
         {
             //refreshMethod.refresh();
+            if(refreshMethod != null)
+            {
+                refreshMethod.refresh();
+            }
         }
         dialog.dismiss();
         Toast.makeText(activity, messagejson, Toast.LENGTH_SHORT).show();

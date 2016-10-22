@@ -12,12 +12,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ChangeOrderTask;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Order;
+import com.letshoppa.feechan.letshoppa.Class.UpdateDataTask;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
 import com.letshoppa.feechan.letshoppa.R;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,12 +34,14 @@ public class OrderItemAdapter extends ArrayAdapter
 {
     private Context context;
     private IRefreshMethod refreshMethod;
+    private Activity activity;
 
-    public OrderItemAdapter(Context context, List items,IRefreshMethod refreshMethod) {
+    public OrderItemAdapter(Context context, List items,IRefreshMethod refreshMethod,Activity activity) {
         super(context, -1, items);
+
         this.context = context;
         this.refreshMethod = refreshMethod;
-
+        this.activity = activity;
     }
 
 
@@ -114,7 +122,7 @@ public class OrderItemAdapter extends ArrayAdapter
                 .setPositiveButton(context.getString(R.string.yes),dialogClickListener).
                 setNegativeButton(context.getString(R.string.no),dialogClickListener).show();
     }
-    private void deleteOrderDialog(Order pesanan)
+    private void deleteOrderDialog(final Order pesanan)
     {
         DialogInterface.OnClickListener dialogClickListener =new DialogInterface.OnClickListener()
         {
@@ -124,6 +132,11 @@ public class OrderItemAdapter extends ArrayAdapter
                 {
                     case DialogInterface.BUTTON_POSITIVE:
                         //delete
+                        String url= AppHelper.domainURL + "/AndroidConnect/DeleteOrder.php";
+                        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+                        parameter.add(new BasicNameValuePair(Order.TAG_ORDERID,String.valueOf(pesanan.getOrderid())));
+                        UpdateDataTask task = new UpdateDataTask(url,parameter,activity,refreshMethod);
+                        task.execute();
 
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:

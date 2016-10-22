@@ -114,7 +114,6 @@ public class MyOrderFragment extends Fragment {
     {
         if(AppHelper.currentAccount != null)
         {
-
             OrderLoadTask task = new OrderLoadTask(url,Integer.valueOf(AppHelper.currentAccount.getAccountid()),1,swipeContainer,mAdapter,getActivity());
             task.execute((Void) null);
         }

@@ -27,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -83,8 +82,6 @@ public class FollowingFragment extends Fragment {
     }
 
     PeopleExpandableListAdapter mAdapter;
-    private ArrayList<HeaderInfo> headerList;
-    private LinkedHashMap<String, HeaderInfo> myDepartments = new LinkedHashMap<String, HeaderInfo>();
     ExpandableListView peopleExListView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,18 +90,30 @@ public class FollowingFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_following, container, false);
         peopleExListView = (ExpandableListView) view.findViewById(R.id.peopleExpandableListView);
 
-
-
-        FollowingLoadTask task = new FollowingLoadTask(AppHelper.currentAccount.getAccountid());
-        task.execute();
-
+        //setFollowingTask();
         return view;
     }
+
+    private void setFollowingTask()
+    {
+        if(AppHelper.currentAccount != null) {
+            FollowingLoadTask task = new FollowingLoadTask(AppHelper.currentAccount.getAccountid());
+            task.execute();
+        }
+    }
+
     private void openDetailPerson(Account account)
     {
         Intent openPersonIntent = new Intent(getActivity(),PersonActivity.class);
         openPersonIntent.putExtra(Account.TAG_ACCOUNTID,account.getAccountid());
         startActivity(openPersonIntent);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        setFollowingTask();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -293,6 +302,7 @@ public class FollowingFragment extends Fragment {
                 Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
             }
             followed.setProductList(listFollower);
+            listMenu.clear();
             listMenu.add(following);
             listMenu.add(followed);
             mAdapter = new PeopleExpandableListAdapter(getActivity(), listMenu);

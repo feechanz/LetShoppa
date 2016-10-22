@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.UpdateDataTask;
+import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
 import com.letshoppa.feechan.letshoppa.R;
 
 import org.apache.http.NameValuePair;
@@ -84,13 +87,7 @@ public class PeopleDetailFragment extends Fragment {
         Intent i = getActivity().getIntent();
         String accountid = i.getStringExtra(Account.TAG_ACCOUNTID);
 
-        //currentAccount = (Account) i.getSerializableExtra(Account.TAG_ACCOUNT);
-
-        /*if(currentAccount != null)
-        {
-            getActivity().setTitle(currentAccount.getNama());
-        }*/
-        if(accountid != "" ) {
+        if (accountid != "") {
             AccountLoadTask task = new AccountLoadTask(accountid, view);
             task.execute();
         }
@@ -98,40 +95,45 @@ public class PeopleDetailFragment extends Fragment {
     }
 
     TextView mPremiumaServiceTextView;
-    TextView mNameTextView ;
-    TextView mBirthdateTextView ;
-    TextView mGenderTextView ;
+    TextView mNameTextView;
+    TextView mBirthdateTextView;
+    TextView mGenderTextView;
     ImageView mProfileImageView;
+    Button mFollowBtn;
 
 
-    private void initializeViewProfile(View view)
-    {
-        if(currentAccount != null) {
+    private void initializeViewProfile(View view) {
+        if (currentAccount != null) {
             mNameTextView = (TextView) view.findViewById(R.id.nameTextView);
             mBirthdateTextView = (TextView) view.findViewById(R.id.birthdateTextView);
             mGenderTextView = (TextView) view.findViewById(R.id.genderTextView);
             mPremiumaServiceTextView = (TextView) view.findViewById(R.id.premiumServiceTextView);
             mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
+            mFollowBtn = (Button) view.findViewById(R.id.followButton);
 
             mNameTextView.setText(currentAccount.getNama());
             mBirthdateTextView.setText(currentAccount.getBirthdate().toString());
             mGenderTextView.setText(currentAccount.getGender());
             mPremiumaServiceTextView.setText(currentAccount.getPremiumaccount().toString());
+
             ImageLoadTask imageTask = new ImageLoadTask(currentAccount.getLinkgambaraccount(), mProfileImageView);
             imageTask.execute();
         }
     }
 
 
+    ProgressDialog dialog;
+
     public class AccountLoadTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String url_refresh_account = AppHelper.domainURL+"/AndroidConnect/GetAccountByAccountId.php";
+        private final String url_refresh_account = AppHelper.domainURL + "/AndroidConnect/GetAccountByAccountId.php";
         private final String accountid;
-        ProgressDialog dialog;
+
         View view;
         String messagejson;
         int successjson;
-        public AccountLoadTask(String accountid,View view) {
+
+        public AccountLoadTask(String accountid, View view) {
             this.accountid = accountid;
             this.view = view;
             messagejson = "";
@@ -150,44 +152,31 @@ public class PeopleDetailFragment extends Fragment {
                 try {
                     successjson = json.getInt(AppHelper.TAG_SUCCESS);
                     messagejson = json.getString(AppHelper.TAG_MESSAGE);
-                    if (successjson == 1)
-                    {
+                    if (successjson == 1) {
                         JSONArray accountArray = json.getJSONArray(Account.TAG_ACCOUNT);
                         JSONObject accountObj = accountArray.getJSONObject(0);
                         Account account = Account.GetAccountFromJson(accountObj);
-                        if (account != null)
-                        {
+                        if (account != null) {
                             currentAccount = account;
                             return true;
-                        }
-                        else
-                        {
+                        } else {
                             successjson = 3;
                             messagejson = AppHelper.Message;
                             return false;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         return false;
                     }
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     successjson = 3;
-                    if (AppHelper.Message != "")
-                    {
+                    if (AppHelper.Message != "") {
                         messagejson = AppHelper.Message;
-                    }
-                    else
-                    {
+                    } else {
                         messagejson = e.getMessage();
                     }
                     return false;
                 }
-            }
-            else
-            {
+            } else {
                 successjson = 3;
                 messagejson = AppHelper.ConnectionFailed;
                 return false;
@@ -196,18 +185,179 @@ public class PeopleDetailFragment extends Fragment {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            if (success)
-            {
-                if(currentAccount != null) {
+            if (success) {
+                if (currentAccount != null) {
                     initializeViewProfile(view);
                     getActivity().setTitle(currentAccount.getNama());
+                }
+
+            } else {
+                Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
+
+            }
+            if (AppHelper.currentAccount == null) {
+                dialog.dismiss();
+            } else {
+                CekFollowTask task = new CekFollowTask();
+                task.execute();
+                //cek follow
+            }
+        }
+    }
+
+    public class CekFollowTask extends AsyncTask<Void, Void, Boolean> {
+
+        String messagejson;
+        int successjson;
+
+        public CekFollowTask()
+        {
+            messagejson="";
+            successjson=-1;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            if(currentAccount == null || AppHelper.currentAccount == null)
+            {
+                messagejson=getString(R.string.unknown_error);
+                return false;
+            }
+            else if(Integer.valueOf(currentAccount.getAccountid()) == Integer.valueOf(AppHelper.currentAccount.getAccountid()))
+            {
+                return true;
+            }
+            else
+            {
+                List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+                parameter.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, AppHelper.currentAccount.getAccountid()));
+                parameter.add(new BasicNameValuePair(Account.TAG_TARGETACCOUNTID, currentAccount.getAccountid()));
+                String url_get_follow = AppHelper.domainURL + "/AndroidConnect/GetOneFollowingByAccountId.php";
+                JSONObject json = AppHelper.GetJsonObject(url_get_follow, "POST", parameter);
+                if (json != null)
+                {
+                    try {
+                        successjson = json.getInt(AppHelper.TAG_SUCCESS);
+                        messagejson = json.getString(AppHelper.TAG_MESSAGE);
+                        if (successjson == 1)
+                        {
+                            JSONArray accountArray = json.getJSONArray(Account.TAG_ACCOUNT);
+                            JSONObject accountObj = accountArray.getJSONObject(0);
+                            Account account = Account.GetAccountFromJson(accountObj);
+                            if (account != null)
+                            {
+                                currentAccount = account;
+                                return true;
+                            }
+                            else
+                            {
+                                successjson = 3;
+                                messagejson = AppHelper.Message;
+                                return false;
+                            }
+                        }
+                        else if(successjson == 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    }
+                    catch (JSONException e)
+                    {
+                        successjson = 3;
+                        if (AppHelper.Message != "") {
+                            messagejson = AppHelper.Message;
+                        } else {
+                            messagejson = e.getMessage();
+                        }
+                        return false;
+                    }
+                }
+                else
+                {
+                    successjson = 3;
+                    messagejson = AppHelper.ConnectionFailed;
+                    return false;
+                }
+            }
+
+        }
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if(success)
+            {
+                if(successjson==1)
+                {
+                    mFollowBtn.setText(getString(R.string.Unfollow));
+                    mFollowBtn.setEnabled(true);
+                    mFollowBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            unFollowAction();
+                        }
+                    });
+                    //add delete task
+                }
+                else if(successjson==0)
+                {
+                    mFollowBtn.setText(getString(R.string.Follow));
+                    mFollowBtn.setEnabled(true);
+                    mFollowBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FollowAction();
+                        }
+                    });
+                    //add follow task
                 }
             }
             else
             {
+                mFollowBtn.setEnabled(false);
                 Toast.makeText(getActivity(), messagejson, Toast.LENGTH_SHORT).show();
             }
             dialog.dismiss();
         }
+
     }
+
+    public  class RefreshMethod implements IRefreshMethod
+    {
+        @Override
+        public void refresh() {
+            CekFollowTask task = new CekFollowTask();
+            task.execute();
+        }
+    }
+
+    private void unFollowAction()
+    {
+        String url = AppHelper.domainURL + "/AndroidConnect/DeleteFollow.php";
+        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+
+        parameter.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, AppHelper.currentAccount.getAccountid()));
+        parameter.add(new BasicNameValuePair(Account.TAG_TARGETACCOUNTID, currentAccount.getAccountid()));
+
+        UpdateDataTask task = new UpdateDataTask(url,parameter,getActivity(),new RefreshMethod());
+        task.execute();
+    }
+
+    private void FollowAction()
+    {
+        String url = AppHelper.domainURL + "/AndroidConnect/AddFollow.php";
+        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+
+        parameter.add(new BasicNameValuePair(Account.TAG_ACCOUNTID, AppHelper.currentAccount.getAccountid()));
+        parameter.add(new BasicNameValuePair(Account.TAG_TARGETACCOUNTID, currentAccount.getAccountid()));
+
+        UpdateDataTask task = new UpdateDataTask(url,parameter,getActivity(), new RefreshMethod());
+        task.execute();
+
+    }
+
+
 }

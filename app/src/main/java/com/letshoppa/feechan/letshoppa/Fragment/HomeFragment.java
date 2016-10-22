@@ -10,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.PengumumanItemAdapter;
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.PengumumanItem;
 import com.letshoppa.feechan.letshoppa.R;
 
@@ -113,8 +117,24 @@ public class HomeFragment extends Fragment {
                 fetchHomeAsync(0);
             }
         });
+        initializeHome(view);
         // Inflate the layout for this fragment
         return view;//inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    private void initializeHome(View view)
+    {
+        if(!AppHelper.isLoggedIn() || AppHelper.currentAccount == null)
+        {
+            ImageButton sendImageBtn = (ImageButton) view.findViewById(R.id.sendImgButton);
+            TextView sendTextView = (TextView) view.findViewById(R.id.sendTextView);
+            EditText postEditText = (EditText) view.findViewById(R.id.postEditText);
+
+            sendImageBtn.setVisibility(View.GONE);
+            sendTextView.setVisibility(View.GONE);
+            postEditText.setVisibility(View.GONE);
+        }
+
     }
     public void fetchHomeAsync(int page) {
 

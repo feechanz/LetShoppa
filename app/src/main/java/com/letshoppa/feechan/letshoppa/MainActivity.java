@@ -130,10 +130,16 @@ public class MainActivity extends AppCompatActivity
             navigationView.getMenu().clear();
             navigationView.inflateMenu(R.menu.activity_main_drawer_login);
             AppHelper.getAccountFromSession();
+
             loginProfile();
             //HomeFragmentLoad();
         }
-
+        FragmentManager fM = getSupportFragmentManager();
+        Fragment f = fM.findFragmentById(R.id.mainFrame);
+        if(f instanceof RootHomeFragment)
+        {
+            HomeFragmentLoad();
+        }
 
         super.onResume();
     }
@@ -182,6 +188,7 @@ public class MainActivity extends AppCompatActivity
     private void LoginActivityLoad() {
         HideKeyboard();
         startActivity(new Intent(this, LoginActivity.class));
+
     }
 
     private void ShopFragmentLoad() {

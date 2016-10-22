@@ -12,7 +12,10 @@
     <string name="SettingText">Setting</string>
     <string name="ProfileText">Profile</string>
     <string name="MyCartText">My Cart</string>
-    <string name="FollowingText">Following</string>
+    <string name="FollowingText">Follow</string>
+    <string name="Unfollow">Unfollow</string>
+    <string name="Follow">Follow</string>
+    <string name="Following">Following</string>
     <string name="MessageText">Message</string>
     <string name="helloText">Hello</string>
     <string name="MyShopText">My Shop</string>
@@ -47,6 +50,7 @@
     <string name="prompt_reject_order">Reject order</string>
     <string name="prompt_accept_order">Accept order</string>
     <string name="prompt_buy_product">Buy this product</string>
+    <string name="prompt_save_status">Save status</string>
 
     <string name="shops_owner">Shop\'s Owner</string>
 

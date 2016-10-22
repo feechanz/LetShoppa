@@ -188,6 +188,54 @@ public class MyShopDetailFragment extends Fragment {
                 changePicture(view);
             }
         });
+        ImageButton saveStatusImgBtn = (ImageButton) view.findViewById(R.id.saveStatusImageBtn);
+        saveStatusImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveStatus(view);
+            }
+        });
+    }
+
+    private void saveStatus(View view)
+    {
+        Spinner spinner = (Spinner) view.findViewById(R.id.statusshopspinner);
+        Jenistoko selected = (Jenistoko) spinner.getSelectedItem();
+        if(selected != null && currentShop != null)
+        {
+            dialogSaveStatus(selected);
+        }
+    }
+
+    private void dialogSaveStatus(final Jenistoko selected)
+    {
+        DialogInterface.OnClickListener dialogClickListener =new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which)
+                {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //change status
+
+                        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+                        String statusbaru = String.valueOf(selected.getJenistokoid());
+                        parameter.add(new BasicNameValuePair(Toko.TAG_TOKOID, String.valueOf(currentShop.getTokoid())));
+                        parameter.add(new BasicNameValuePair(Toko.TAG_STATUSTOKO, statusbaru));
+
+                        String url = AppHelper.domainURL + "/AndroidConnect/PutTokoStatus.php";
+                        UpdateDataTask task = new UpdateDataTask(url,parameter,getActivity());
+                        task.execute();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(getActivity().getString(R.string.prompt_save_status)+"?")
+                .setPositiveButton(getActivity().getString(R.string.yes),dialogClickListener).
+                setNegativeButton(getActivity().getString(R.string.no),dialogClickListener).show();
     }
 
     private void initializeSpinnerStatus(View view)

@@ -17,6 +17,7 @@ import com.letshoppa.feechan.letshoppa.AdapterList.ShopItemAdapter;
 import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
+import com.letshoppa.feechan.letshoppa.MyShopActivity;
 import com.letshoppa.feechan.letshoppa.R;
 import com.letshoppa.feechan.letshoppa.ShopActivity;
 
@@ -113,9 +114,17 @@ public class PeopleShopFragment extends Fragment {
 
     private void openDetailShop(Toko toko)
     {
-        Intent openShopIntent = new Intent(getActivity(),ShopActivity.class);
-        openShopIntent.putExtra(Toko.TAG_TOKO,toko);
-        startActivity(openShopIntent);
+        if(Integer.valueOf(AppHelper.currentAccount.getAccountid())== Integer.valueOf(toko.getAccountid()))
+        {
+            Intent openShopIntent = new Intent(getActivity(), MyShopActivity.class);
+            openShopIntent.putExtra(Toko.TAG_TOKO, toko);
+            startActivity(openShopIntent);
+        }
+        else {
+            Intent openShopIntent = new Intent(getActivity(), ShopActivity.class);
+            openShopIntent.putExtra(Toko.TAG_TOKO, toko);
+            startActivity(openShopIntent);
+        }
     }
 
     @Override

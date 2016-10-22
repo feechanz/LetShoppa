@@ -218,6 +218,7 @@ public class MyProductDetailActivity extends AppCompatActivity {
         else
         {
             //save data
+            saveKategori();
             editTextView.setText(getString(R.string.Edit));
             editImageButton.setImageResource(android.R.drawable.ic_menu_edit);
         }
@@ -236,6 +237,7 @@ public class MyProductDetailActivity extends AppCompatActivity {
         else
         {
             //save data
+            saveStatus();
             editTextView.setText(getString(R.string.Edit));
             editImageButton.setImageResource(android.R.drawable.ic_menu_edit);
         }
@@ -339,6 +341,36 @@ public class MyProductDetailActivity extends AppCompatActivity {
             task.execute();
         }
     }
+
+    private void saveKategori()
+    {
+        String newkategori = String.valueOf(((Kategoriproduk)kategoriProdukSpinner.getSelectedItem()).getKategoriprodukid());
+        String url = AppHelper.domainURL + "/AndroidConnect/PutProdukKategori.php";
+        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+        if(currentProduk != null) {
+            parameter.add(new BasicNameValuePair(Produk.TAG_PRODUKID, String.valueOf(currentProduk.getProdukid())));
+            parameter.add(new BasicNameValuePair(Produk.TAG_KATEGORIPRODUKID, newkategori));
+
+            UpdateDataTask task = new UpdateDataTask(url,parameter,MyProductDetailActivity.this);
+            task.execute();
+        }
+    }
+
+    private void saveStatus()
+    {
+        String newstatus = String.valueOf(((Jenistoko)statusProdukSpinner.getSelectedItem()).getJenistokoid());
+        String url = AppHelper.domainURL + "/AndroidConnect/PutProdukStatus.php";
+        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+        if(currentProduk != null) {
+            parameter.add(new BasicNameValuePair(Produk.TAG_PRODUKID, String.valueOf(currentProduk.getProdukid())));
+            parameter.add(new BasicNameValuePair(Produk.TAG_STATUSPRODUK, newstatus));
+
+            UpdateDataTask task = new UpdateDataTask(url,parameter,MyProductDetailActivity.this);
+            task.execute();
+        }
+    }
+
+
 
     private int REQUEST_CAMERA=0;
     private int SELECT_FILE=1;
