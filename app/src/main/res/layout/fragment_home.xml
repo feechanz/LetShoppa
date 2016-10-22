@@ -73,6 +73,7 @@
             android:id="@+id/announceListView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:longClickable="true"
             android:divider="@color/Chocolate"
             android:dividerHeight="2pt"
             android:background="@color/Wheat" />

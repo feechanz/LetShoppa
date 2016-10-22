@@ -44,6 +44,12 @@
     <string name="purchased">Purchased</string>
 
     <string name="status_product">Status Product</string>
+    <string name="your_post">Your Post</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="view_person">View Person</string>
+    <string name="prompt_delete_post">Delete Post</string>
+    <string name="action">Action</string>
 
     <string name="buy">Buy</string>
     <string name="prompt_cancel_order">Cancel order</string>

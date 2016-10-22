@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.letshoppa.feechan.letshoppa.Class.PengumumanItem;
+import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.Post;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public class PengumumanItemAdapter extends ArrayAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         //ViewHolder holder = null;
-        PengumumanItem item = (PengumumanItem) getItem(position);
+        Post item = (Post) getItem(position);
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -42,9 +44,15 @@ public class PengumumanItemAdapter extends ArrayAdapter
 
         TextView textViewPenulis = (TextView) viewToUse.findViewById(R.id.pembuatPengumumanTextView);
         TextView textView = (TextView) viewToUse.findViewById(R.id.isiPengumumanTextView);
+        TextView tanggalTextView = (TextView) viewToUse.findViewById(R.id.tanggalTextView);
+        ImageView postPictureImageView = (ImageView) viewToUse.findViewById(R.id.id_icon_home);
 
-        textViewPenulis.setText(item.getPenulisPengumuman());
-        textView.setText( item.getIsiPengumuman() );
+        tanggalTextView.setText(item.getTanggalpost().toString());
+        textViewPenulis.setText(item.getNama());
+        textView.setText( item.getTulisan() );
+
+        ImageLoadTask task = new ImageLoadTask(item.getLinkgambaraccount(),postPictureImageView);
+        task.execute();
         //pokoknya dicopy
 
         /*if (convertView == null) {
