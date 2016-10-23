@@ -114,13 +114,19 @@ public class PeopleShopFragment extends Fragment {
 
     private void openDetailShop(Toko toko)
     {
-        if(Integer.valueOf(AppHelper.currentAccount.getAccountid())== Integer.valueOf(toko.getAccountid()))
-        {
-            Intent openShopIntent = new Intent(getActivity(), MyShopActivity.class);
-            openShopIntent.putExtra(Toko.TAG_TOKO, toko);
-            startActivity(openShopIntent);
+        if(AppHelper.currentAccount != null) {
+            if (Integer.valueOf(AppHelper.currentAccount.getAccountid()) == Integer.valueOf(toko.getAccountid())) {
+                Intent openShopIntent = new Intent(getActivity(), MyShopActivity.class);
+                openShopIntent.putExtra(Toko.TAG_TOKO, toko);
+                startActivity(openShopIntent);
+            } else {
+                Intent openShopIntent = new Intent(getActivity(), ShopActivity.class);
+                openShopIntent.putExtra(Toko.TAG_TOKO, toko);
+                startActivity(openShopIntent);
+            }
         }
-        else {
+        else
+        {
             Intent openShopIntent = new Intent(getActivity(), ShopActivity.class);
             openShopIntent.putExtra(Toko.TAG_TOKO, toko);
             startActivity(openShopIntent);

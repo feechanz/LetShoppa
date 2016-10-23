@@ -101,6 +101,55 @@
             android:layout_width="match_parent"
             android:layout_height="2pt"
             android:background="@color/Black"/>
+        <RatingBar
+            android:id="@+id/inputRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:numStars="5"
+            android:rating="3.0"
+            android:stepSize="1.0"
+            android:progressTint="@color/Yellow"
+
+            />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/reviewEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:gravity="top|left"
+                android:lines="3"
+                android:layout_weight="3"
+                android:scrollHorizontally="false"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/back"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:hint="@string/reviewHint"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:enabled="false"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/saveButton"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="@string/Save"
+            android:textStyle="bold"
+            android:enabled="false"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2pt"
+            android:background="@color/Black"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeContainer"

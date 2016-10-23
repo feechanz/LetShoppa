@@ -43,6 +43,7 @@
     <string name="cancelled">Cancelled</string>
     <string name="purchased">Purchased</string>
 
+    <string name="reviewHint">Your review</string>
     <string name="status_product">Status Product</string>
     <string name="your_post">Your Post</string>
     <string name="edit">Edit</string>

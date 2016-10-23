@@ -19,6 +19,7 @@ public class AppHelper {
     public static Jenistoko tipeShopItem = null;
     public static Account currentAccount = null;
     public static final String ConnectionFailed = "Connection Failed";
+    public static final String NoConnection = "No Connection";
     public static final String NoFile = "No File";
     public static String Message="";
     public static final String TAG_SUCCESS = "success";

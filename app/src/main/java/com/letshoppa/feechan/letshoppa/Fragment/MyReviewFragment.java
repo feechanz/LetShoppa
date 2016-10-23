@@ -5,15 +5,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.letshoppa.feechan.letshoppa.AdapterList.ReviewItemAdapter;
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.ReviewDataLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.ReviewShopLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -77,6 +88,12 @@ public class MyReviewFragment extends Fragment {
     }
 
     Toko currentShop;
+
+    RatingBar ratingBar;
+    TextView scoreRateTextView;
+    TextView countRateTextView;
+    SwipeRefreshLayout swipeContainer;
+    ArrayAdapter mAdapter;
     private void initializeDetailShop(View view)
     {
         Intent i = getActivity().getIntent();
@@ -88,9 +105,52 @@ public class MyReviewFragment extends Fragment {
             shopImageLoad.execute();
             TextView shopNameTextView = (TextView) view.findViewById(R.id.shopNameTextView);
             shopNameTextView.setText(currentShop.getNamatoko());
+
+            initializeReview(view);
         }
     }
 
+    private void initializeReview(View view)
+    {
+        ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
+        scoreRateTextView = (TextView) view.findViewById(R.id.scoreRateTextView);
+        countRateTextView = (TextView) view.findViewById(R.id.countRateTextView);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        ListView myReviewsListView = (ListView) view.findViewById(R.id.MyReviewsListView);
+
+        List listMyReviews = new ArrayList();;
+
+
+        mAdapter = new ReviewItemAdapter(getActivity(), listMyReviews);
+        myReviewsListView.setAdapter(mAdapter);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                fetchReviewAsync(0);
+            }
+        });
+
+        if(currentShop != null) {
+            String url = AppHelper.domainURL + "/AndroidConnect/GetReviewData.php";
+            int tokoid = currentShop.getTokoid();
+            ReviewDataLoadTask task = new ReviewDataLoadTask(url, scoreRateTextView, countRateTextView, ratingBar, tokoid, getActivity());
+            task.execute();
+        }
+        fetchReviewAsync(0);
+    }
+
+    public void fetchReviewAsync(int page) {
+        if (currentShop != null) {
+            String url = AppHelper.domainURL + "/AndroidConnect/GetAllReviewsByTokoIdAndExAccountId.php";
+            int tokoid = currentShop.getTokoid();
+            ReviewShopLoadTask task = new ReviewShopLoadTask(url, tokoid, swipeContainer, mAdapter, getActivity());
+            task.execute();
+        }
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
