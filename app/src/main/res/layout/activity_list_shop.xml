@@ -23,6 +23,11 @@
             android:textSize="10pt"
             android:background="@color/Wheat"
             android:text="There's no shop"/>
+        <Button
+            android:id="@+id/viewLocationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_shop_from_your_location"/>
 
         <android.support.v7.widget.SearchView
             android:layout_width="wrap_content"

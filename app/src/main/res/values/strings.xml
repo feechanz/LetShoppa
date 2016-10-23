@@ -51,7 +51,9 @@
     <string name="incart">In Cart</string>
     <string name="cancelled">Cancelled</string>
     <string name="purchased">Purchased</string>
-
+    <string name="radius">Radius</string>
+    <string name="view_location">View Location</string>
+    <string name="view_shop_from_your_location">View Shop from your Location</string>
     <string name="reviewHint">Your review</string>
     <string name="status_product">Status Product</string>
     <string name="your_post">Your Post</string>
@@ -60,6 +62,9 @@
     <string name="view_person">View Person</string>
     <string name="prompt_delete_post">Delete Post</string>
     <string name="action">Action</string>
+    <string name="distance_">Distance :</string>
+    <string name="distance">Distance</string>
+
 
     <string name="buy">Buy</string>
     <string name="prompt_cancel_order">Cancel order</string>

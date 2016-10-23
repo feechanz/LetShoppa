@@ -22,8 +22,9 @@ public class Toko implements Serializable{
     public static final String TAG_ACCOUNTID = "accountid";
     public static final String TAG_STATUSTOKO = "statustoko";
     public static final String TAG_NAMAJENIS = "namajenis";
-
+    public static final String TAG_JARAK = "jarak";
     public static final String TAG_KEYWORD = "keyword";
+
 
     private int tokoid;
     private String namatoko;
@@ -36,6 +37,7 @@ public class Toko implements Serializable{
     private int accountid;
     private int statustoko;
     private String namajenis;
+    private double jarak;
 
     public Toko()
     {
@@ -129,6 +131,14 @@ public class Toko implements Serializable{
 
     public void setNamajenis(String namajenis) { this.namajenis = namajenis; }
 
+    public double getJarak() {
+        return jarak;
+    }
+
+    public void setJarak(double jarak) {
+        this.jarak = jarak;
+    }
+
     public static Toko GetTokoFromJson(JSONObject jsonObject)
     {
         try {
@@ -145,6 +155,7 @@ public class Toko implements Serializable{
             toko.setAccountid(jsonObject.getInt(Toko.TAG_ACCOUNTID));
             toko.setStatustoko(jsonObject.getInt(Toko.TAG_STATUSTOKO));
             toko.setNamajenis(jsonObject.getString(Toko.TAG_NAMAJENIS));
+            toko.setJarak(jsonObject.getDouble(Toko.TAG_JARAK));
             return toko;
         }
         catch(JSONException e)

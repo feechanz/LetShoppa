@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,14 @@ public class ListShopActivity extends AppCompatActivity {
 
     private void initializeListView()
     {
+        Button viewShopFromLocationBtn = (Button) findViewById(R.id.viewLocationButton);
+        viewShopFromLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openShopByLocation();
+            }
+        });
+
         ListView listView = (ListView) findViewById(R.id.ShopListView);
         searchViewShop = (SearchView) findViewById(R.id.searchViewShop);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -104,6 +113,14 @@ public class ListShopActivity extends AppCompatActivity {
         });
         fetchShopAsync(0);
     }
+
+    private void openShopByLocation()
+    {
+        Intent shopIntent = new Intent(ListShopActivity.this, ViewShopRadiusActivity.class);
+        startActivity(shopIntent);
+    }
+
+
     private void openDetailShop(Toko toko)
     {
         if(AppHelper.currentAccount != null) {

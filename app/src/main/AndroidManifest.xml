@@ -97,7 +97,8 @@
             android:name=".ViewPesanActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".ViewContactActivity" />
-        <activity android:name=".SendMessageActivity"></activity>
+        <activity android:name=".SendMessageActivity" />
+        <activity android:name=".ViewShopRadiusActivity"></activity>
     </application>
 
 </manifest>
