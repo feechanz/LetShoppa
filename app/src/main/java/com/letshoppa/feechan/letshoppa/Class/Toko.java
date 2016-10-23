@@ -23,6 +23,8 @@ public class Toko implements Serializable{
     public static final String TAG_STATUSTOKO = "statustoko";
     public static final String TAG_NAMAJENIS = "namajenis";
 
+    public static final String TAG_KEYWORD = "keyword";
+
     private int tokoid;
     private String namatoko;
     private String deskripsitoko;

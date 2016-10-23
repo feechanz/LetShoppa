@@ -12,6 +12,15 @@
     <string name="SettingText">Setting</string>
     <string name="ProfileText">Profile</string>
     <string name="MyCartText">My Cart</string>
+    <string name="ContactText">Contact</string>
+    <string name="ContactType">Contact type (email,phone,etc)</string>
+    <string name="your_contact">Your Contact</string>
+    <string name="contact_type_">Contact Type : </string>
+    <string name="contact_type">Contact Type</string>
+    <string name="contact_">Contact : </string>
+    <string name="your_contact_list">Your contact list</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="your_primary_email">Your primary email</string>
     <string name="FollowingText">Follow</string>
     <string name="Unfollow">Unfollow</string>
     <string name="Follow">Follow</string>
@@ -58,9 +67,21 @@
     <string name="prompt_accept_order">Accept order</string>
     <string name="prompt_buy_product">Buy this product</string>
     <string name="prompt_save_status">Save status</string>
+    <string name="prompt_delete_contact">Delete contact</string>
 
+    <string name="inbox">Inbox</string>
+    <string name="sentbox">Sentbox</string>
+    <string name="from__">From :</string>
+    <string name="to__">To : </string>
+    <string name="sent_">Sent :</string>
+    <string name="send">Send</string>
+    <string name="reply">Reply</string>
+    <string name="close">Close</string>
     <string name="shops_owner">Shop\'s Owner</string>
+    <string name="edit_contact">Edit Contact</string>
 
+    <string name="view_contact">View Contact</string>
+    <string name="send_message">Send Message</string>
 
     <string name="buka">Buka</string>
     <string name="tutup">Tutup</string>
@@ -307,4 +328,5 @@
         <item>Followed</item>
         <item>Following</item>
     </string-array>
+    <string name="title_activity_message">MessageActivity</string>
 </resources>

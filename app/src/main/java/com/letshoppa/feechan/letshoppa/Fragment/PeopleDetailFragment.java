@@ -16,9 +16,12 @@ import android.widget.Toast;
 import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.Pesan;
 import com.letshoppa.feechan.letshoppa.Class.UpdateDataTask;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
 import com.letshoppa.feechan.letshoppa.R;
+import com.letshoppa.feechan.letshoppa.SendMessageActivity;
+import com.letshoppa.feechan.letshoppa.ViewContactActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -101,6 +104,8 @@ public class PeopleDetailFragment extends Fragment {
     ImageView mProfileImageView;
     Button mFollowBtn;
 
+    Button mViewContactButton;
+    Button mSendMessageButton;
 
     private void initializeViewProfile(View view) {
         if (currentAccount != null) {
@@ -111,16 +116,55 @@ public class PeopleDetailFragment extends Fragment {
             mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
             mFollowBtn = (Button) view.findViewById(R.id.followButton);
 
+            mViewContactButton = (Button) view.findViewById(R.id.viewContactButton);
+            mSendMessageButton = (Button) view.findViewById(R.id.sendMessageButton);
+
             mNameTextView.setText(currentAccount.getNama());
             mBirthdateTextView.setText(currentAccount.getBirthdate().toString());
             mGenderTextView.setText(currentAccount.getGender());
             mPremiumaServiceTextView.setText(currentAccount.getPremiumaccount().toString());
+
+            mViewContactButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewContact();
+                }
+            });
+            mSendMessageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SendMessage();
+                }
+            });
 
             ImageLoadTask imageTask = new ImageLoadTask(currentAccount.getLinkgambaraccount(), mProfileImageView);
             imageTask.execute();
         }
     }
 
+    private void ViewContact()
+    {
+        if(AppHelper.currentAccount != null)
+        {
+            int accountid = Integer.valueOf(currentAccount.getAccountid());
+            Intent viewContactAct = new Intent(getActivity(),ViewContactActivity.class);
+            viewContactAct.putExtra(Account.TAG_ACCOUNTID,accountid);
+            startActivity(viewContactAct);
+        }
+    }
+
+    private void SendMessage()
+    {
+        if(currentAccount != null)
+        {
+            int penerimaaccountid= Integer.valueOf(currentAccount.getAccountid());
+            String namapenerima=currentAccount.getNama();
+            Intent sendPesanAct = new Intent(getActivity(),SendMessageActivity.class);
+            sendPesanAct.putExtra(Pesan.TAG_PENERIMAACCOUNTID,penerimaaccountid);
+            sendPesanAct.putExtra(Pesan.TAG_NAMAPENERIMA,namapenerima);
+            startActivity(sendPesanAct);
+        }
+    }
 
     ProgressDialog dialog;
 

@@ -85,7 +85,19 @@
             android:name=".PersonActivity"
             android:label="@string/title_activity_person"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EditPostActivity"></activity>
+        <activity android:name=".EditPostActivity" />
+        <activity
+            android:name=".EditKontakActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".MessageActivity"
+            android:label="@string/title_activity_message"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewPesanActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".ViewContactActivity" />
+        <activity android:name=".SendMessageActivity"></activity>
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -60,10 +61,12 @@ public class ListShopActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeContainer;
     private List listShops;
     ArrayAdapter mAdapter;
+    SearchView searchViewShop;
 
     private void initializeListView()
     {
         ListView listView = (ListView) findViewById(R.id.ShopListView);
+        searchViewShop = (SearchView) findViewById(R.id.searchViewShop);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         listShops = new ArrayList();
         mAdapter = new ShopItemAdapter(this,listShops);
@@ -81,8 +84,25 @@ public class ListShopActivity extends AppCompatActivity {
                 fetchShopAsync(0);
             }
         });
-        ShopRefreshLoadTask shopTask = new ShopRefreshLoadTask(url,AppHelper.tipeShopItem.getJenistokoid(),swipeContainer);
-        shopTask.execute((Void) null);
+
+        searchViewShop.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                fetchShopAsync(0);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if(TextUtils.isEmpty(s))
+                {
+                    fetchShopAsync(0);
+                }
+                return false;
+            }
+        });
+        fetchShopAsync(0);
     }
     private void openDetailShop(Toko toko)
     {
@@ -110,7 +130,8 @@ public class ListShopActivity extends AppCompatActivity {
     {
         if(AppHelper.tipeShopItem != null)
         {
-            ShopRefreshLoadTask shopTask = new ShopRefreshLoadTask(url,AppHelper.tipeShopItem.getJenistokoid(),swipeContainer);
+            String keyword= searchViewShop.getQuery().toString();
+            ShopRefreshLoadTask shopTask = new ShopRefreshLoadTask(url,AppHelper.tipeShopItem.getJenistokoid(),swipeContainer,keyword);
             shopTask.execute((Void) null);
         }
     }
@@ -122,13 +143,15 @@ public class ListShopActivity extends AppCompatActivity {
         private String url;
         private int jenistokoid;
 
+        String keyword;
         String messagejson;
         int successjson;
 
-        public ShopRefreshLoadTask(String url, int jenistokoid, SwipeRefreshLayout swipeContainer) {
+        public ShopRefreshLoadTask(String url, int jenistokoid, SwipeRefreshLayout swipeContainer, String keyword) {
             this.url = url;
             this.jenistokoid = jenistokoid;
             this.swipeContainer = swipeContainer;
+            this.keyword = keyword;
             successjson=-1;
             messagejson="";
             shops = new ArrayList();
@@ -141,6 +164,7 @@ public class ListShopActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             List<NameValuePair> parameter = new ArrayList<NameValuePair>();
             parameter.add(new BasicNameValuePair(Toko.TAG_JENISTOKOID, String.valueOf(jenistokoid)));
+            parameter.add(new BasicNameValuePair(Toko.TAG_KEYWORD, keyword));
 
             JSONObject json = AppHelper.GetJsonObject(url,"POST",parameter);
             if(json != null)
@@ -181,7 +205,7 @@ public class ListShopActivity extends AppCompatActivity {
             else
             {
                 successjson = 3;
-                messagejson = AppHelper.ConnectionFailed;
+                messagejson = AppHelper.NoConnection;
                 return false;
             }
         }

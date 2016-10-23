@@ -28,7 +28,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Fragment.FollowingFragment;
-import com.letshoppa.feechan.letshoppa.Fragment.MessageFragment;
+import com.letshoppa.feechan.letshoppa.Fragment.KontakFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.MyCartFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.MyOrderFragment;
 import com.letshoppa.feechan.letshoppa.Fragment.MyPurchaseFragment;
@@ -210,11 +210,9 @@ public class MainActivity extends AppCompatActivity
         HideKeyboard();
     }
 
-    private void MessageFragmentLoad() {
-        Fragment fragment = new MessageFragment();
-        FragmentManager fM = getSupportFragmentManager();
-        fM.beginTransaction().replace(R.id.mainFrame, fragment).commit();
+    private void MessageLoad() {
         HideKeyboard();
+        startActivity(new Intent(this, MessageActivity.class));
     }
 
     private void MyCartFragmentLoad() {
@@ -240,6 +238,13 @@ public class MainActivity extends AppCompatActivity
 
     private void MyShopFragmentLoad() {
         Fragment fragment = new MyShopFragment();
+        FragmentManager fM = getSupportFragmentManager();
+        fM.beginTransaction().replace(R.id.mainFrame, fragment).commit();
+        HideKeyboard();
+    }
+
+    private void ContactFragmentLoad(){
+        Fragment fragment = new KontakFragment();
         FragmentManager fM = getSupportFragmentManager();
         fM.beginTransaction().replace(R.id.mainFrame, fragment).commit();
         HideKeyboard();
@@ -295,7 +300,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_following) {
             FollowingFragmentLoad();
         } else if (id == R.id.nav_message) {
-            MessageFragmentLoad();
+            MessageLoad();
         } else if (id == R.id.nav_manage) {
             SettingFragmentLoad();
         } else if (id == R.id.nav_mycart) {
@@ -306,6 +311,8 @@ public class MainActivity extends AppCompatActivity
             MyOrderFragmentLoad();
         } else if (id == R.id.nav_mypurchase) {
             MyPurchaseFragmentLoad();
+        } else if(id == R.id.nav_contact) {
+            ContactFragmentLoad();
         } else if (id == R.id.nav_login) {
             //HomeFragmentLoad();
             LoginActivityLoad();

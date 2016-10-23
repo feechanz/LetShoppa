@@ -1,13 +1,82 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.letshoppa.feechan.letshoppa.Fragment.KontakFragment">
+    tools:context=".Fragment.KontakFragment"
+    android:orientation="vertical"
+    android:background="@color/White">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ContactText"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <EditText
+            android:id="@+id/contactTypeEditText"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ContactType"
+            android:inputType="textShortMessage"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:maxLines="1"/>
+
+        <EditText
+            android:id="@+id/contactEditText"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="3pt"
+            android:background="@drawable/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/your_contact"
+            android:inputType="textShortMessage"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:maxLines="1"/>
+
+    <Button
+        android:id="@+id/add_contact_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_contact"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/your_primary_email"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/prompt_email"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/your_contact_list"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/Black"/>
+    <ListView
+        android:id="@+id/MyContactListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:divider="@color/Maroon"
+        android:dividerHeight="2pt"
+        android:background="@color/Moccasin"/>
 
-</FrameLayout>
+</LinearLayout>
