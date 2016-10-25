@@ -98,7 +98,12 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".ViewContactActivity" />
         <activity android:name=".SendMessageActivity" />
-        <activity android:name=".ViewShopRadiusActivity"></activity>
+        <activity android:name=".ViewShopRadiusActivity" />
+        <activity
+            android:name=".ViewShopsMapsActivity"
+            android:label="@string/title_activity_view_shops_maps" />
+        <activity android:name=".ReportActivity" />
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>

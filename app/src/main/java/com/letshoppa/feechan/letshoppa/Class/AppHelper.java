@@ -40,6 +40,8 @@ public class AppHelper {
 
     public static String domainURL = "http://letshoppa.itmaranatha.org";
 
+    public static List shops;
+
     public static void createLoginSession()
     {
         editor.putBoolean(KEY_LOGIN,true);

@@ -98,10 +98,24 @@ public class ViewShopRadiusActivity extends AppCompatActivity {
                     setLocation();
                 }
             });
+            viewLocationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewLocation();
+                }
+            });
         }
 
     }
-
+    private void viewLocation()
+    {
+        AppHelper.shops = shops;
+        Intent intentView = new Intent(this,ViewShopsMapsActivity.class);
+        intentView.putExtra(AppHelper.TAG_LATITUDE,this.latitude);
+        intentView.putExtra(AppHelper.TAG_LONGITUDE,this.longitude);
+        intentView.putExtra(AppHelper.TAG_TITLE,getString(R.string.current_location));
+        startActivity(intentView);
+    }
     private void openDetailShop(Toko toko)
     {
         if(AppHelper.currentAccount != null) {

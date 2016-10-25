@@ -128,8 +128,15 @@ public class MainActivity extends AppCompatActivity
         if (AppHelper.isLoggedIn()) {
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.getMenu().clear();
-            navigationView.inflateMenu(R.menu.activity_main_drawer_login);
             AppHelper.getAccountFromSession();
+            if(AppHelper.currentAccount.getLevelaccount() >= 10)
+            {
+                navigationView.inflateMenu(R.menu.activity_main_drawer_admin);
+            }
+            else {
+                navigationView.inflateMenu(R.menu.activity_main_drawer_login);
+            }
+
 
             loginProfile();
             //HomeFragmentLoad();
@@ -171,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_help) {
-            LoginActivityLoad();
+            HelpActivity();
             return true;
         }
 
@@ -268,6 +275,18 @@ public class MainActivity extends AppCompatActivity
         mProfileImageView.setImageResource(android.R.drawable.sym_def_app_icon);
     }
 
+    private void HelpActivity()
+    {
+        HideKeyboard();
+        startActivity(new Intent(this, HelpActivity.class));
+    }
+    private void reportActivity()
+    {
+        HideKeyboard();
+        startActivity(new Intent(this, ReportActivity.class));
+    }
+
+
     private void LogoutActivity() {
         if (AppHelper.isLoggedIn()) {
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -318,6 +337,9 @@ public class MainActivity extends AppCompatActivity
             LoginActivityLoad();
         } else if (id == R.id.nav_logout) {
             LogoutActivity();
+        } else if (id == R.id.nav_report)
+        {
+            reportActivity();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

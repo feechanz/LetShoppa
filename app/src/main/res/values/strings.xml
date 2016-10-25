@@ -65,7 +65,7 @@
     <string name="distance_">Distance :</string>
     <string name="distance">Distance</string>
 
-
+    <string name="report">Report</string>
     <string name="buy">Buy</string>
     <string name="prompt_cancel_order">Cancel order</string>
     <string name="prompt_reject_order">Reject order</string>
@@ -329,9 +329,72 @@
     <string name="unknown_error">Unknown Error</string>
     <string name="reject">Reject</string>
     <string name="accepted">Accepted</string>
+
+
+    <string name="shop_category_name">Shop\'s Category Name</string>
+    <string name="status_in_cart_">Status in Cart : </string>
+    <string name="order_report_text">Order Report</string>
+    <string name="total">Total</string>
+    <string name="total_order_">Total Order :</string>
+    <string name="status_want_to_buy_">Status Want to Buy : </string>
+    <string name="status_purchased_">Status Purchased : </string>
+    <string name="status_cancelled">Status Cancelled : </string>
+    <string name="order_report">Order\'s Report by Shop Category</string>
+    <string name="begin_date">Begin Date</string>
+    <string name="end_date">End Date</string>
+    <string name="view_report">View Report</string>
+
+    <string name="send_report_to_mail">Send Report to Mail</string>
+    <string name="helpText">If you need any help, please email to feechanz@yahoo.co.id</string>
+    <string name="termandcondition">Terms and Conditions of Use</string>
+    <string name="definitions">1. Definitions</string>
+    <string name="definitionItems">
+        The following words and terms shall have the meanings set forth below when they are used in the Terms and Conditions.
+        \n1.1.\"content(s)\"means information such as text, audio files, music, images, videos, software, programs, computer code, and the like.
+        \n1.2.\"Content(s)\"means content(s)that may be accessed through the Service.
+        \n1.3.\"Submitted Content(s)\"means content(s)that Users have submitted, transmitted, or uploaded.
+    </string>
+    <string name="agreements">2. Agreement to Terms and Conditions</string>
+    <string name="agreementItems">
+        2.1. All Users shall use the Service in accordance with the terms stated in the Terms and Conditions. Users may not use the Service unless they agree to the Terms and Conditions. Such agreement is valid and irrevocable.
+        \n2.2. Minors may use the Service only with consent from their parents or legal guardian. Furthermore, if Users use the Service on behalf of, or for the purposes of a business enterprise, then that business enterprise shall also be deemed to have agreed to the Terms and Conditions. Such agreement is valid and irrevocable.
+        \n2.3. By actually using the Service, Users are deemed to have agreed to the Terms and Conditions. Such agreement is valid and irrevocable.
+        \n2.4. If there are Separate Terms and Conditions for the Service, Users also shall comply with such Separate Terms and Conditions as well as the Terms and Conditions.
+    </string>
+    <string name="modifications">
+        3. Modification of the Terms and Conditions
+    </string>
+    <string name="modificationItems">
+        The Company may modify the Terms and Conditions or Separate Terms and Conditions when the Company deems necessary, without providing prior notice to Users. The modification will become effective once the modified Terms and Conditions or Separate Terms and Conditions are posted on an appropriate location within the website operated by the Company. Users shall be deemed to have granted valid and irrevocable consent to the modified Terms and Conditions or Separate Terms and Conditions by continuing to use the Service. Users shall refer to the Terms and Conditions on a regular basis when using the Service, since a separate notification regarding the modification to Terms and Conditions may not be provided.
+    </string>
+
+    <string name="accounts">
+        4. Account
+    </string>
+    <string name="accountItem">
+        4.1. Users, when providing information about him/herself to the Company, shall provide genuine, accurate, and complete information while using the Service, and keep such information up-to-date at all times.
+        \n4.2. If Users register a password while using the Service, Users shall exercise due care and responsibility in order for the password not to be used in an unlawful manner. The Company may treat all activities conducted with the password as activities that have been conducted by the holder of the password him/herself.
+        \n4.3. Any registered User to the Service may delete his/her account and withdraw from using the Service, at any time.
+        \n4.4. The Company may suspend or delete a User\'s account without giving prior notice to the User if the Company believes that the User is violating or has violated the Terms and Conditions.
+        \n4.5. The Company reserves the right to delete any account that has been inactive for a period of a year or more since its last activation, without any prior notice to the User.
+        \n4.6. Users\'rights to use the service shall expire when their account has been deleted for any reason. The account cannot be retrieved even if Users have accidentally deleted their account, and the Company asks Users to be aware of this.
+        \n4.7. Each account in the Service is for the exclusive use and belongs solely to the owner of the account. Users may not transfer or lend their accounts to any third party nor may their accounts be inherited by any third party.
+    </string>
+    <string name="restrictions">
+        5. Restrictions
+    </string>
+    <string name="restrictionsItems">
+        Users shall not engage in the following when using the Service.
+        \n12.1. Activities that violate the law, court verdicts, resolutions or orders, or administrative measures that are legally binding.
+        \n12.2. Activities that may hinder public order or customs.
+        \n12.3. Activities that infringe intellectual property rights, such as copyrights, trademarks and patents, fame, privacy, and all other rights of the Company and/or a third party granted by the law or contract.
+        \n12.4. Activities that post or transmit violent or sexual expressions;expressions that lead to discrimination by race, national origin, creed, sex, social status, family origin, etc.;expressions that induce or encourage suicide, self-injury behavior, or drug abuse;or anti-social expressions that include anti-social content and lead to the discomfort of others.
+        \n12.5. Activities that lead to the misrepresentation of the Company and/or a third party, or intentionally spread false information.
+    </string>
     <string-array name="profile_people_array">
         <item>Followed</item>
         <item>Following</item>
     </string-array>
     <string name="title_activity_message">MessageActivity</string>
+    <string name="title_activity_view_shops_maps">Map</string>
 </resources>
