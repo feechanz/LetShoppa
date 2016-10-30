@@ -75,6 +75,19 @@ public class ProductDetailActivity extends AppCompatActivity {
                     finish();
                 }
             });
+
+            if(currentProduk.getStatusproduk() != 1)
+            {
+                addBtn.setEnabled(false);
+                if(currentProduk.getStatusproduk() == 2)
+                {
+                    addBtn.setText(getString(R.string.habis));
+                }
+                else
+                {
+                    addBtn.setText(getString(R.string.tidak_dijual));
+                }
+            }
         }
     }
     private void addOrder()

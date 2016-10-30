@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import com.letshoppa.feechan.letshoppa.Class.ReviewShopLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.Class.UpdateDataTask;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
+import com.letshoppa.feechan.letshoppa.PersonActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import org.apache.http.NameValuePair;
@@ -160,7 +162,20 @@ public class ReviewFragment extends Fragment {
             ReviewDataLoadTask task = new ReviewDataLoadTask(url, scoreRateTextView, countRateTextView, ratingBar, tokoid, getActivity());
             task.execute();
         }
+        myReviewsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openPerson((Review)parent.getItemAtPosition(position));
+            }
+        });
         fetchReviewAsync(0);
+    }
+
+    public void openPerson(Review review)
+    {
+        Intent openPersonIntent = new Intent(getActivity(),PersonActivity.class);
+        openPersonIntent.putExtra(Account.TAG_ACCOUNTID, String.valueOf(review.getAccountid()));
+        startActivity(openPersonIntent);
     }
 
     public void fetchReviewAsync(int page)

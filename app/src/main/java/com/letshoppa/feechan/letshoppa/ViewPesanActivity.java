@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.Pesan;
 
@@ -50,6 +51,12 @@ public class ViewPesanActivity extends AppCompatActivity {
                     fromTextView.setText(getString(R.string.to__));
                     replyButton.setVisibility(View.GONE);
                     nameTextView.setText(currentPesan.getNamapenerima());
+                    nameTextView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openPerson(String.valueOf(currentPesan.getPenerimaaccountid()));
+                        }
+                    });
                 }
                 else
                 {
@@ -61,10 +68,22 @@ public class ViewPesanActivity extends AppCompatActivity {
                             replyMessage();
                         }
                     });
+                    nameTextView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openPerson(String.valueOf(currentPesan.getPengirimaccountid()));
+                        }
+                    });
                 }
 
             }
         }
+    }
+    private void openPerson(String accountid)
+    {
+        Intent openPersonIntent = new Intent(ViewPesanActivity.this,PersonActivity.class);
+        openPersonIntent.putExtra(Account.TAG_ACCOUNTID, String.valueOf(accountid));
+        startActivity(openPersonIntent);
     }
 
     private  void replyMessage()

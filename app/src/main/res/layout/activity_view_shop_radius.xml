@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.letshoppa.feechan.letshoppa.ViewShopRadiusActivity"
     android:background="@color/SandyBrown"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
 

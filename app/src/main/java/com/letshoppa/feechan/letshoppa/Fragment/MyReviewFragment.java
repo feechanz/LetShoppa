@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -16,11 +17,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.ReviewItemAdapter;
+import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.Review;
 import com.letshoppa.feechan.letshoppa.Class.ReviewDataLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.ReviewShopLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
+import com.letshoppa.feechan.letshoppa.PersonActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.ArrayList;
@@ -140,7 +144,21 @@ public class MyReviewFragment extends Fragment {
             ReviewDataLoadTask task = new ReviewDataLoadTask(url, scoreRateTextView, countRateTextView, ratingBar, tokoid, getActivity());
             task.execute();
         }
+
+        myReviewsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openPerson((Review)parent.getItemAtPosition(position));
+            }
+        });
         fetchReviewAsync(0);
+    }
+
+    public void openPerson(Review review)
+    {
+        Intent openPersonIntent = new Intent(getActivity(),PersonActivity.class);
+        openPersonIntent.putExtra(Account.TAG_ACCOUNTID, String.valueOf(review.getAccountid()));
+        startActivity(openPersonIntent);
     }
 
     public void fetchReviewAsync(int page) {

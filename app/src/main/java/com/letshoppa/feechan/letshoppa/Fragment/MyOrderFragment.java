@@ -1,6 +1,7 @@
 package com.letshoppa.feechan.letshoppa.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,14 +9,18 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.MyOrderItemAdapter;
+import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.MyOrderLoadTask;
+import com.letshoppa.feechan.letshoppa.Class.Order;
 import com.letshoppa.feechan.letshoppa.Class.OrderLoadTask;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
+import com.letshoppa.feechan.letshoppa.PersonActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.ArrayList;
@@ -95,7 +100,12 @@ public class MyOrderFragment extends Fragment {
         }
         mAdapter = new MyOrderItemAdapter(getActivity(),listOrders,new RefreshMethod());
         listView.setAdapter(mAdapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openPerson((Order)parent.getItemAtPosition(position));
+            }
+        });
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -109,7 +119,12 @@ public class MyOrderFragment extends Fragment {
         }
         return view;
     }
-
+    public void openPerson(Order order)
+    {
+        Intent openPersonIntent = new Intent(getActivity(),PersonActivity.class);
+        openPersonIntent.putExtra(Account.TAG_ACCOUNTID, String.valueOf(order.getAccountid()));
+        startActivity(openPersonIntent);
+    }
     public void fetchShopAsync(int page)
     {
         if(AppHelper.currentAccount != null)

@@ -204,6 +204,27 @@ public class MainActivity extends AppCompatActivity
         fM.beginTransaction().replace(R.id.mainFrame, fragment).commit();
     }
 
+    /*private boolean mayRequestLocation() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+                        }
+                    });
+        } else {
+            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+        }
+        return false;
+    }*/
     private void FollowingFragmentLoad() {
         Fragment fragment = new FollowingFragment();
         FragmentManager fM = getSupportFragmentManager();
