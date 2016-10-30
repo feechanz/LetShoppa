@@ -27,6 +27,7 @@ import com.letshoppa.feechan.letshoppa.Class.UploadLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Utility;
 import com.letshoppa.feechan.letshoppa.Interface.IUploadFinalMethod;
 import com.letshoppa.feechan.letshoppa.R;
+import com.letshoppa.feechan.letshoppa.VoucherActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -108,6 +109,8 @@ public class ProfileFragment extends Fragment {
         mPremiumaServiceTextView = (TextView) view.findViewById(R.id.premiumServiceTextView);
         mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
         Button mChangeProfileImageButton = (Button) view.findViewById(R.id.changePictureButton);
+        Button mVoucherButton = (Button) view.findViewById(R.id.voucherButton);
+
         //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         //ivImage = mProfileImageView;
         //txView = mNameTextView;
@@ -116,6 +119,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 changeProfilePicture();
+            }
+        });
+        mVoucherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openVoucherActivity();
             }
         });
         mChangeProfileImageButton.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +138,14 @@ public class ProfileFragment extends Fragment {
             initializeViewProfile();
         }
     }
-
+    private void openVoucherActivity()
+    {
+        if(AppHelper.currentAccount != null)
+        {
+            Intent voucherAct = new Intent(getActivity(),VoucherActivity.class);
+            startActivity(voucherAct);
+        }
+    }
     private void initializeViewProfile()
     {
         mNameTextView.setText(AppHelper.currentAccount.getNama());
@@ -402,6 +418,12 @@ public class ProfileFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        initializeViewProfile();
+    }
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

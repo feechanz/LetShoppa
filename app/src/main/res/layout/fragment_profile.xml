@@ -92,6 +92,15 @@
                 android:text="@string/premium_service"
                 android:layout_gravity="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <Button
+                android:id="@+id/voucherButton"
+                style="?android:textAppearanceSmall"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/enter_voucher_code"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

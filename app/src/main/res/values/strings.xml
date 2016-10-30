@@ -330,6 +330,9 @@
     <string name="reject">Reject</string>
     <string name="accepted">Accepted</string>
 
+    <string name="use_voucher">Use Voucher</string>
+    <string name="enter_voucher_code">Enter Voucher Code</string>
+    <string name="voucher_code">Voucher Code</string>
 
     <string name="shop_category_name">Shop\'s Category Name</string>
     <string name="status_in_cart_">Status in Cart : </string>

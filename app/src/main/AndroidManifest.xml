@@ -103,7 +103,8 @@
             android:name=".ViewShopsMapsActivity"
             android:label="@string/title_activity_view_shops_maps" />
         <activity android:name=".ReportActivity" />
-        <activity android:name=".HelpActivity"></activity>
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".VoucherActivity"></activity>
     </application>
 
 </manifest>
