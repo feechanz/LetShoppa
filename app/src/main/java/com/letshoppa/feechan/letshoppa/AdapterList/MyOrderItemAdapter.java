@@ -3,6 +3,7 @@ package com.letshoppa.feechan.letshoppa.AdapterList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.letshoppa.feechan.letshoppa.Class.ChangeOrderTask;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Order;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
+import com.letshoppa.feechan.letshoppa.OrderDetailActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.List;
@@ -27,12 +29,13 @@ import java.util.List;
 public class MyOrderItemAdapter extends ArrayAdapter {
     private Context context;
     private IRefreshMethod refreshMethod;
+    private Activity activity;
 
-    public MyOrderItemAdapter(Context context, List items, IRefreshMethod refreshMethod) {
+    public MyOrderItemAdapter(Context context, List items, IRefreshMethod refreshMethod, Activity activity) {
         super(context, -1, items);
         this.context = context;
         this.refreshMethod = refreshMethod;
-
+        this.activity = activity;
     }
 
     public View getView(int position, View convertView, ViewGroup parent)
@@ -117,7 +120,8 @@ public class MyOrderItemAdapter extends ArrayAdapter {
         firstBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateOrderDialog(pesanan,3,R.string.prompt_accept_order);
+                //updateOrderDialog(pesanan,3,R.string.prompt_accept_order);
+                ProductActivityShow(pesanan);
             }
         });
 
@@ -127,6 +131,14 @@ public class MyOrderItemAdapter extends ArrayAdapter {
                 updateOrderDialog(pesanan,0,R.string.prompt_reject_order);
             }
         });
+    }
+
+    private void ProductActivityShow(Order order)
+    {
+        Intent act = new Intent(activity,OrderDetailActivity.class);
+        act.putExtra(Order.TAG_ORDERID,order.getOrderid());
+        act.putExtra(Order.TAG_BUY,"0");
+        activity.startActivity(act);
     }
 
     private void updateOrderDialog(final Order pesanan, final int newstatus, int promptid)

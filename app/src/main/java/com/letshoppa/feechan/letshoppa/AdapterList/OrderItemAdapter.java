@@ -3,6 +3,7 @@ package com.letshoppa.feechan.letshoppa.AdapterList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
-import com.letshoppa.feechan.letshoppa.Class.ChangeOrderTask;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Order;
 import com.letshoppa.feechan.letshoppa.Class.UpdateDataTask;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
+import com.letshoppa.feechan.letshoppa.OrderDetailActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import org.apache.http.NameValuePair;
@@ -89,7 +90,8 @@ public class OrderItemAdapter extends ArrayAdapter
         firstBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateOrderDialog(pesanan,2,R.string.prompt_buy_product);
+                buyProductActivityShow(pesanan);
+                //updateOrderDialog(pesanan,2,R.string.prompt_buy_product);
             }
         });
         secondBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +101,17 @@ public class OrderItemAdapter extends ArrayAdapter
             }
         });
     }
-    private void updateOrderDialog(final Order pesanan, final int newstatus, int promptid)
+
+
+    private void buyProductActivityShow(Order order)
+    {
+        Intent act = new Intent(activity,OrderDetailActivity.class);
+        act.putExtra(Order.TAG_ORDERID,order.getOrderid());
+        act.putExtra(Order.TAG_BUY,"1");
+        activity.startActivity(act);
+    }
+
+    /*private void updateOrderDialog(final Order pesanan, final int newstatus, int promptid)
     {
         DialogInterface.OnClickListener dialogClickListener =new DialogInterface.OnClickListener()
         {
@@ -121,7 +133,7 @@ public class OrderItemAdapter extends ArrayAdapter
         builder.setMessage(context.getString(promptid)+"?")
                 .setPositiveButton(context.getString(R.string.yes),dialogClickListener).
                 setNegativeButton(context.getString(R.string.no),dialogClickListener).show();
-    }
+    }*/
     private void deleteOrderDialog(final Order pesanan)
     {
         DialogInterface.OnClickListener dialogClickListener =new DialogInterface.OnClickListener()

@@ -1,6 +1,7 @@
 package com.letshoppa.feechan.letshoppa.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,13 +9,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.OrderItemAdapter;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
+import com.letshoppa.feechan.letshoppa.Class.Order;
 import com.letshoppa.feechan.letshoppa.Class.OrderLoadTask;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
+import com.letshoppa.feechan.letshoppa.OrderDetailActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.ArrayList;
@@ -94,7 +98,12 @@ public class MyPurchaseFragment extends Fragment {
         }
         mAdapter = new OrderItemAdapter(getActivity(),listOrders,new RefreshMethod(),getActivity());
         listView.setAdapter(mAdapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openDetail((Order)parent.getItemAtPosition(position));
+            }
+        });
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -107,6 +116,15 @@ public class MyPurchaseFragment extends Fragment {
             task.execute();
         }
         return view;
+    }
+
+    public void openDetail(Order order)
+    {
+        Intent act = new Intent(getActivity(),OrderDetailActivity.class);
+        act.putExtra(Order.TAG_ORDERID,order.getOrderid());
+        act.putExtra(Order.TAG_BUY,"0");
+        act.putExtra(Order.TAG_RESPONDED,1);
+        getActivity().startActivity(act);
     }
 
     public void fetchShopAsync(int page)

@@ -104,7 +104,9 @@
             android:label="@string/title_activity_view_shops_maps" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".HelpActivity" />
-        <activity android:name=".VoucherActivity"></activity>
+        <activity android:name=".VoucherActivity" />
+        <activity android:name=".OrderDetailActivity" />
+        <activity android:name=".ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

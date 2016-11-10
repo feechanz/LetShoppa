@@ -333,6 +333,12 @@
     <string name="use_voucher">Use Voucher</string>
     <string name="enter_voucher_code">Enter Voucher Code</string>
     <string name="voucher_code">Voucher Code</string>
+    <string name="pending">Pending</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="change">Change</string>
+    <string name="change_password">Change Password</string>
+    <string name="old_password_not_same">Old Password not same!</string>
 
     <string name="shop_category_name">Shop\'s Category Name</string>
     <string name="status_in_cart_">Status in Cart : </string>

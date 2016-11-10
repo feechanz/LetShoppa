@@ -1,42 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_order_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-    <ImageView
-        android:id="@+id/id_icon_product"
-        android:layout_width="35pt"
-        android:layout_height="35pt"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="6dip"
-        android:contentDescription="TODO"
-        android:layout_gravity="center"
-        android:src="@android:drawable/sym_def_app_icon" />
+    tools:context="com.letshoppa.feechan.letshoppa.OrderDetailActivity">
+
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="0.8"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="7pt"
-                android:layout_marginRight="2dp"
-                android:textAppearance="?attr/textAppearanceListItemSmall"
-                android:text="@string/from_"/>
-            <TextView
-                android:id="@+id/nameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="7pt"
-                android:textAppearance="?attr/textAppearanceListItemSmall"
-                android:text="@string/prompt_name"/>
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/id_icon_product"
+            android:layout_width="35pt"
+            android:layout_height="35pt"
+            android:layout_gravity="center"
+            android:src="@android:drawable/sym_def_app_icon" />
 
         <TextView
             android:id="@+id/namaProductTextView"
@@ -48,6 +29,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -67,6 +50,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -87,6 +72,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -110,6 +97,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -130,6 +119,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -149,6 +140,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -180,7 +173,56 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:text="@string/reject"/>
+                android:text="@string/cancel"/>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:layout_marginRight="2dp"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                android:text="@string/from_"/>
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                android:text="@string/prompt_name"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7pt"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            android:text="@string/prompt_email"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8pt"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/ContactText"/>
+        <ListView
+            android:id="@+id/contactListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/Maroon"
+            android:dividerHeight="2pt"
+            android:background="@color/Moccasin"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

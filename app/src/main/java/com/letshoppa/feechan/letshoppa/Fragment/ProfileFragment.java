@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letshoppa.feechan.letshoppa.ChangePasswordActivity;
 import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
@@ -100,6 +101,7 @@ public class ProfileFragment extends Fragment {
     TextView mBirthdateTextView ;
     TextView mGenderTextView ;
     ImageView mProfileImageView;
+    TextView mEmailTextView;
 
     private void initializeProfile(View view)
     {
@@ -108,13 +110,20 @@ public class ProfileFragment extends Fragment {
         mGenderTextView = (TextView) view.findViewById(R.id.genderTextView);
         mPremiumaServiceTextView = (TextView) view.findViewById(R.id.premiumServiceTextView);
         mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
+        mEmailTextView = (TextView) view.findViewById(R.id.emailTextView);
+
         Button mChangeProfileImageButton = (Button) view.findViewById(R.id.changePictureButton);
         Button mVoucherButton = (Button) view.findViewById(R.id.voucherButton);
-
+        Button mChangePasswordButton = (Button) view.findViewById(R.id.changePasswordButton);
         //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         //ivImage = mProfileImageView;
         //txView = mNameTextView;
-
+        mChangePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePassword();
+            }
+        });
         mProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +147,12 @@ public class ProfileFragment extends Fragment {
             initializeViewProfile();
         }
     }
+
+    private void changePassword()
+    {
+        startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+    }
+
     private void openVoucherActivity()
     {
         if(AppHelper.currentAccount != null)
@@ -152,6 +167,7 @@ public class ProfileFragment extends Fragment {
         mBirthdateTextView.setText(AppHelper.currentAccount.getBirthdate().toString());
         mGenderTextView.setText(AppHelper.currentAccount.getGender());
         mPremiumaServiceTextView.setText(AppHelper.currentAccount.getPremiumaccount().toString());
+        mEmailTextView.setText(AppHelper.currentAccount.getEmail());
 
         ImageLoadTask imageTask = new ImageLoadTask(AppHelper.currentAccount.getLinkgambaraccount(),mProfileImageView);
         imageTask.execute();

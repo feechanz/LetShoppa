@@ -158,6 +158,8 @@ public class MyShopProductFragment extends Fragment {
         super.onResume();
         fetchShopAsync(0);
     }
+
+
     /*
     public class MyProductRefreshLoadTask extends AsyncTask<Void, Void, Boolean> {
         SwipeRefreshLayout swipeContainer;

@@ -109,6 +109,13 @@ public class MyCartFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        fetchShopAsync(0);
+    }
+
     public void fetchShopAsync(int page)
     {
         if(AppHelper.currentAccount != null)

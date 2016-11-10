@@ -14,13 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.MyOrderItemAdapter;
-import com.letshoppa.feechan.letshoppa.Class.Account;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.MyOrderLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Order;
 import com.letshoppa.feechan.letshoppa.Class.OrderLoadTask;
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
-import com.letshoppa.feechan.letshoppa.PersonActivity;
+import com.letshoppa.feechan.letshoppa.OrderDetailActivity;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.ArrayList;
@@ -98,12 +97,12 @@ public class MyOrderFragment extends Fragment {
                 fetchShopAsync(0);
             }
         }
-        mAdapter = new MyOrderItemAdapter(getActivity(),listOrders,new RefreshMethod());
+        mAdapter = new MyOrderItemAdapter(getActivity(),listOrders,new RefreshMethod(),getActivity());
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openPerson((Order)parent.getItemAtPosition(position));
+                openDetail((Order)parent.getItemAtPosition(position));
             }
         });
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -119,12 +118,27 @@ public class MyOrderFragment extends Fragment {
         }
         return view;
     }
-    public void openPerson(Order order)
+    public void openDetail(Order order)
     {
-        Intent openPersonIntent = new Intent(getActivity(),PersonActivity.class);
-        openPersonIntent.putExtra(Account.TAG_ACCOUNTID, String.valueOf(order.getAccountid()));
-        startActivity(openPersonIntent);
+
+        Intent act = new Intent(getActivity(),OrderDetailActivity.class);
+        act.putExtra(Order.TAG_ORDERID,order.getOrderid());
+        act.putExtra(Order.TAG_BUY,"0");
+        act.putExtra(Order.TAG_RESPONDED,1);
+        getActivity().startActivity(act);
+        //openPerson
+       // Intent openPersonIntent = new Intent(getActivity(),PersonActivity.class);
+       // openPersonIntent.putExtra(Account.TAG_ACCOUNTID, String.valueOf(order.getAccountid()));
+       // startActivity(openPersonIntent);
     }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        fetchShopAsync(0);
+    }
+
     public void fetchShopAsync(int page)
     {
         if(AppHelper.currentAccount != null)

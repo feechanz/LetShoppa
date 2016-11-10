@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="7pt"
                 android:textAppearance="?attr/textAppearanceListItemSmall"
-                android:text="@string/accept"/>
+                android:text="@string/pending"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

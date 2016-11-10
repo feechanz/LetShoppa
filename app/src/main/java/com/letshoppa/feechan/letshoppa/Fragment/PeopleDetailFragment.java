@@ -101,6 +101,7 @@ public class PeopleDetailFragment extends Fragment {
     TextView mNameTextView;
     TextView mBirthdateTextView;
     TextView mGenderTextView;
+    TextView mEmailTextView;
     ImageView mProfileImageView;
     Button mFollowBtn;
 
@@ -113,6 +114,7 @@ public class PeopleDetailFragment extends Fragment {
             mBirthdateTextView = (TextView) view.findViewById(R.id.birthdateTextView);
             mGenderTextView = (TextView) view.findViewById(R.id.genderTextView);
             mPremiumaServiceTextView = (TextView) view.findViewById(R.id.premiumServiceTextView);
+            mEmailTextView = (TextView) view.findViewById(R.id.emailTextView);
             mProfileImageView = (ImageView) view.findViewById(R.id.profileImageView);
             mFollowBtn = (Button) view.findViewById(R.id.followButton);
 
@@ -123,6 +125,7 @@ public class PeopleDetailFragment extends Fragment {
             mBirthdateTextView.setText(currentAccount.getBirthdate().toString());
             mGenderTextView.setText(currentAccount.getGender());
             mPremiumaServiceTextView.setText(currentAccount.getPremiumaccount().toString());
+            mEmailTextView.setText(currentAccount.getEmail());
 
             mViewContactButton.setOnClickListener(new View.OnClickListener() {
                 @Override

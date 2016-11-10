@@ -7,8 +7,8 @@ android {
         applicationId "com.letshoppa.feechan.letshoppa"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 3
-        versionName '1.02'
+        versionCode 4
+        versionName '1.03'
         multiDexEnabled true
     }
     buildTypes {
