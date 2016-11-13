@@ -92,12 +92,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         mContactListView = (ListView) findViewById(R.id.contactListView);
 
-        mSecondButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
 
         listKontaks = new ArrayList();
         mAdapter = new ContactItemAdapter(OrderDetailActivity.this,listKontaks);
@@ -154,40 +149,93 @@ public class OrderDetailActivity extends AppCompatActivity {
         {
             if(responded == 1)
             {
-                mFirstButton.setVisibility(View.GONE);
-                mSecondButton.setVisibility(View.GONE);
-            }
 
+                if(currentOrder.getAccountid()==Integer.valueOf(AppHelper.currentAccount.getAccountid())) {
+                    //pelanggan
+                    if(currentOrder.getStatusorder() == 3)
+                    {
+                        mFirstButton.setText(getString(R.string.view_shipping));
+                        mSecondButton.setText(getString(R.string.payment));
 
-            if(Integer.valueOf(buy) == 1)
-            {
-                //pelanggan
-                mFirstButton.setText(getString(R.string.buy));
-                mFirstButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        buyOrder();
+                        mFirstButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                viewShipping();
+                            }
+                        });
+                        mSecondButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                payment();
+                            }
+                        });
                     }
-                });
+                    else
+                    {
+                        mFirstButton.setVisibility(View.GONE);
+                        mSecondButton.setVisibility(View.GONE);
+                    }
+                }
+                else
+                {
+                    if(currentOrder.getStatusorder() == 3) {
+                        mFirstButton.setText(getString(R.string.shipping));
+                        mSecondButton.setText(getString(R.string.payment));
+
+                        mFirstButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                shipping();
+                            }
+                        });
+                        mSecondButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                viewPayment();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        mFirstButton.setVisibility(View.GONE);
+                        mSecondButton.setVisibility(View.GONE);
+                    }
+                }
 
             }
             else
             {
-                mFirstButton.setText(getString(R.string.accept));
-                mFirstButton.setOnClickListener(new View.OnClickListener() {
+                mSecondButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        acceptOrder();
+                        finish();
                     }
                 });
-                mNameTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openPerson(currentOrder);
-                    }
-                });
+                if (Integer.valueOf(buy) == 1) {
+                    //pelanggan
+                    mFirstButton.setText(getString(R.string.buy));
+                    mFirstButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            buyOrder();
+                        }
+                    });
+                } else {
+                    mFirstButton.setText(getString(R.string.accept));
+                    mFirstButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            acceptOrder();
+                        }
+                    });
+                    mNameTextView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openPerson(currentOrder);
+                        }
+                    });
+                }
             }
-
             mNamaProductTextView.setText(currentOrder.getNamaproduk());
             mShopNameTextView.setText(currentOrder.getNamatoko());
             mPriceTextView.setText(String.valueOf(currentOrder.getHargaproduk()));
@@ -233,6 +281,32 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void viewShipping()
+    {
+        Intent intent = new Intent(OrderDetailActivity.this,ViewPengirimanActivity.class);
+        intent.putExtra(Order.TAG_ORDER, currentOrder);
+        startActivity(intent);
+    }
+    private void shipping()
+    {
+        Intent intent = new Intent(OrderDetailActivity.this,PengirimanActivity.class);
+        intent.putExtra(Order.TAG_ORDER, currentOrder);
+        startActivity(intent);
+    }
+    private void viewPayment()
+    {
+        Intent intent = new Intent(OrderDetailActivity.this,ViewPaymentActivity.class);
+        intent.putExtra(Order.TAG_ORDER, currentOrder);
+        startActivity(intent);
+    }
+    private void payment()
+    {
+        Intent intent = new Intent(OrderDetailActivity.this,PaymentActivity.class);
+        intent.putExtra(Order.TAG_ORDER, currentOrder);
+        startActivity(intent);
+    }
+
 
     public void openPerson(Order order)
     {
@@ -507,7 +581,10 @@ public class OrderDetailActivity extends AppCompatActivity {
                 mAdapter.clear();
                 mAdapter.addAll(kontaks);
             }
-            Toast.makeText(OrderDetailActivity.this, messagejson, Toast.LENGTH_SHORT).show();
+            else
+            {
+                Toast.makeText(OrderDetailActivity.this, messagejson, Toast.LENGTH_SHORT).show();
+            }
             dialog.dismiss();
         }
     }

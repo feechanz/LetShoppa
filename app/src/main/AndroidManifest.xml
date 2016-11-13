@@ -106,7 +106,11 @@
         <activity android:name=".HelpActivity" />
         <activity android:name=".VoucherActivity" />
         <activity android:name=".OrderDetailActivity" />
-        <activity android:name=".ChangePasswordActivity"></activity>
+        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".PengirimanActivity" />
+        <activity android:name=".ViewPengirimanActivity" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".ViewPaymentActivity"></activity>
     </application>
 
 </manifest>

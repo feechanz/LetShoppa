@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:gravity="top|left"
+                android:gravity="top|start"
                 android:lines="3"
                 android:layout_weight="3"
                 android:scrollHorizontally="false"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="right"
+            android:gravity="end"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin">
             <TextView
@@ -50,14 +50,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/SendText"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="2pt"
+                android:layout_marginStart="2pt"
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
 
             <ImageButton
                 android:id="@+id/sendImgButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_send"/>
+                android:src="@drawable/ic_menu_send"
+                android:contentDescription="@string/send" />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
