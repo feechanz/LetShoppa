@@ -317,6 +317,7 @@
     <string name="choose_from_Library">Choose from Library</string>
     <string name="cancel">Cancel</string>
 
+    <string name="payment_receipt">Payment Receipt</string>
     <string name="expedition_services">Expedition Services</string>
     <string name="receipt_number">Receipt Number</string>
     <string name="information">Information</string>
@@ -324,7 +325,10 @@
     <string name="shipping">Shipping</string>
     <string name="view_shipping">View Shipping</string>
     <string name="payment">Payment</string>
-
+    <string name="total_payment_">Total Payment : </string>
+    <string name="payments">Payments</string>
+    <string name="add_payment">Add Payment</string>
+    <string name="total_payment">Total Payment</string>
     <string name="prompt_create_shop">Create this shop</string>
     <string name="prompt_add_product">Add this product to your cart</string>
     <string name="prompt_create_product">Add this product to your shop</string>

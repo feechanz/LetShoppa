@@ -110,7 +110,9 @@
         <activity android:name=".PengirimanActivity" />
         <activity android:name=".ViewPengirimanActivity" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".ViewPaymentActivity"></activity>
+        <activity android:name=".ViewPaymentActivity" />
+        <activity android:name=".AddPaymentActivity" />
+        <activity android:name=".ProductReportActivity"></activity>
     </application>
 
 </manifest>
