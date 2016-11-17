@@ -10,10 +10,6 @@
             android:id="@+id/nav_shopping"
             android:icon="@drawable/ic_shopping_cart_black_24dp"
             android:title="@string/ShoppingText" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/SettingText" />
     </group>
 
     <item android:title="@string/ProfileText">

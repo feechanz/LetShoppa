@@ -35,7 +35,9 @@ import com.letshoppa.feechan.letshoppa.Class.UpdateDataTask;
 import com.letshoppa.feechan.letshoppa.Class.UploadLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Utility;
 import com.letshoppa.feechan.letshoppa.Interface.IUploadFinalMethod;
+import com.letshoppa.feechan.letshoppa.ProductReportActivity;
 import com.letshoppa.feechan.letshoppa.R;
+import com.letshoppa.feechan.letshoppa.ShopOrderActivity;
 import com.letshoppa.feechan.letshoppa.ViewOneMapsActivity;
 
 import org.apache.http.NameValuePair;
@@ -195,6 +197,41 @@ public class MyShopDetailFragment extends Fragment {
                 saveStatus(view);
             }
         });
+
+        Button viewProductReportButton = (Button) view.findViewById(R.id.viewProductReportButton);
+        viewProductReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProductReportActivity(view);
+            }
+        });
+        Button viewOrderReportButton = (Button) view.findViewById(R.id.viewOrderReportButton);
+        viewOrderReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOrderReportActivity(view);
+            }
+        });
+    }
+
+    private void openProductReportActivity(View view)
+    {
+        if(currentShop != null)
+        {
+            Intent intent = new Intent(getActivity(), ProductReportActivity.class);
+            intent.putExtra(Toko.TAG_TOKO, currentShop);
+            startActivity(intent);
+        }
+    }
+
+    private void openOrderReportActivity(View view)
+    {
+        if(currentShop != null)
+        {
+            Intent intent = new Intent(getActivity(), ShopOrderActivity.class);
+            intent.putExtra(Toko.TAG_TOKO, currentShop);
+            startActivity(intent);
+        }
     }
 
     private void saveStatus(View view)
@@ -493,10 +530,14 @@ public class MyShopDetailFragment extends Fragment {
             shopNameEditText.setText(currentShop.getNamatoko());
             deskripsiText.setText(currentShop.getDeskripsitoko());
 
+
+
             setActiveControl();
             initializeLocation(view);
         }
     }
+
+
 
     private int REQUEST_CAMERA=0;
     private int SELECT_FILE=1;

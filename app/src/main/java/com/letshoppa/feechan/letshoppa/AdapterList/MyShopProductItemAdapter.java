@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Produk;
 import com.letshoppa.feechan.letshoppa.Class.Toko;
@@ -68,7 +69,9 @@ public class MyShopProductItemAdapter extends ArrayAdapter
 
         namaKategoriTextView.setText(item.getNamakategori());
         namaProdukTextView.setText(item.getNamaproduk());
-        hargaProdukTextView.setText(String.valueOf(item.getHargaproduk()));
+
+
+        hargaProdukTextView.setText("Rp. "+AppHelper.decimalFormat(item.getHargaproduk()));
         if(item.getStatusproduk()==1)
         {
             statusTextView.setText(context.getString(R.string.dijual));

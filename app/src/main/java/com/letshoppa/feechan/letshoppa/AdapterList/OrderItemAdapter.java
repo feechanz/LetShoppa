@@ -182,10 +182,10 @@ public class OrderItemAdapter extends ArrayAdapter
 
         if(item != null) {
             nameProductTextView.setText(item.getNamaproduk());
-            priceTextView.setText(String.valueOf(item.getHargaproduk()));
+            priceTextView.setText(AppHelper.decimalFormat(item.getHargaproduk()));
             qtyTextView.setText(String.valueOf(item.getJumlahproduk()));
             double total = item.getJumlahproduk() * item.getHargaproduk();
-            totalTextView.setText(String.valueOf(total));
+            totalTextView.setText(AppHelper.decimalFormat(total));
             dateTextView.setText(item.getTanggalorder().toString());
             ImageLoadTask loadShopTask = new ImageLoadTask(item.getGambarproduk(), iconProductImageView);
             loadShopTask.execute();

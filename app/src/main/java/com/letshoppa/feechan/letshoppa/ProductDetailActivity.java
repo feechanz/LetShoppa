@@ -49,7 +49,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             TextView descriptionTextView = (TextView) findViewById(R.id.descriptionTextView);
 
             nameTextView.setText(currentProduk.getNamaproduk());
-            priceTextView.setText("Rp. " + currentProduk.getHargaproduk());
+            priceTextView.setText("Rp. " + AppHelper.decimalFormat(currentProduk.getHargaproduk()));
             descriptionTextView.setText(currentProduk.getDeskripsiproduk());
             ImageLoadTask imageTask = new ImageLoadTask(currentProduk.getGambarproduk(), produkImageView);
             imageTask.execute();

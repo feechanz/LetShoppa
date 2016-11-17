@@ -238,10 +238,10 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
             mNamaProductTextView.setText(currentOrder.getNamaproduk());
             mShopNameTextView.setText(currentOrder.getNamatoko());
-            mPriceTextView.setText(String.valueOf(currentOrder.getHargaproduk()));
+            mPriceTextView.setText(AppHelper.decimalFormat(currentOrder.getHargaproduk()));
             mQtyTextView.setText(String.valueOf(currentOrder.getJumlahproduk()));
             double total = currentOrder.getJumlahproduk() * currentOrder.getHargaproduk();
-            mTotalTextView.setText(String.valueOf(total));
+            mTotalTextView.setText(AppHelper.decimalFormat(total));
             ImageLoadTask task =new ImageLoadTask(currentOrder.getGambarproduk(),mProductImageView);
             task.execute();
             if(currentOrder.getStatusorder() == 0)

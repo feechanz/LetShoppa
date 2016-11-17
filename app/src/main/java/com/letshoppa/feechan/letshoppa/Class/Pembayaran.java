@@ -3,6 +3,7 @@ package com.letshoppa.feechan.letshoppa.Class;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by Feechan on 11/14/2016.
  */
 
-public class Pembayaran {
+public class Pembayaran implements Serializable {
     public static final String TAG_PEMBAYARAN = "Pembayaran";
     public static final String TAG_PEMBAYARANID = "pembayaranid";
     public static final String TAG_TANGGALPEMBAYARAN = "tanggalpembayaran";

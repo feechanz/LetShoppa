@@ -65,7 +65,7 @@ public class ViewShopRadiusActivity extends AppCompatActivity {
         shopListView = (ListView) findViewById(R.id.ShopListView);
 
         kmNumberPicker.setMinValue(1);
-        kmNumberPicker.setMaxValue(100);
+        kmNumberPicker.setMaxValue(50);
         kmNumberPicker.setValue(5);
         kmNumberPicker.setWrapSelectorWheel(true);
 

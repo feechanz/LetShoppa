@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.Pembayaran;
 import com.letshoppa.feechan.letshoppa.R;
 
@@ -39,7 +40,7 @@ public class PaymentItemAdapter extends ArrayAdapter
         TextView paymentTextView = (TextView) viewToUse.findViewById(R.id.paymentTextView);
 
         dateTextView.setText(item.getTanggalpembayaran().toString());
-        paymentTextView.setText(String.valueOf(item.getTotalpembayaran()));
+        paymentTextView.setText(AppHelper.decimalFormat(item.getTotalpembayaran()));
 
         return viewToUse;
     }

@@ -26,10 +26,6 @@
             android:id="@+id/nav_myorder"
             android:icon="@drawable/ic_assignment_black_24dp"
             android:title="@string/MyOrderText" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/SettingText" />
     </group>
 
     <item android:title="@string/ProfileText">

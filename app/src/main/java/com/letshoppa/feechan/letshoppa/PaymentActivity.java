@@ -46,12 +46,11 @@ public class PaymentActivity extends AppCompatActivity {
         mAdapter = new PaymentItemAdapter(PaymentActivity.this,listPayments);
         listView.setAdapter(mAdapter);
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pembayaran item = (Pembayaran)parent.getItemAtPosition(position);
                 detailPayment(item);
-                return true;
             }
         });
 
@@ -73,7 +72,11 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void detailPayment(Pembayaran pembayaran)
     {
-
+        if(pembayaran != null) {
+            Intent intent = new Intent(PaymentActivity.this, PaymentDetailActivity.class);
+            intent.putExtra(Pembayaran.TAG_PEMBAYARAN, pembayaran);
+            startActivity(intent);
+        }
     }
 
     private void openAddPaymentActivity()

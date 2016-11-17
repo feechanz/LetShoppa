@@ -112,7 +112,9 @@
         <activity android:name=".PaymentActivity" />
         <activity android:name=".ViewPaymentActivity" />
         <activity android:name=".AddPaymentActivity" />
-        <activity android:name=".ProductReportActivity"></activity>
+        <activity android:name=".ProductReportActivity" />
+        <activity android:name=".PaymentDetailActivity" />
+        <activity android:name=".ShopOrderActivity"></activity>
     </application>
 
 </manifest>

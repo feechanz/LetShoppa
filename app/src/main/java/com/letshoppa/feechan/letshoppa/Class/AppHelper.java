@@ -9,6 +9,8 @@ import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 /**
@@ -41,6 +43,17 @@ public class AppHelper {
     public static String domainURL = "http://letshoppa.itmaranatha.org";
 
     public static List shops;
+
+    public static String decimalFormat(double number)
+    {
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setCurrencySymbol("");
+        dfs.setMonetaryDecimalSeparator(',');
+        dfs.setGroupingSeparator('.');
+        df.setDecimalFormatSymbols(dfs);
+        return df.format(number);
+    }
 
     public static void createLoginSession()
     {

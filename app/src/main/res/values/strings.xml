@@ -266,6 +266,19 @@
     <string name="female">Female</string>
     <string name="error_unregistered_account">Unregistered account</string>
 
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+
     <string name="ShopText">Shop</string>
     <string name="ProductsText">Products</string>
     <string name="AddProduct">Add Product</string>
@@ -300,11 +313,14 @@
     <string name="your_name">Your Name</string>
     <string name="premium_service">Premium Service</string>
     <string name="change_picture">Change Picture</string>
+    <string name="product_report">Products Report</string>
     <string name="upload_failed">Upload Failed</string>
     <string name="please_wait">Please wait...</string>
     <string name="category">Category</string>
     <string name="shops_name">Shop\'s name</string>
     <string name="shops_location">Shop\'s location</string>
+    <string name="products_report">Products Report</string>
+    <string name="shops_orders_report">Shop\'s Orders Report</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Sorry this feature not implemented yet</string>
     <string name="title_activity_register">Sign Up</string>
@@ -328,11 +344,19 @@
     <string name="total_payment_">Total Payment : </string>
     <string name="payments">Payments</string>
     <string name="add_payment">Add Payment</string>
+    <string name="orders_report">Order\'s Reports</string>
     <string name="total_payment">Total Payment</string>
     <string name="prompt_create_shop">Create this shop</string>
     <string name="prompt_add_product">Add this product to your cart</string>
     <string name="prompt_create_product">Add this product to your shop</string>
+    <string name="order_qty_">Order\'s Qty :</string>
+    <string name="shops_report">Shop\'s Report</string>
+    <string name="year">Year</string>
+    <string name="year_">Year : </string>
+    <string name="month">Month</string>
+    <string name="month_">Month :</string>
     <string name="done">Done</string>
+    <string name="total_order__">Total Order : </string>
 
     <string name="message">Message</string>
     <string name="create_shop">Create Shop</string>

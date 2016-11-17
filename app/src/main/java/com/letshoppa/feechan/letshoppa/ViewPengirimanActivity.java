@@ -152,7 +152,7 @@ public class ViewPengirimanActivity extends AppCompatActivity {
                     mExpeditionEditText.setText(currentPengiriman.getJasaekspedisi());
                     mReceiptEditText.setText(currentPengiriman.getNoresi());
                     mInformationEditText.setText(currentPengiriman.getKeterangan());
-                    mCostEditText.setText("Rp. "+String.valueOf(currentPengiriman.getBiayakirim()));
+                    mCostEditText.setText("Rp. "+AppHelper.decimalFormat(currentPengiriman.getBiayakirim()));
                 }
             }
             else

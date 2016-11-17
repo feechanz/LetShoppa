@@ -250,12 +250,31 @@
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_save" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="3pt"
             android:background="@android:color/black"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shops_report"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
+        <Button
+            android:id="@+id/viewProductReportButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/products_report"/>
+
+        <Button
+            android:id="@+id/viewOrderReportButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/orders_report"/>
     </LinearLayout>
 
 </ScrollView>

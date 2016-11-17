@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Produk;
 import com.letshoppa.feechan.letshoppa.R;
@@ -48,7 +49,7 @@ public class ShopProductItemAdapter extends ArrayAdapter
 
         namaKategoriTextView.setText(item.getNamakategori());
         namaProdukTextView.setText(item.getNamaproduk());
-        hargaProdukTextView.setText(String.valueOf(item.getHargaproduk()));
+        hargaProdukTextView.setText(AppHelper.decimalFormat(item.getHargaproduk()));
 
         if(item.getStatusproduk()==1)
         {
