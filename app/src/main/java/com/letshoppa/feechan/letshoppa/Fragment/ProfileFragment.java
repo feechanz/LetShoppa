@@ -27,6 +27,7 @@ import com.letshoppa.feechan.letshoppa.Class.ImageLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.UploadLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Utility;
 import com.letshoppa.feechan.letshoppa.Interface.IUploadFinalMethod;
+import com.letshoppa.feechan.letshoppa.PremiumShopActivity;
 import com.letshoppa.feechan.letshoppa.R;
 import com.letshoppa.feechan.letshoppa.VoucherActivity;
 
@@ -114,6 +115,7 @@ public class ProfileFragment extends Fragment {
 
         Button mChangeProfileImageButton = (Button) view.findViewById(R.id.changePictureButton);
         Button mVoucherButton = (Button) view.findViewById(R.id.voucherButton);
+        Button mBuyVoucherButton = (Button) view.findViewById(R.id.buyVoucherButton);
         Button mChangePasswordButton = (Button) view.findViewById(R.id.changePasswordButton);
         //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         //ivImage = mProfileImageView;
@@ -136,6 +138,12 @@ public class ProfileFragment extends Fragment {
                 openVoucherActivity();
             }
         });
+        mBuyVoucherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openShopPremiumActivity();
+            }
+        });
         mChangeProfileImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +159,11 @@ public class ProfileFragment extends Fragment {
     private void changePassword()
     {
         startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+    }
+
+    private void openShopPremiumActivity()
+    {
+        startActivity(new Intent(getActivity(), PremiumShopActivity.class));
     }
 
     private void openVoucherActivity()

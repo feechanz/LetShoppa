@@ -114,6 +114,14 @@
                 android:text="@string/enter_voucher_code"
                 android:textStyle="bold" />
             <Button
+                android:id="@+id/buyVoucherButton"
+                style="?android:textAppearanceSmall"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/buy_voucher"
+                android:textStyle="bold" />
+            <Button
                 android:id="@+id/changePasswordButton"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
