@@ -250,6 +250,16 @@
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_save" />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:background="@android:color/black"/>
+
+        <Button
+            android:id="@+id/bankAccountButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bank_account_information"/>
 
         <View
             android:layout_width="match_parent"

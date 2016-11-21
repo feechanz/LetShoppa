@@ -64,17 +64,22 @@ public class OrderItemAdapter extends ArrayAdapter
         if(pesanan.getStatusorder() == 2)
         {
             //proses
-            statusTextView.setText(context.getString(R.string.wanttobuy));
+            statusTextView.setText(context.getString(R.string.pending));
         }
         else if(pesanan.getStatusorder() == 3)
         {
-            //purchased
-            statusTextView.setText(context.getString(R.string.purchased));
+            //accepted
+            statusTextView.setText(context.getString(R.string.accepted));
         }
         else if(pesanan.getStatusorder() == 0)
         {
             //cancelled
             statusTextView.setText(context.getString(R.string.cancelled));
+        }
+        else if(pesanan.getStatusorder() == 4)
+        {
+            //purchased
+            statusTextView.setText(context.getString(R.string.purchased));
         }
         //statusTextView.setText(context.getString(R.string.wanttobuy));
     }

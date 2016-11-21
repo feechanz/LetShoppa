@@ -281,6 +281,21 @@
 
     <string name="buy_voucher">Buy Voucher</string>
 
+    <string name="invoice">Invoice</string>
+    <string name="confirmation_">Confirmation :</string>
+    <string name="confirm_order">Confirm Order</string>
+    <string name="confirmed">Confirmed</string>
+
+
+    <string name="shops_bank_account_information">Shop\'s Bank Account Information</string>
+    <string name="add_bank_account_information">Add Bank Account Information</string>
+    <string name="bank_account_information">Bank Account Information</string>
+    <string name="bank_account_number">Bank Account Number</string>
+    <string name="account_number_">Account Number :</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="bank_name_">Bank Name :</string>
+    <string name="add_bank_account">Add Bank Account</string>
+
     <string name="ShopText">Shop</string>
     <string name="ProductsText">Products</string>
     <string name="AddProduct">Add Product</string>

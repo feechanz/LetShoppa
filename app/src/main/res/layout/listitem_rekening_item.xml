@@ -13,14 +13,14 @@
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:textSize="8pt"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@string/date_"/>
+            android:text="@string/bank_name_"/>
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/banknameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="8pt"
-            android:text="@string/date"/>
+            android:text="@string/bank_name"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,22 +30,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:textSize="8pt"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@string/total_payment_"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
             android:textSize="8pt"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@string/rp"/>
+            android:text="@string/account_number_"/>
         <TextView
-            android:id="@+id/paymentTextView"
+            android:id="@+id/bankAccountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="8pt"
-            android:text="@string/payment"/>
+            android:text="@string/bank_account_number"/>
     </LinearLayout>
+
 </LinearLayout>

@@ -115,7 +115,10 @@
         <activity android:name=".ProductReportActivity" />
         <activity android:name=".PaymentDetailActivity" />
         <activity android:name=".ShopOrderActivity" />
-        <activity android:name=".PremiumShopActivity"></activity>
+        <activity android:name=".PremiumShopActivity" />
+        <activity android:name=".InvoiceActivity" />
+        <activity android:name=".ViewInvoiceActivity" />
+        <activity android:name=".ShopRekeningActivity"></activity>
     </application>
 
 </manifest>

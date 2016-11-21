@@ -152,7 +152,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
                 if(currentOrder.getAccountid()==Integer.valueOf(AppHelper.currentAccount.getAccountid())) {
                     //pelanggan
-                    if(currentOrder.getStatusorder() == 3)
+                    if(currentOrder.getStatusorder() >= 3 )
                     {
                         mFirstButton.setText(getString(R.string.view_shipping));
                         mSecondButton.setText(getString(R.string.payment));
@@ -178,7 +178,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if(currentOrder.getStatusorder() == 3) {
+                    if(currentOrder.getStatusorder() >= 3) {
                         mFirstButton.setText(getString(R.string.shipping));
                         mSecondButton.setText(getString(R.string.payment));
 
@@ -236,6 +236,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                     });
                 }
             }
+            mDateTextView.setText(currentOrder.getTanggalorder().toString());
             mNamaProductTextView.setText(currentOrder.getNamaproduk());
             mShopNameTextView.setText(currentOrder.getNamatoko());
             mPriceTextView.setText(AppHelper.decimalFormat(currentOrder.getHargaproduk()));
@@ -259,7 +260,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 if(Integer.valueOf(buy) == 1)
                 {
                     //pelanggan
-                    mStatusTextView.setText(getString(R.string.wanttobuy));
+                    mStatusTextView.setText(getString(R.string.pending));
                 }
                 else
                 {
@@ -268,18 +269,76 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
             else if(currentOrder.getStatusorder() == 3)
             {
-                //purchased
+                Button invoiceButton = (Button) findViewById(R.id.invoiceButton);
+                invoiceButton.setVisibility(View.VISIBLE);
+                //accepted
                 if(Integer.valueOf(buy) == 1)
                 {
                     //pelanggan
                     mStatusTextView.setText(getString(R.string.accepted));
+                    invoiceButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openViewInvoiceActivity();
+                        }
+                    });
+
+                }
+                else
+                {
+                    mStatusTextView.setText(getString(R.string.accepted));
+                    invoiceButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openInvoiceActivity();
+                        }
+                    });
+
+                }
+            }
+            else if(currentOrder.getStatusorder() == 4)
+            {
+                //purchased
+                Button invoiceButton = (Button) findViewById(R.id.invoiceButton);
+                invoiceButton.setVisibility(View.VISIBLE);
+                //accepted
+                if(Integer.valueOf(buy) == 1)
+                {
+                    //pelanggan
+                    mStatusTextView.setText(getString(R.string.purchased));
+                    invoiceButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openViewInvoiceActivity();
+                        }
+                    });
+
                 }
                 else
                 {
                     mStatusTextView.setText(getString(R.string.purchased));
+                    invoiceButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openInvoiceActivity();
+                        }
+                    });
+
                 }
             }
         }
+    }
+    private void openViewInvoiceActivity()
+    {
+        Intent intent = new Intent(OrderDetailActivity.this,ViewInvoiceActivity.class);
+        intent.putExtra(Order.TAG_ORDER, currentOrder);
+        startActivity(intent);
+    }
+    private void openInvoiceActivity()
+    {
+        Intent intent = new Intent(OrderDetailActivity.this,InvoiceActivity.class);
+        intent.putExtra(Order.TAG_ORDER, currentOrder);
+        startActivity(intent);
     }
 
     private void viewShipping()

@@ -8,6 +8,21 @@
     android:layout_height="match_parent"
     tools:context="com.letshoppa.feechan.letshoppa.PaymentActivity"
     android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bank_account_information"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <ListView
+        android:id="@+id/bankListView"
+        android:layout_width="match_parent"
+        android:layout_height="50pt"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:divider="@color/Maroon"
+        android:dividerHeight="2pt"
+        android:background="@color/Moccasin"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -29,13 +44,13 @@
         android:text="@string/payments"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-        <ListView
-            android:id="@+id/paymentListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:divider="@color/Maroon"
-            android:dividerHeight="2pt"
-            android:background="@color/Moccasin"/>
+    <ListView
+        android:id="@+id/paymentListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:divider="@color/Maroon"
+        android:dividerHeight="2pt"
+        android:background="@color/Moccasin"/>
 
 </LinearLayout>

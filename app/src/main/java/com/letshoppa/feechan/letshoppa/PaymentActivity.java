@@ -12,15 +12,21 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.letshoppa.feechan.letshoppa.AdapterList.PaymentItemAdapter;
+import com.letshoppa.feechan.letshoppa.AdapterList.RekeningItemAdapter;
 import com.letshoppa.feechan.letshoppa.Class.AppHelper;
 import com.letshoppa.feechan.letshoppa.Class.Order;
 import com.letshoppa.feechan.letshoppa.Class.PaymentsLoadTask;
 import com.letshoppa.feechan.letshoppa.Class.Pembayaran;
+import com.letshoppa.feechan.letshoppa.Class.RekeningLoadTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentActivity extends AppCompatActivity {
+
+    ArrayAdapter mAdapterBank;
+    private List listBank;
+    ListView listViewBank;
 
     ArrayAdapter mAdapter;
     private List listPayments;
@@ -54,6 +60,12 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
+        ///lv bank
+        listViewBank = (ListView) findViewById(R.id.bankListView);
+        listBank = new ArrayList();
+        mAdapterBank = new RekeningItemAdapter(PaymentActivity.this,listBank);
+        listViewBank.setAdapter(mAdapterBank);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
@@ -62,12 +74,18 @@ public class PaymentActivity extends AppCompatActivity {
         currentOrder = (Order) i.getSerializableExtra(Order.TAG_ORDER);
         if(currentOrder != null)
         {
-            initialize();
+            refreshPayments();
+            refreshBank();
         }
     }
-    private void initialize()
+    private void refreshBank()
     {
-        refreshPayments();
+        if(currentOrder != null) {
+            String url = AppHelper.domainURL+"/AndroidConnect/GetAllRekeningsByTokoId.php";
+            int tokoid = currentOrder.getTokoid();
+            RekeningLoadTask task = new RekeningLoadTask(url, tokoid, mAdapterBank, PaymentActivity.this);
+            task.execute();
+        }
     }
 
     private void detailPayment(Pembayaran pembayaran)

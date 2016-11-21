@@ -38,6 +38,7 @@ import com.letshoppa.feechan.letshoppa.Interface.IUploadFinalMethod;
 import com.letshoppa.feechan.letshoppa.ProductReportActivity;
 import com.letshoppa.feechan.letshoppa.R;
 import com.letshoppa.feechan.letshoppa.ShopOrderActivity;
+import com.letshoppa.feechan.letshoppa.ShopRekeningActivity;
 import com.letshoppa.feechan.letshoppa.ViewOneMapsActivity;
 
 import org.apache.http.NameValuePair;
@@ -198,6 +199,14 @@ public class MyShopDetailFragment extends Fragment {
             }
         });
 
+        Button bankAccountButton = (Button) view.findViewById(R.id.bankAccountButton);
+        bankAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openBankAccountActivity(view);
+            }
+        });
+
         Button viewProductReportButton = (Button) view.findViewById(R.id.viewProductReportButton);
         viewProductReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +221,16 @@ public class MyShopDetailFragment extends Fragment {
                 openOrderReportActivity(view);
             }
         });
+    }
+
+    private void openBankAccountActivity(View view)
+    {
+        if(currentShop != null)
+        {
+            Intent intent = new Intent(getActivity(), ShopRekeningActivity.class);
+            intent.putExtra(Toko.TAG_TOKO, currentShop);
+            startActivity(intent);
+        }
     }
 
     private void openProductReportActivity(View view)

@@ -26,6 +26,7 @@ public class Order implements Serializable {
     public static final String TAG_PRODUKID = "produkid";
     public static final String TAG_GAMBARPRODUK = "gambarproduk";
     public static final String TAG_NAMATOKO = "namatoko";
+    public static final String TAG_TOKOID = "tokoid";
     public static final String TAG_NAMAPEMBELI = "namapembeli";
     public static final String TAG_BUY = "buy";
     public static final String TAG_RESPONDED = "responded";
@@ -41,7 +42,7 @@ public class Order implements Serializable {
     private int produkid;
     private String namatoko;
     private String namapembeli;
-
+    private int tokoid;
 
 
 
@@ -152,6 +153,14 @@ public class Order implements Serializable {
         this.namapembeli = namapembeli;
     }
 
+    public int getTokoid() {
+        return tokoid;
+    }
+
+    public void setTokoid(int tokoid) {
+        this.tokoid = tokoid;
+    }
+
     public static Order GetOrderFromJson(JSONObject jsonObject)
     {
         try {
@@ -168,6 +177,7 @@ public class Order implements Serializable {
             order.setGambarproduk(jsonObject.getString(Order.TAG_GAMBARPRODUK));
             order.setNamapembeli(jsonObject.getString(Order.TAG_NAMAPEMBELI));
             order.setNamatoko(jsonObject.getString(Order.TAG_NAMATOKO));
+            order.setTokoid(jsonObject.getInt(Order.TAG_TOKOID));
             return order;
         }
         catch(JSONException e)

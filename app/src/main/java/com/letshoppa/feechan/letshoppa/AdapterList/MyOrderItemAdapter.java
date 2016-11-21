@@ -101,8 +101,13 @@ public class MyOrderItemAdapter extends ArrayAdapter {
         }
         else if(pesanan.getStatusorder() == 1)
         {
-            //wantobuy
-            statusTextView.setText(context.getString(R.string.wanttobuy));
+            //incart
+            statusTextView.setText(context.getString(R.string.incart));
+        }
+        else if(pesanan.getStatusorder() == 4)
+        {
+            //purchased
+            statusTextView.setText(context.getString(R.string.purchased));
         }
     }
     public void initializePurchasedOrder(View view, Order pesanan)

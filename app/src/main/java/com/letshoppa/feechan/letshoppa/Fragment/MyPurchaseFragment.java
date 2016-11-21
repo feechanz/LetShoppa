@@ -122,7 +122,7 @@ public class MyPurchaseFragment extends Fragment {
     {
         Intent act = new Intent(getActivity(),OrderDetailActivity.class);
         act.putExtra(Order.TAG_ORDERID,order.getOrderid());
-        act.putExtra(Order.TAG_BUY,"0");
+        act.putExtra(Order.TAG_BUY,"1");
         act.putExtra(Order.TAG_RESPONDED,1);
         getActivity().startActivity(act);
     }
