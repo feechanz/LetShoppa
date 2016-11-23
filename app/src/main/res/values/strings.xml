@@ -285,7 +285,9 @@
     <string name="confirmation_">Confirmation :</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="confirmed">Confirmed</string>
-
+    <string name="shops_contact">Shop\'s Contact</string>
+    <string name="add_your_bank_account">Add Your Bank Account</string>
+    <string name="add_your_shops_contact">Add Your Shop\'s Contact</string>
 
     <string name="shops_bank_account_information">Shop\'s Bank Account Information</string>
     <string name="add_bank_account_information">Add Bank Account Information</string>

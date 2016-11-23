@@ -118,7 +118,12 @@
         <activity android:name=".PremiumShopActivity" />
         <activity android:name=".InvoiceActivity" />
         <activity android:name=".ViewInvoiceActivity" />
-        <activity android:name=".ShopRekeningActivity"></activity>
+        <activity android:name=".ShopRekeningActivity" />
+        <activity android:name=".AddNewShopRekeningActivity" />
+        <activity android:name=".ShopKontakActivity" />
+        <activity android:name=".ViewShopKontakActivity" />
+        <activity android:name=".AddNewShopKontakActivity" />
+        <activity android:name=".ViewShopRekeningActivity"></activity>
     </application>
 
 </manifest>

@@ -37,6 +37,7 @@ import com.letshoppa.feechan.letshoppa.Class.Utility;
 import com.letshoppa.feechan.letshoppa.Interface.IUploadFinalMethod;
 import com.letshoppa.feechan.letshoppa.ProductReportActivity;
 import com.letshoppa.feechan.letshoppa.R;
+import com.letshoppa.feechan.letshoppa.ShopKontakActivity;
 import com.letshoppa.feechan.letshoppa.ShopOrderActivity;
 import com.letshoppa.feechan.letshoppa.ShopRekeningActivity;
 import com.letshoppa.feechan.letshoppa.ViewOneMapsActivity;
@@ -199,14 +200,6 @@ public class MyShopDetailFragment extends Fragment {
             }
         });
 
-        Button bankAccountButton = (Button) view.findViewById(R.id.bankAccountButton);
-        bankAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBankAccountActivity(view);
-            }
-        });
-
         Button viewProductReportButton = (Button) view.findViewById(R.id.viewProductReportButton);
         viewProductReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,6 +214,31 @@ public class MyShopDetailFragment extends Fragment {
                 openOrderReportActivity(view);
             }
         });
+
+        Button bankAccountButton = (Button) view.findViewById(R.id.bankAccountButton);
+        bankAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openBankAccountActivity(view);
+            }
+        });
+
+        Button shopKontakButton = (Button) view.findViewById(R.id.shopKontakButton);
+        shopKontakButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openShopKontakActivity(view);
+            }
+        });
+    }
+    private void openShopKontakActivity(View view)
+    {
+        if(currentShop != null)
+        {
+            Intent intent = new Intent(getActivity(), ShopKontakActivity.class);
+            intent.putExtra(Toko.TAG_TOKO, currentShop);
+            startActivity(intent);
+        }
     }
 
     private void openBankAccountActivity(View view)

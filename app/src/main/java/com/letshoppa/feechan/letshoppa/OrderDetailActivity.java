@@ -328,6 +328,15 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
         }
     }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if(currentOrder != null) {
+            initialize(currentOrder.getOrderid());
+        }
+    }
+
     private void openViewInvoiceActivity()
     {
         Intent intent = new Intent(OrderDetailActivity.this,ViewInvoiceActivity.class);

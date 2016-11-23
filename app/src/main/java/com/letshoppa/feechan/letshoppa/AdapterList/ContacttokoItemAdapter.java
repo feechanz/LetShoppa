@@ -8,27 +8,27 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.letshoppa.feechan.letshoppa.Class.Kontak;
+import com.letshoppa.feechan.letshoppa.Class.Kontaktoko;
 import com.letshoppa.feechan.letshoppa.R;
 
 import java.util.List;
 
 /**
- * Created by Feechan on 10/23/2016.
+ * Created by Feechan on 11/22/2016.
  */
 
-public class ContactItemAdapter extends ArrayAdapter
+public class ContacttokoItemAdapter extends ArrayAdapter
 {
     private Context context;
 
-    public ContactItemAdapter(Context context, List items) {
+    public ContacttokoItemAdapter(Context context, List items) {
         super(context, -1, items);
         this.context = context;
     }
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        final Kontak item = (Kontak) getItem(position);
+        final Kontaktoko item = (Kontaktoko) getItem(position);
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);

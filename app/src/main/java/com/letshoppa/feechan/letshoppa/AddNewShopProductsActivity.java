@@ -46,7 +46,7 @@ public class AddNewShopProductsActivity extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                openRekeningActivity();
             }
         });
         add_product_button.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +76,14 @@ public class AddNewShopProductsActivity extends AppCompatActivity {
         loadTask.execute((Void) null);
     }
 
+    private void openRekeningActivity()
+    {
+        Intent intentView = new Intent(this,AddNewShopRekeningActivity.class);
+        intentView.putExtra(Toko.TAG_TOKO, currentShop);
+        finish();
+        startActivity(intentView);
+    }
+
     public void fetchShopAsync(int page)
     {
         if(currentShop != null) {
@@ -96,6 +104,13 @@ public class AddNewShopProductsActivity extends AppCompatActivity {
         Intent addProductAct = new Intent(AddNewShopProductsActivity.this,AddProductsActivity.class);
         addProductAct.putExtra(Toko.TAG_TOKO,currentShop);
         startActivity(addProductAct);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        fetchShopAsync(0);
     }
 
 }

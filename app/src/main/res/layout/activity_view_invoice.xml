@@ -17,6 +17,12 @@
         android:layout_gravity="center_horizontal"
 
         android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12pt"
+            android:text="@string/invoice"/>
         <ImageView
             android:id="@+id/id_icon_product"
             android:layout_width="35pt"

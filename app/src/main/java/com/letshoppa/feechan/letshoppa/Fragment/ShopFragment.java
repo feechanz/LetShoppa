@@ -20,6 +20,8 @@ import com.letshoppa.feechan.letshoppa.Class.Toko;
 import com.letshoppa.feechan.letshoppa.PersonActivity;
 import com.letshoppa.feechan.letshoppa.R;
 import com.letshoppa.feechan.letshoppa.ViewOneMapsActivity;
+import com.letshoppa.feechan.letshoppa.ViewShopKontakActivity;
+import com.letshoppa.feechan.letshoppa.ViewShopRekeningActivity;
 
 
 /**
@@ -101,7 +103,45 @@ public class ShopFragment extends Fragment {
                 viewOwner();
             }
         });
+
+        Button bankAccountButton = (Button) view.findViewById(R.id.bankAccountButton);
+        bankAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openViewBankAccountActivity();
+            }
+        });
+
+        Button shopKontakButton = (Button) view.findViewById(R.id.shopKontakButton);
+        shopKontakButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openViewShopKontakActivity();
+            }
+        });
+
     }
+    private void openViewBankAccountActivity()
+    {
+        if(currentShop != null)
+        {
+            Intent intent = new Intent(getActivity(), ViewShopRekeningActivity.class);
+            intent.putExtra(Toko.TAG_TOKO, currentShop);
+            startActivity(intent);
+        }
+    }
+
+    private void openViewShopKontakActivity()
+    {
+        if(currentShop != null)
+        {
+            Intent intent = new Intent(getActivity(), ViewShopKontakActivity.class);
+            intent.putExtra(Toko.TAG_TOKO, currentShop);
+            startActivity(intent);
+        }
+    }
+
+
     private void viewLocationOnMap()
     {
         if(currentShop != null) {

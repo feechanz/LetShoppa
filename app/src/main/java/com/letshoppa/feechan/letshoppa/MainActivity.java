@@ -57,7 +57,11 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         //floating mail btn
-
+        if(AppHelper.editor == null)
+        {
+            AppHelper.pref = this.getSharedPreferences(AppHelper.PREF_NAME, AppHelper.PRIVATE_MODE);
+            AppHelper.editor = AppHelper.pref.edit();
+        }
         //drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 

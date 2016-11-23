@@ -260,6 +260,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bank_account_information"/>
+        <Button
+            android:id="@+id/shopKontakButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shops_contact"/>
 
         <View
             android:layout_width="match_parent"
