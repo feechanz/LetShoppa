@@ -1,10 +1,12 @@
 package com.letshoppa.feechan.letshoppa.Class;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.letshoppa.feechan.letshoppa.Interface.IRefreshMethod;
+import com.letshoppa.feechan.letshoppa.R;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -24,6 +26,7 @@ public class ChangeOrderTask extends AsyncTask<Void, Void, Boolean> {
     private String messagejson;
     private Context context;
     private IRefreshMethod refreshMethod;
+    ProgressDialog dialog;
 
     int orderid;
     int statusorder;
@@ -35,6 +38,9 @@ public class ChangeOrderTask extends AsyncTask<Void, Void, Boolean> {
         this.statusorder = statusorder;
         this.context = context;
         this.refreshMethod = refreshMethod;
+
+        dialog = ProgressDialog.show(context, "", context.getString(R.string.please_wait), true);
+        dialog.setCancelable(false);
     }
 
     @Override

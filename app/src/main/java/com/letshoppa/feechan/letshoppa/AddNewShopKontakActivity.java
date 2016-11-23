@@ -1,12 +1,14 @@
 package com.letshoppa.feechan.letshoppa;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,6 +81,14 @@ public class AddNewShopKontakActivity extends AppCompatActivity {
         mAdapter = new ContacttokoItemAdapter(AddNewShopKontakActivity.this,listMyContacts);
 
         listView.setAdapter(mAdapter);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Kontaktoko item = (Kontaktoko)parent.getItemAtPosition(position);
+                detailKontak(item);
+                return true;
+            }
+        });
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -90,6 +100,66 @@ public class AddNewShopKontakActivity extends AppCompatActivity {
             }
         });
         fetchShopAsync(0);
+    }
+    private void detailKontak(final Kontaktoko kontak)
+    {
+        final CharSequence[] items = { getString(R.string.edit), getString(R.string.delete),getString(R.string.cancel) };
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddNewShopKontakActivity.this);
+
+        builder.setTitle(getString(R.string.action));
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                switch (item)
+                {
+                    case 0:
+                        editKontak(kontak);
+                        break;
+                    case 1:
+                        deleteKontak(kontak);
+                        break;
+                    default:
+
+                }
+            }
+
+        });
+        android.app.AlertDialog alert = builder.create();
+        alert.show();
+    }
+    private void editKontak(Kontaktoko kontak)
+    {
+        Intent editKontakAct = new Intent(AddNewShopKontakActivity.this,EditKontaktokoActivity.class);
+        editKontakAct.putExtra(Kontaktoko.TAG_KONTAKTOKO,kontak);
+        startActivity(editKontakAct);
+    }
+    private void deleteKontak(final Kontaktoko kontak)
+    {
+        DialogInterface.OnClickListener dialogClickListener =new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which)
+                {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //change status
+                        String url= AppHelper.domainURL + "/AndroidConnect/DeleteKontaktoko.php";
+                        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+                        parameter.add(new BasicNameValuePair(Kontaktoko.TAG_KONTAKTOKOID,String.valueOf(kontak.getKontaktokoid())));
+                        UpdateDataTask task = new UpdateDataTask(url,parameter,AddNewShopKontakActivity.this,new RefreshMethod());
+                        task.execute();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(AddNewShopKontakActivity.this);
+        builder.setMessage(getString(R.string.prompt_delete_contact)+"?")
+                .setPositiveButton(getString(R.string.yes),dialogClickListener).
+                setNegativeButton(getString(R.string.no),dialogClickListener).show();
     }
 
     private void addContact()

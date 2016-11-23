@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,16 +60,76 @@ public class ShopKontakActivity extends AppCompatActivity {
         listKontaks = new ArrayList();
         mAdapter = new ContacttokoItemAdapter(ShopKontakActivity.this,listKontaks);
         listView.setAdapter(mAdapter);
-        /*listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Kontak item = (Kontak)parent.getItemAtPosition(position);
-                //detailKontak(item);
+                Kontaktoko item = (Kontaktoko)parent.getItemAtPosition(position);
+                detailKontak(item);
                 return true;
             }
-        });*/
+        });
 
         refreshKontak();
+    }
+    private void detailKontak(final Kontaktoko kontak)
+    {
+        final CharSequence[] items = { getString(R.string.edit), getString(R.string.delete),getString(R.string.cancel) };
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShopKontakActivity.this);
+
+        builder.setTitle(getString(R.string.action));
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                switch (item)
+                {
+                    case 0:
+                        editKontak(kontak);
+                        break;
+                    case 1:
+                        deleteKontak(kontak);
+                        break;
+                    default:
+
+                }
+            }
+
+        });
+        android.app.AlertDialog alert = builder.create();
+        alert.show();
+    }
+    private void editKontak(Kontaktoko kontak)
+    {
+        Intent editKontakAct = new Intent(ShopKontakActivity.this,EditKontaktokoActivity.class);
+        editKontakAct.putExtra(Kontaktoko.TAG_KONTAKTOKO,kontak);
+        startActivity(editKontakAct);
+    }
+    private void deleteKontak(final Kontaktoko kontak)
+    {
+        DialogInterface.OnClickListener dialogClickListener =new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which)
+                {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //change status
+                        String url= AppHelper.domainURL + "/AndroidConnect/DeleteKontaktoko.php";
+                        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+                        parameter.add(new BasicNameValuePair(Kontaktoko.TAG_KONTAKTOKOID,String.valueOf(kontak.getKontaktokoid())));
+                        UpdateDataTask task = new UpdateDataTask(url,parameter,ShopKontakActivity.this,new RefreshMethod());
+                        task.execute();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(ShopKontakActivity.this);
+        builder.setMessage(getString(R.string.prompt_delete_contact)+"?")
+                .setPositiveButton(getString(R.string.yes),dialogClickListener).
+                setNegativeButton(getString(R.string.no),dialogClickListener).show();
     }
 
     EditText contactTypeEditText;

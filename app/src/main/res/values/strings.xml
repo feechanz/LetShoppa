@@ -280,7 +280,10 @@
     <string name="december">December</string>
 
     <string name="buy_voucher">Buy Voucher</string>
+    <string name="edit_shops_contact">Edit Shop\'s Contact</string>
+    <string name="edit_shops_bank_account">Edit Shop\'s Bank Account</string>
 
+    <string name="prompt_delete_bank_account_information">Delete Bank Account Information</string>
     <string name="invoice">Invoice</string>
     <string name="confirmation_">Confirmation :</string>
     <string name="confirm_order">Confirm Order</string>

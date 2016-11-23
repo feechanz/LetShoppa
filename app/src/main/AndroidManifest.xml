@@ -123,7 +123,9 @@
         <activity android:name=".ShopKontakActivity" />
         <activity android:name=".ViewShopKontakActivity" />
         <activity android:name=".AddNewShopKontakActivity" />
-        <activity android:name=".ViewShopRekeningActivity"></activity>
+        <activity android:name=".ViewShopRekeningActivity" />
+        <activity android:name=".EditRekeningActivity" />
+        <activity android:name=".EditKontaktokoActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,14 +59,14 @@ public class ShopRekeningActivity extends AppCompatActivity {
         listRekenings = new ArrayList();
         mAdapter = new RekeningItemAdapter(ShopRekeningActivity.this,listRekenings);
         listView.setAdapter(mAdapter);
-        /*listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Rekening item = (Kontak)parent.getItemAtPosition(position);
-                detailKontak(item);
+                Rekening item = (Rekening) parent.getItemAtPosition(position);
+                detailRekening(item);
                 return true;
             }
-        });*/
+        });
         Button addBankButton = (Button) findViewById(R.id.add_bank_button);
         addBankButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +80,67 @@ public class ShopRekeningActivity extends AppCompatActivity {
             shopNameTextView.setText(currentShop.getNamatoko());
             refreshRekening();
         }
+    }
+    private void detailRekening(final Rekening rekening)
+    {
+        final CharSequence[] items = { getString(R.string.edit), getString(R.string.delete),getString(R.string.cancel) };
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShopRekeningActivity.this);
+
+        builder.setTitle(getString(R.string.action));
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                switch (item)
+                {
+                    case 0:
+                        editRekening(rekening);
+                        break;
+                    case 1:
+                        deleteRekening(rekening);
+                        break;
+                    default:
+
+                }
+            }
+
+        });
+        android.app.AlertDialog alert = builder.create();
+        alert.show();
+    }
+    private void editRekening(Rekening rekening)
+    {
+        Intent editRekAct = new Intent(ShopRekeningActivity.this,EditRekeningActivity.class);
+        editRekAct.putExtra(Rekening.TAG_REKENING,rekening);
+        startActivity(editRekAct);
+    }
+
+    private void deleteRekening(final Rekening rekening)
+    {
+        DialogInterface.OnClickListener dialogClickListener =new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which)
+                {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //change status
+                        String url= AppHelper.domainURL + "/AndroidConnect/DeleteRekening.php";
+                        List<NameValuePair> parameter = new ArrayList<NameValuePair>();
+                        parameter.add(new BasicNameValuePair(Rekening.TAG_REKENINGID,String.valueOf(rekening.getRekeningid())));
+                        UpdateDataTask task = new UpdateDataTask(url,parameter,ShopRekeningActivity.this,new RefreshMethod());
+                        task.execute();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(ShopRekeningActivity.this);
+        builder.setMessage(getString(R.string.prompt_delete_bank_account_information)+"?")
+                .setPositiveButton(getString(R.string.yes),dialogClickListener).
+                setNegativeButton(getString(R.string.no),dialogClickListener).show();
     }
 
     private void refreshRekening()
@@ -159,6 +221,12 @@ public class ShopRekeningActivity extends AppCompatActivity {
             mBankNameEditText.setText("");
             mBankAccountEditText.setText("");
         }
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        refreshRekening();
     }
 
     @Override
